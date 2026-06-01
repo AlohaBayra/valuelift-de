@@ -5,17 +5,17 @@ export default {
     extend: {
       colors: {
         brand: {
-          blue: '#015FA3',
-          blueLight: '#4A90E2',
-          dark: '#111111',
-          black: '#000000',
-          white: '#FFFFFF',
-          lightBg: '#F9F7F7',
-          gray: '#5F5F5F',
+          blue:     '#F5A623',  // Haupt-Accent: Orange/Amber
+          blueLight:'#FAC03A',  // Hover: helleres Orange
+          dark:     '#0B1528',  // Hintergrund: dunkles Navy
+          black:    '#000000',
+          white:    '#FFFFFF',
+          lightBg:  '#F9F7F7',
+          gray:     '#6B7280',
         },
       },
       fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
+        sans: ['Outfit', 'Montserrat', 'sans-serif'],
       },
     },
   },
