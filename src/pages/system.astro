@@ -1,0 +1,118 @@
+---
+import LandingPage from "../layouts/LandingPage.astro";
+
+const phases = [
+  {
+    label: "Schritt 1",
+    title: "Prozesse definieren",
+    text: "Wir definieren gemeinsam, welche 3 selbst gewählten Prozesse automatisch laufen sollen und wo der größte Hebel liegt.",
+  },
+  {
+    label: "Schritt 2",
+    title: "Ich baue es",
+    text: "Done-for-you: Ich baue die KI-Workflows für deine 3 Prozesse über rund 3 Wochen auf.",
+  },
+  {
+    label: "Schritt 3",
+    title: "Übergabe, Schulung & Support",
+    text: "Du bekommst das fertige System übergeben — inklusive Schulung, damit du es selbst bedienst, und Support.",
+  },
+];
+---
+
+<LandingPage
+  title="KI-Komplettsystem — Done-for-you in ~3 Wochen (Value Lift AI)"
+  description="Das Done-for-you-Paket von Value Lift AI: In rund 3 Wochen baue ich drei selbst gewählte Prozesse zu deinem KI-System aus — mit Übergabe, Schulung und Support. Preis auf Anfrage."
+  path="/system"
+>
+  <section class="bg-brand-dark text-brand-white">
+    <div class="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24">
+      <span
+        class="mb-6 inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blueLight"
+      >
+        KI-Komplettsystem · Done-for-you · ~3 Wochen
+      </span>
+      <h1 class="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
+        Nicht ein Workflow. Ein ganzes System.
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
+        Du wählst 3 Prozesse — wir definieren gemeinsam, was automatisch laufen
+        soll. Ich baue es über rund 3 Wochen und übergebe dir ein fertiges
+        KI-System, inklusive Schulung und Support.
+      </p>
+      <div class="mt-10">
+        <a
+          href="/buchen"
+          class="inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-white shadow-lg hover:bg-brand-blueLight"
+        >
+          Erstgespräch buchen
+        </a>
+        <p class="mt-3 text-sm text-gray-400">Preis auf Anfrage</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Was drinsteckt -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 class="text-3xl font-extrabold">Drei Prozesse — deine Wahl</h2>
+      <p class="mt-4 text-lg text-brand-gray">
+        Du entscheidest, welche drei Prozesse den größten Unterschied machen.
+        Angebote, Content, Lead-Recherche, Reporting, Kundenkommunikation — wir
+        bauen sie so, dass sie zusammenspielen.
+      </p>
+    </div>
+  </section>
+
+  <!-- Ablauf -->
+  <section class="bg-brand-lightBg py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">So läuft es ab</h2>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          phases.map((phase) => (
+            <article class="rounded-2xl border border-gray-200 bg-brand-white p-6">
+              <p class="text-sm font-bold uppercase tracking-wide text-brand-blue">
+                {phase.label}
+              </p>
+              <h3 class="mt-2 text-lg font-bold">{phase.title}</h3>
+              <p class="mt-2 text-sm text-brand-gray">{phase.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Garantie -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 text-center sm:px-6">
+      <div class="text-5xl">🛡️</div>
+      <h2 class="mt-4 text-3xl font-extrabold">Die Garantie</h2>
+      <p class="mt-4 text-lg text-brand-gray">
+        Das System ist fertig wie besprochen — oder es gibt keine Zahlung. So
+        einfach.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-3xl font-extrabold">Lass uns dein System planen</h2>
+      <p class="mt-4 text-lg text-gray-300">
+        Im kostenlosen Erstgespräch finden wir heraus, welche drei Prozesse für
+        dich den größten Hebel haben.
+      </p>
+      <a
+        href="/buchen"
+        class="mt-8 inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-white hover:bg-brand-blueLight"
+      >
+        Erstgespräch buchen
+      </a>
+      <p class="mt-6 text-sm text-gray-400">
+        <a href="/" class="underline hover:text-brand-blueLight">← Zurück zur Startseite</a>
+      </p>
+    </div>
+  </section>
+</LandingPage>

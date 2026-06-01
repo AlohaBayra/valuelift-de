@@ -1,0 +1,50 @@
+---
+export interface Props {
+  headline?: string;
+  subtext?: string;
+}
+
+const {
+  headline = "Dein erstes KI-System läuft — in 2 Stunden. Garantiert.",
+  subtext = "Die meisten scheitern nicht am Wissen. Sie scheitern daran, dass sie alleine starten. Ich bin Marcus — ich baue KI-Systeme für Berater und Coaches, und begleite dich dabei.",
+} = Astro.props;
+---
+
+<section
+  class="relative overflow-hidden bg-brand-dark text-brand-white"
+  style="background-image: radial-gradient(60% 60% at 70% 0%, rgba(74,144,226,0.18) 0%, rgba(17,17,17,0) 60%), linear-gradient(180deg, #111111 0%, #0c0c0c 100%);"
+>
+  <div class="relative mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-28">
+    <!-- Badge-Pill -->
+    <span
+      class="mb-6 inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blueLight"
+    >
+      KI-Systeme für Berater &amp; Coaches
+    </span>
+
+    <h1
+      class="text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl"
+    >
+      {headline}
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300 sm:text-xl">
+      {subtext}
+    </p>
+
+    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a
+        href="/bootcamp"
+        class="w-full rounded-lg bg-brand-blue px-8 py-4 text-base font-bold text-brand-white shadow-lg transition-transform hover:scale-[1.02] hover:bg-brand-blueLight sm:w-auto"
+      >
+        KI-Kickstart buchen — 97€
+      </a>
+      <a
+        href="/buchen"
+        class="text-base font-semibold text-brand-white underline-offset-4 hover:text-brand-blueLight hover:underline"
+      >
+        Kostenloses Erstgespräch buchen →
+      </a>
+    </div>
+  </div>
+</section>

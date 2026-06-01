@@ -1,0 +1,87 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import OfferCards from "../components/OfferCards.astro";
+import Testimonials from "../components/Testimonials.astro";
+import FAQ from "../components/FAQ.astro";
+---
+
+<Base
+  title="Value Lift AI — Dein erstes KI-System läuft in 2 Stunden"
+  description="KI-Systeme für Berater und Coaches im DACH-Raum. Starte mit dem KI-Kickstart für 97€ — funktionierendes System nach 2 Stunden, garantiert."
+  path="/"
+>
+  <Hero />
+
+  <!-- Problem / Lösung -->
+  <section class="bg-brand-white py-16 sm:py-24">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6">
+      <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+        Du weißt, dass KI wichtig ist. Aber wo anfangen?
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-brand-gray">
+        YouTube-Tutorials, 200 Newsletter, ein gekaufter Online-Kurs, den du nie
+        beendet hast. Das Problem ist nicht fehlendes Wissen — es ist, alleine
+        durch das Chaos zu gehen. Genau da setze ich an: Wir bauen gemeinsam,
+        Schritt für Schritt, bis dein System läuft.
+      </p>
+
+      <div class="mt-12 grid gap-8 text-left sm:grid-cols-3">
+        <article class="rounded-xl bg-brand-lightBg p-6">
+          <div class="text-3xl">🎯</div>
+          <h3 class="mt-3 font-bold">Konkret statt theoretisch</h3>
+          <p class="mt-2 text-sm text-brand-gray">
+            Wir reden nicht über KI — wir bauen ein System, das du sofort nutzen
+            kannst.
+          </p>
+        </article>
+        <article class="rounded-xl bg-brand-lightBg p-6">
+          <div class="text-3xl">🤝</div>
+          <h3 class="mt-3 font-bold">Begleitet statt allein</h3>
+          <p class="mt-2 text-sm text-brand-gray">
+            Du startest nicht im stillen Kämmerlein, sondern an meiner Seite.
+          </p>
+        </article>
+        <article class="rounded-xl bg-brand-lightBg p-6">
+          <div class="text-3xl">🔓</div>
+          <h3 class="mt-3 font-bold">Unabhängig statt abhängig</h3>
+          <p class="mt-2 text-sm text-brand-gray">
+            Du verstehst jeden Schritt und kannst dein System selbst
+            weiterentwickeln.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <OfferCards />
+  <Testimonials />
+  <FAQ />
+
+  <!-- Abschluss-CTA -->
+  <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+        Bereit, dein erstes KI-System zu bauen?
+      </h2>
+      <p class="mt-4 text-lg text-gray-300">
+        Buche den KI-Kickstart oder lass uns in einem kostenlosen Erstgespräch
+        herausfinden, was zu dir passt.
+      </p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href="/bootcamp"
+          class="w-full rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-white hover:bg-brand-blueLight sm:w-auto"
+        >
+          KI-Kickstart buchen — 97€
+        </a>
+        <a
+          href="/buchen"
+          class="font-semibold text-brand-white underline-offset-4 hover:text-brand-blueLight hover:underline"
+        >
+          Kostenloses Erstgespräch →
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

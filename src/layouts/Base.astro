@@ -1,0 +1,113 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  /** Wenn true, wird die globale Navigation ausgeblendet (für Landingpages). */
+  hideNav?: boolean;
+  /** Pfad relativ zur Domain, z.B. "/bootcamp" — für Canonical & OG-URL. */
+  path?: string;
+}
+
+const {
+  title = "Value Lift AI — KI-Systeme für Berater & Coaches",
+  description = "KI-Schulungen und KI-Entwicklung für Coaches, Berater und Dienstleister im DACH-Raum. Dein erstes KI-System läuft — in 2 Stunden. Garantiert.",
+  hideNav = false,
+  path = "",
+} = Astro.props;
+
+const siteUrl = "https://valuelift.de";
+const canonical = siteUrl + path;
+const ogImage = siteUrl + "/og-image.jpg";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Value Lift AI",
+  url: "https://valuelift.de",
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Marcus Eichler",
+  jobTitle: "KI-Berater",
+};
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primäre Meta-Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Value Lift AI" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Google Fonts: Montserrat (400, 600, 700, 800) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema.org JSON-LD -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationSchema)}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(personSchema)}
+    />
+
+    <!-- GTM -->
+    <!--
+      Google Tag Manager (Platzhalter — vor Go-Live aktivieren, GTM-ID einsetzen):
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    -->
+  </head>
+  <body class="bg-brand-white font-sans text-brand-dark antialiased">
+    <!-- GTM (noscript) Platzhalter — zusammen mit dem Snippet oben aktivieren. -->
+    <!--
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    -->
+
+    {!hideNav && <Header />}
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,109 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const {
+  title = "Value Lift AI",
+  description = "KI-Systeme für Berater, Coaches und Dienstleister im DACH-Raum.",
+  path = "",
+} = Astro.props;
+
+const siteUrl = "https://valuelift.de";
+const canonical = siteUrl + path;
+const ogImage = siteUrl + "/og-image.jpg";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Value Lift AI",
+  url: "https://valuelift.de",
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Marcus Eichler",
+  jobTitle: "KI-Berater",
+};
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Value Lift AI" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationSchema)}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(personSchema)}
+    />
+
+    <!-- GTM -->
+    <!--
+      Google Tag Manager (Platzhalter — vor Go-Live aktivieren, GTM-ID einsetzen):
+      <script>...GTM-XXXXXXX...</script>
+    -->
+  </head>
+  <body class="bg-brand-white font-sans text-brand-dark antialiased">
+    <!--
+      Landingpage-Layout: KEINE Navigation, nur das Logo oben links.
+      So bleibt der Fokus auf der Conversion.
+    -->
+    <header class="bg-brand-dark">
+      <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+        <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
+          <img
+            src="/logo.png"
+            alt="Value Lift AI"
+            width="44"
+            height="44"
+            class="h-11 w-11"
+          />
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

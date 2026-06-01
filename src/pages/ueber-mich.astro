@@ -1,0 +1,107 @@
+---
+import Base from "../layouts/Base.astro";
+
+const principles = [
+  {
+    title: "Unabhängig, nicht abhängig",
+    text: "Ich baue keine Black Box, die nur ich verstehe. Ich erkläre jeden Schritt, damit du dein System selbst bedienen und weiterentwickeln kannst.",
+  },
+  {
+    title: "Hand anlegen statt zuschauen",
+    text: "Du lernst nicht durch Zuhören, sondern durch Bauen. In jedem Format sitzt du am Steuer.",
+  },
+  {
+    title: "Echte Garantien",
+    text: "Ich verspreche keine Wunder, aber ich stehe für mein Wort ein — mit konkreten Geld-zurück- und Fertigstellungs-Garantien.",
+  },
+];
+---
+
+<Base
+  title="Über mich — Marcus Eichler, KI-Berater & Gründer von Value Lift AI"
+  description="Marcus Eichler baut KI-Systeme für Berater, Coaches und Dienstleister im DACH-Raum — und erklärt dabei, wie alles funktioniert. Kunden werden unabhängig, nicht abhängig."
+  path="/ueber-mich"
+>
+  <section class="bg-brand-dark text-brand-white">
+    <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20">
+      <div class="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
+        <!-- Platzhalter-Portrait (Div statt Foto) -->
+        <div
+          class="flex h-32 w-32 shrink-0 items-center justify-center rounded-full bg-brand-lightBg text-sm font-semibold text-brand-gray ring-4 ring-brand-blue/30"
+          aria-hidden="true"
+        >
+          Foto
+        </div>
+        <div>
+          <h1 class="text-4xl font-extrabold sm:text-5xl">Marcus Eichler</h1>
+          <p class="mt-2 text-lg font-semibold text-brand-blueLight">
+            KI-Berater &amp; Gründer · Value Lift AI
+          </p>
+          <p class="mt-4 max-w-xl text-gray-300">
+            Ich baue KI-Systeme für Berater und Coaches — und begleite sie dabei.
+            Mein Ziel: dass du nach unserer Zusammenarbeit nicht von mir abhängig
+            bist, sondern dein eigenes System verstehst und selbst weiterbaust.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <h2 class="text-3xl font-extrabold">Warum Value Lift AI?</h2>
+      <div class="mt-6 space-y-4 text-lg text-brand-dark">
+        <p>
+          Die meisten Berater und Coaches scheitern bei KI nicht am Wissen. Sie
+          scheitern daran, dass sie alleine starten — zwischen 200 Newslettern,
+          unzähligen Tutorials und Kursen, die nie zu Ende geschaut werden.
+        </p>
+        <p>
+          Ich habe Value Lift AI gegründet, weil ich genau diese Lücke schließen
+          will: nicht noch ein Kurs, sondern echte Begleitung. Wir bauen
+          gemeinsam, bis dein System läuft — und du verstehst, warum es läuft.
+        </p>
+        <p>
+          Ich arbeite mit Coaches, Berater:innen und Dienstleistern im
+          DACH-Raum. Vom 2-Stunden-Einstieg bis zum vollständigen
+          KI-Komplettsystem.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prinzipien -->
+  <section class="bg-brand-lightBg py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">Woran ich glaube</h2>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          principles.map((p) => (
+            <article class="rounded-2xl border border-gray-200 bg-brand-white p-6">
+              <h3 class="text-lg font-bold">{p.title}</h3>
+              <p class="mt-2 text-sm text-brand-gray">{p.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-3xl font-extrabold">Lust auf ein Gespräch?</h2>
+      <p class="mt-4 text-lg text-gray-300">
+        Buche ein kostenloses Erstgespräch — unverbindlich, ehrlich, ohne
+        Verkaufsdruck.
+      </p>
+      <a
+        href="/buchen"
+        class="mt-8 inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-white hover:bg-brand-blueLight"
+      >
+        Erstgespräch buchen
+      </a>
+    </div>
+  </section>
+</Base>

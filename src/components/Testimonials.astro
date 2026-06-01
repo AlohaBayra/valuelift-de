@@ -1,0 +1,62 @@
+---
+// Platzhalter-Testimonials. Echte Stimmen, Fotos & Namen vor Go-Live einsetzen.
+const testimonials = [
+  {
+    quote:
+      "Nach zwei Stunden hatte ich tatsächlich ein laufendes System — und zum ersten Mal verstanden, wie diese KI-Sache für mich funktioniert.",
+    name: "Platzhalter Name",
+    role: "Strategieberaterin",
+  },
+  {
+    quote:
+      "Ich war skeptisch wegen der Garantie. Aber Marcus liefert. Mein Content-Prozess läuft jetzt halb-automatisch.",
+    name: "Platzhalter Name",
+    role: "Business Coach",
+  },
+  {
+    quote:
+      "Das Beste: Ich bin nicht abhängig von einer Agentur. Ich verstehe mein System und entwickle es selbst weiter.",
+    name: "Platzhalter Name",
+    role: "Online-Dienstleister",
+  },
+];
+---
+
+<section class="bg-brand-white py-16 sm:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+        Was Kund:innen sagen
+      </h2>
+      <p class="mt-4 text-lg text-brand-gray">
+        Ehrliche Stimmen von Berater:innen und Coaches, die mit KI gestartet sind.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-8 md:grid-cols-3">
+      {
+        testimonials.map((t) => (
+          <article class="flex flex-col rounded-2xl border border-gray-200 bg-brand-lightBg p-8">
+            <div class="mb-4 text-brand-blue" aria-hidden="true">★★★★★</div>
+            <blockquote class="flex-1 text-brand-dark">
+              <p>„{t.quote}“</p>
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-4">
+              {/* Platzhalter-Foto (Div statt Bild) */}
+              <div
+                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-lightBg ring-2 ring-brand-blue/30 text-xs text-brand-gray"
+                aria-hidden="true"
+              >
+                Foto
+              </div>
+              <div>
+                <p class="text-sm font-bold">{t.name}</p>
+                <p class="text-xs text-brand-gray">{t.role}</p>
+              </div>
+            </figcaption>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Klassische Tailwind-Konfiguration (brand-Farben + Montserrat) einbinden.
+   Pfad ist relativ zu dieser Datei (src/styles/ → Projektwurzel). */
+@config "../../tailwind.config.mjs";
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Montserrat als globale Schrift (Fallback bis Webfont geladen ist). */
+body {
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}

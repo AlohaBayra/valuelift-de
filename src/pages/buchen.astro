@@ -1,0 +1,51 @@
+---
+import Base from "../layouts/Base.astro";
+
+const tidycalUrl =
+  "https://tidycal.com/marcuseichler/kennenlerngesprach-mit-marcus-eichler-1wr7yd6";
+---
+
+<Base
+  title="Termin buchen — Kostenloses Erstgespräch mit Marcus Eichler"
+  description="Buche dein kostenloses Erstgespräch mit Marcus Eichler von Value Lift AI direkt im Kalender. Unverbindlich und ohne Verkaufsdruck."
+  path="/buchen"
+>
+  <section class="bg-brand-dark text-brand-white">
+    <div class="mx-auto max-w-3xl px-4 py-14 text-center sm:px-6">
+      <h1 class="text-4xl font-extrabold sm:text-5xl">Termin buchen</h1>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-gray-300">
+        Wähle einen Termin für dein kostenloses Erstgespräch. Wir klären, wo du
+        stehst und welches Format zu dir passt — unverbindlich.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-brand-lightBg py-12 sm:py-16">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <div class="overflow-hidden rounded-2xl border border-gray-200 bg-brand-white shadow-sm">
+        <!-- TidyCal-Embed -->
+        <iframe
+          src={tidycalUrl}
+          width="100%"
+          height="700"
+          frameborder="0"
+          title="Terminbuchung — Erstgespräch mit Marcus Eichler (TidyCal)"
+          loading="lazy"
+          class="block w-full"
+          style="min-height: 700px;"></iframe>
+      </div>
+
+      <p class="mt-6 text-center text-sm text-brand-gray">
+        Der Kalender lädt nicht?{" "}
+        <a
+          href={tidycalUrl}
+          class="font-semibold text-brand-blue underline hover:text-brand-blueLight"
+          target="_blank"
+          rel="noopener"
+        >
+          Termin direkt bei TidyCal buchen →
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>

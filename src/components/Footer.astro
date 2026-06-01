@@ -1,0 +1,53 @@
+---
+const legalLinks = [
+  { href: "/impressum", label: "Impressum" },
+  { href: "/datenschutz", label: "Datenschutz" },
+  { href: "/agb", label: "AGB" },
+];
+---
+
+<footer class="bg-brand-dark text-gray-300">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <div class="flex flex-col items-center gap-8 md:flex-row md:items-start md:justify-between">
+      <!-- Logo links -->
+      <div class="text-center md:text-left">
+        <a href="/" class="inline-flex items-center gap-2" aria-label="Value Lift AI — Startseite">
+          <img src="/logo.png" alt="Value Lift AI" width="40" height="40" class="h-10 w-10" />
+          <span class="text-lg font-extrabold text-brand-white">
+            Value Lift <span class="text-brand-blueLight">AI</span>
+          </span>
+        </a>
+        <p class="mt-3 max-w-xs text-sm text-brand-gray">
+          KI-Systeme für Berater, Coaches und Dienstleister im DACH-Raum.
+        </p>
+      </div>
+
+      <!-- Rechtliche Links -->
+      <nav aria-label="Rechtliches">
+        <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
+          {
+            legalLinks.map((link) => (
+              <li>
+                <a href={link.href} class="hover:text-brand-blueLight">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a
+              href="https://go.valuelift.de"
+              class="font-semibold text-brand-blueLight hover:underline"
+            >
+              Zum Leadership-Coaching →
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-10 border-t border-white/10 pt-6 text-center text-sm text-brand-gray">
+      <p>© 2026 Value Lift AI — Marcus Eichler</p>
+    </div>
+  </div>
+</footer>

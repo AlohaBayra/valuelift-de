@@ -1,0 +1,99 @@
+---
+import Base from "../layouts/Base.astro";
+
+const steps = [
+  {
+    title: "Bestätigung per E-Mail",
+    text: "Du erhältst gleich eine E-Mail mit allen Details und – falls du gebucht hast – dem Kalendereintrag.",
+  },
+  {
+    title: "Vorbereitung",
+    text: "Überlege dir vorab, welcher Prozess dich aktuell am meisten Zeit kostet. Damit holen wir das Maximum aus unserer Zeit heraus.",
+  },
+  {
+    title: "Wir legen los",
+    text: "Zum vereinbarten Termin bauen wir gemeinsam – du brauchst nur einen Rechner und etwas Neugier.",
+  },
+];
+---
+
+<Base
+  title="Danke — Value Lift AI"
+  description="Danke! Deine Buchung bzw. Anfrage bei Value Lift AI ist eingegangen. So geht es jetzt weiter."
+  path="/danke"
+>
+  <section class="bg-brand-dark text-brand-white">
+    <div class="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6 sm:py-28">
+      <div class="text-6xl">🎉</div>
+      <h1 class="mt-6 text-4xl font-extrabold sm:text-5xl">Danke dir!</h1>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-gray-300">
+        Deine Anfrage ist eingegangen. Ich freue mich darauf, gemeinsam mit dir
+        dein KI-System zu bauen.
+      </p>
+    </div>
+  </section>
+
+  <!-- Nächste Schritte -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">So geht es weiter</h2>
+      <div class="mt-10 space-y-6">
+        {
+          steps.map((step, i) => (
+            <article class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-brand-lightBg p-6">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-blue font-bold text-brand-white">
+                {i + 1}
+              </div>
+              <div>
+                <h3 class="text-lg font-bold">{step.title}</h3>
+                <p class="mt-1 text-sm text-brand-gray">{step.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Upsell-Trigger -->
+  <section class="bg-brand-lightBg py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <div class="rounded-2xl border-2 border-brand-blue bg-brand-white p-8 text-center shadow-sm">
+        <span class="text-sm font-bold uppercase tracking-wide text-brand-blue">
+          Dein nächster Schritt
+        </span>
+        <h2 class="mt-2 text-2xl font-extrabold sm:text-3xl">
+          Bereit für mehr als den Einstieg?
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-brand-gray">
+          Wenn das Bootcamp dir Lust auf mehr gemacht hat: Im KI-Sprint bauen wir
+          1:1 einen vollständigen Workflow — oder ich baue dir im
+          KI-Komplettsystem gleich drei Prozesse fertig auf.
+        </p>
+        <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href="/workshop"
+            class="w-full rounded-lg bg-brand-blue px-6 py-3 font-bold text-brand-white hover:bg-brand-blueLight sm:w-auto"
+          >
+            KI-Sprint ansehen
+          </a>
+          <a
+            href="/system"
+            class="w-full rounded-lg border-2 border-brand-blue px-6 py-3 font-bold text-brand-blue hover:bg-brand-blue hover:text-brand-white sm:w-auto"
+          >
+            KI-Komplettsystem ansehen
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <a
+          href="/"
+          class="inline-block rounded-lg bg-brand-dark px-6 py-3 font-bold text-brand-white hover:opacity-90"
+        >
+          ← Zurück zur Startseite
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
