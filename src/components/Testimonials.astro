@@ -1,62 +1,56 @@
 ---
-// Platzhalter-Testimonials. Echte Stimmen, Fotos & Namen vor Go-Live einsetzen.
-const testimonials = [
-  {
-    quote:
-      "Nach zwei Stunden hatte ich tatsächlich ein laufendes System — und zum ersten Mal verstanden, wie diese KI-Sache für mich funktioniert.",
-    name: "Platzhalter Name",
-    role: "Strategieberaterin",
-  },
-  {
-    quote:
-      "Ich war skeptisch wegen der Garantie. Aber Marcus liefert. Mein Content-Prozess läuft jetzt halb-automatisch.",
-    name: "Platzhalter Name",
-    role: "Business Coach",
-  },
-  {
-    quote:
-      "Das Beste: Ich bin nicht abhängig von einer Agentur. Ich verstehe mein System und entwickle es selbst weiter.",
-    name: "Platzhalter Name",
-    role: "Online-Dienstleister",
-  },
-];
+// Beta-Phase: Echte Testimonials werden nach den ersten Bootcamp-Teilnehmern eingesetzt.
 ---
 
-<section class="bg-brand-white py-16 sm:py-24">
-  <div class="mx-auto max-w-6xl px-4 sm:px-6">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-        Was Kund:innen sagen
-      </h2>
-      <p class="mt-4 text-lg text-brand-gray">
-        Ehrliche Stimmen von Berater:innen und Coaches, die mit KI gestartet sind.
-      </p>
+<section class=”bg-brand-dark py-16 sm:py-24”>
+  <div class=”mx-auto max-w-4xl px-4 sm:px-6 text-center”>
+
+    <span class=”inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blue mb-6”>
+      Beta-Phase
+    </span>
+
+    <h2 class=”text-3xl font-extrabold tracking-tight text-brand-white sm:text-4xl”>
+      Sei einer der ersten 10 Teilnehmer
+    </h2>
+
+    <p class=”mt-4 text-lg text-gray-300 max-w-2xl mx-auto”>
+      Ich starte gerade — und biete den ersten 10 Teilnehmern den
+      Bootcamp-Einstieg zu 97€. Dafür bitte ich um ehrliches Feedback,
+      das mir hilft, das Angebot zu schärfen.
+    </p>
+
+    <div class=”mt-10 grid gap-6 sm:grid-cols-3 text-left”>
+      <div class=”rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6”>
+        <div class=”text-2xl mb-3”>🎯</div>
+        <h3 class=”font-bold text-brand-white”>Direkte Begleitung</h3>
+        <p class=”mt-2 text-sm text-gray-400”>
+          Als Beta-Teilnehmer arbeitest du direkt mit mir — kein Kurs, keine Gruppe von 50 Personen.
+        </p>
+      </div>
+      <div class=”rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6”>
+        <div class=”text-2xl mb-3”>🛡️</div>
+        <h3 class=”font-bold text-brand-white”>Volle Garantie</h3>
+        <p class=”mt-2 text-sm text-gray-400”>
+          Dein KI-Prozess läuft nach 2 Stunden — oder du bekommst deine 97€ zurück. Kein Risiko.
+        </p>
+      </div>
+      <div class=”rounded-2xl border border-brand-blue/30 bg-brand-blue/5 p-6”>
+        <div class=”text-2xl mb-3”>🔟</div>
+        <h3 class=”font-bold text-brand-white”>Nur 10 Plätze</h3>
+        <p class=”mt-2 text-sm text-gray-400”>
+          Der Beta-Preis gilt für die ersten 10 Teilnehmer. Danach steigt der Preis.
+        </p>
+      </div>
     </div>
 
-    <div class="mt-12 grid gap-8 md:grid-cols-3">
-      {
-        testimonials.map((t) => (
-          <article class="flex flex-col rounded-2xl border border-gray-200 bg-brand-lightBg p-8">
-            <div class="mb-4 text-brand-blue" aria-hidden="true">★★★★★</div>
-            <blockquote class="flex-1 text-brand-dark">
-              <p>„{t.quote}“</p>
-            </blockquote>
-            <figcaption class="mt-6 flex items-center gap-4">
-              {/* Platzhalter-Foto (Div statt Bild) */}
-              <div
-                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-lightBg ring-2 ring-brand-blue/30 text-xs text-brand-gray"
-                aria-hidden="true"
-              >
-                Foto
-              </div>
-              <div>
-                <p class="text-sm font-bold">{t.name}</p>
-                <p class="text-xs text-brand-gray">{t.role}</p>
-              </div>
-            </figcaption>
-          </article>
-        ))
-      }
+    <div class=”mt-10”>
+      <a
+        href=”/bootcamp”
+        class=”inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black hover:bg-brand-blueLight transition-colors”
+      >
+        Beta-Platz sichern — 97€
+      </a>
     </div>
+
   </div>
 </section>

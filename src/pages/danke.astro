@@ -41,7 +41,7 @@ const steps = [
         {
           steps.map((step, i) => (
             <article class="flex items-start gap-4 rounded-2xl border border-gray-200 bg-brand-lightBg p-6">
-              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-blue font-bold text-brand-white">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-blue font-bold text-brand-black">
                 {i + 1}
               </div>
               <div>
@@ -72,16 +72,16 @@ const steps = [
         </p>
         <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
-            href="/workshop"
-            class="w-full rounded-lg bg-brand-blue px-6 py-3 font-bold text-brand-white hover:bg-brand-blueLight sm:w-auto"
+            href="/buchen?interesse=sprint"
+            class="w-full rounded-lg bg-brand-blue px-6 py-3 font-bold text-brand-black hover:bg-brand-blueLight sm:w-auto"
           >
-            KI-Sprint ansehen
+            KI-Sprint anfragen
           </a>
           <a
-            href="/system"
-            class="w-full rounded-lg border-2 border-brand-blue px-6 py-3 font-bold text-brand-blue hover:bg-brand-blue hover:text-brand-white sm:w-auto"
+            href="/buchen?interesse=komplettsystem"
+            class="w-full rounded-lg border-2 border-brand-blue px-6 py-3 font-bold text-brand-blue hover:bg-brand-blue hover:text-brand-black sm:w-auto"
           >
-            KI-Komplettsystem ansehen
+            KI-Komplettsystem anfragen
           </a>
         </div>
       </div>

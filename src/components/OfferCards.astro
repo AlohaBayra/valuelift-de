@@ -75,7 +75,7 @@ const offers = [
             ]}
           >
             {offer.featured && (
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-blue px-3 py-1 text-xs font-bold text-brand-white">
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-blue px-3 py-1 text-xs font-bold text-brand-black">
                 Beliebt
               </span>
             )}
@@ -106,8 +106,8 @@ const offers = [
               class:list={[
                 "mt-6 block rounded-lg px-4 py-3 text-center text-sm font-bold transition-colors",
                 offer.style === "solid"
-                  ? "bg-brand-blue text-brand-white hover:bg-brand-blueLight"
-                  : "border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-brand-white",
+                  ? "bg-brand-blue text-brand-black hover:bg-brand-blueLight"
+                  : "border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-brand-black",
               ]}
             >
               {offer.ctaLabel}
