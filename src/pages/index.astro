@@ -11,77 +11,231 @@ import FAQ from "../components/FAQ.astro";
   description="KI-Beratung und KI-Automatisierung für Coaches, Berater und Dienstleister im DACH-Raum. Dein erster KI-Prozess läuft in 2 Stunden — garantiert. Jetzt KI-Kickstart für 97€ buchen."
   path="/"
 >
+
+  <!-- 1. Hero -->
   <Hero />
 
-  <!-- Problem / Lösung -->
-  <section class="bg-brand-white py-16 sm:py-24">
-    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6">
-      <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+  <!-- 2. Problem mit Konsequenz (ST03 + ST16) -->
+  <section style="background-color: #FFFFFF; padding: 4rem 1rem;">
+    <div style="max-width: 56rem; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 1.875rem; font-weight: 800; color: #0B1528; margin-bottom: 1rem;">
         Du weißt, dass KI wichtig ist. Aber wo anfangen?
       </h2>
-      <p class="mx-auto mt-6 max-w-2xl text-lg text-brand-gray">
-        YouTube-Tutorials, 200 Newsletter, ein gekaufter Online-Kurs, den du nie
-        beendet hast. Das Problem ist nicht fehlendes Wissen — es ist, alleine
-        durch das Chaos zu gehen. Genau da setze ich an: Wir bauen gemeinsam,
-        Schritt für Schritt, bis dein System läuft.
+      <p style="font-size: 1.0625rem; color: #6B7280; max-width: 42rem; margin: 0 auto 1rem; line-height: 1.7;">
+        YouTube-Tutorials, 200 Newsletter, ein gekaufter Online-Kurs, den du nie beendet hast.
+        Das Problem ist nicht fehlendes Wissen — es ist, alleine durch das Chaos zu navigieren.
+      </p>
+      <p style="font-size: 1.0625rem; color: #374151; max-width: 38rem; margin: 0 auto 2.5rem; line-height: 1.7; font-style: italic;">
+        Jede Woche wartet ein Mitbewerber nicht mehr. Der Unterschied: Er hat angefangen.
+        Du weißt noch nicht wie.
       </p>
 
-      <div class="mt-12 grid gap-8 text-left sm:grid-cols-3">
-        <article class="rounded-xl bg-brand-lightBg p-6">
-          <div class="text-3xl">🎯</div>
-          <h3 class="mt-3 font-bold">Konkret statt theoretisch</h3>
-          <p class="mt-2 text-sm text-brand-gray">
-            Wir reden nicht über KI — wir bauen ein System, das du sofort nutzen
-            kannst.
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align: left;">
+        <article style="border-radius: 0.75rem; background-color: #F9F7F7; padding: 1.5rem;">
+          <div style="font-size: 1.75rem; margin-bottom: 0.75rem;">🎯</div>
+          <h3 style="font-weight: 700; color: #0B1528; margin-bottom: 0.5rem;">Konkret statt theoretisch</h3>
+          <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.5;">
+            Wir reden nicht über KI — wir bauen ein System, das du sofort nutzen kannst.
           </p>
         </article>
-        <article class="rounded-xl bg-brand-lightBg p-6">
-          <div class="text-3xl">🤝</div>
-          <h3 class="mt-3 font-bold">Begleitet statt allein</h3>
-          <p class="mt-2 text-sm text-brand-gray">
+        <article style="border-radius: 0.75rem; background-color: #F9F7F7; padding: 1.5rem;">
+          <div style="font-size: 1.75rem; margin-bottom: 0.75rem;">🤝</div>
+          <h3 style="font-weight: 700; color: #0B1528; margin-bottom: 0.5rem;">Begleitet statt allein</h3>
+          <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.5;">
             Du startest nicht im stillen Kämmerlein, sondern an meiner Seite.
           </p>
         </article>
-        <article class="rounded-xl bg-brand-lightBg p-6">
-          <div class="text-3xl">🔓</div>
-          <h3 class="mt-3 font-bold">Unabhängig statt abhängig</h3>
-          <p class="mt-2 text-sm text-brand-gray">
-            Du verstehst jeden Schritt und kannst dein System selbst
-            weiterentwickeln.
+        <article style="border-radius: 0.75rem; background-color: #F9F7F7; padding: 1.5rem;">
+          <div style="font-size: 1.75rem; margin-bottom: 0.75rem;">🔓</div>
+          <h3 style="font-weight: 700; color: #0B1528; margin-bottom: 0.5rem;">Unabhängig statt abhängig</h3>
+          <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.5;">
+            Du verstehst jeden Schritt und kannst dein System selbst weiterentwickeln.
           </p>
         </article>
       </div>
     </div>
   </section>
 
-  <Testimonials />
-  <OfferCards />
-  <FAQ />
+  <!-- 3. Wer ist Marcus — Mini-Bio + KI-Architekt-Positionierung (ST04 + ST16) -->
+  <section style="background-color: #F9F7F7; padding: 4rem 1rem;">
+    <div style="max-width: 56rem; margin: 0 auto;">
+      <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center;">
 
-  <!-- Abschluss-CTA -->
-  <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6">
-      <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-        Bereit, deinen ersten KI-Prozess zu bauen?
-      </h2>
-      <p class="mt-4 text-lg text-gray-300">
-        Buche den KI-Kickstart oder lass uns in einem kostenlosen Erstgespräch
-        herausfinden, was zu dir passt.
-      </p>
-      <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-        <a
-          href="/bootcamp"
-          class="w-full rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black hover:bg-brand-blueLight sm:w-auto"
-        >
-          KI-Kickstart buchen — 97€
-        </a>
-        <a
-          href="/buchen"
-          class="font-semibold text-brand-white underline-offset-4 hover:text-brand-blueLight hover:underline"
-        >
-          Kostenloses Erstgespräch →
-        </a>
+        <!-- Foto -->
+        <img
+          src="/marcus.jpg"
+          alt="Marcus Eichler — KI-Architekt"
+          style="width: 120px; height: 120px; border-radius: 9999px; object-fit: cover; border: 3px solid #F5A623; flex-shrink: 0;"
+        />
+
+        <!-- Text -->
+        <div style="flex: 1; min-width: 260px;">
+          <p style="font-size: 0.875rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.25rem;">
+            Ich bin Marcus
+          </p>
+          <h2 style="font-size: 1.5rem; font-weight: 800; color: #0B1528; margin-bottom: 0.75rem;">
+            Kein Kurs. Keine Agentur. Dein KI-Architekt.
+          </h2>
+          <p style="font-size: 1rem; color: #374151; line-height: 1.7; margin-bottom: 1rem;">
+            Ich bin kein Kurs — kein Video-Paket das du nie fertig schaust.
+            Ich bin auch keine Agentur — du wirst nicht abhängig von einer Black Box.
+            Ich bin ein <strong style="color: #0B1528;">KI-Architekt</strong>: Ich baue gemeinsam mit dir,
+            du verstehst jeden Schritt, und du kannst danach alleine weitermachen.
+          </p>
+          <!-- Credentials -->
+          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+            <span style="background-color: rgba(11,21,40,0.07); color: #374151; padding: 0.15rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">29 Jahre Führungserfahrung</span>
+            <span style="background-color: rgba(11,21,40,0.07); color: #374151; padding: 0.15rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">CEO-Exit MyDisplays</span>
+            <span style="background-color: rgba(11,21,40,0.07); color: #374151; padding: 0.15rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">&gt;1 Mrd. € · Telefónica</span>
+          </div>
+          <a
+            href="/ueber-mich"
+            style="display: inline-block; margin-top: 1rem; font-size: 0.9375rem; font-weight: 600; color: #F5A623; text-decoration: none;"
+          >
+            Mehr über Marcus →
+          </a>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- 4. Wie funktioniert es — 3 Schritte (ST16) -->
+  <section style="background-color: #FFFFFF; padding: 4rem 1rem;">
+    <div style="max-width: 56rem; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 1.875rem; font-weight: 800; color: #0B1528; margin-bottom: 2.5rem;">
+        So funktioniert die Zusammenarbeit
+      </h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: left;">
+
+        <div style="position: relative; padding-left: 1rem;">
+          <div style="width: 2.5rem; height: 2.5rem; background-color: #F5A623; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #000; margin-bottom: 1rem;">1</div>
+          <h3 style="font-weight: 700; color: #0B1528; margin-bottom: 0.5rem;">Einstieg buchen</h3>
+          <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.5;">
+            97€, 2 Stunden, live. Du buchst deinen Platz — ich schicke dir alles was du brauchst.
+          </p>
+        </div>
+
+        <div style="position: relative; padding-left: 1rem;">
+          <div style="width: 2.5rem; height: 2.5rem; background-color: #F5A623; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #000; margin-bottom: 1rem;">2</div>
+          <h3 style="font-weight: 700; color: #0B1528; margin-bottom: 0.5rem;">Gemeinsam bauen</h3>
+          <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.5;">
+            Wir bauen live deinen ersten KI-Prozess. Du sitzt am Steuer — ich begleite jeden Schritt.
+          </p>
+        </div>
+
+        <div style="position: relative; padding-left: 1rem;">
+          <div style="width: 2.5rem; height: 2.5rem; background-color: #F5A623; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #000; margin-bottom: 1rem;">3</div>
+          <h3 style="font-weight: 700; color: #0B1528; margin-bottom: 0.5rem;">Dein System läuft</h3>
+          <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.5;">
+            Du gehst mit einem funktionierenden System raus. Garantiert — oder 97€ zurück.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Social Proof (vor Angeboten) -->
+  <Testimonials />
+
+  <!-- 6. Angebote -->
+  <OfferCards />
+
+  <!-- 7. Garantie-Block (ST16) -->
+  <section style="background-color: #F9F7F7; padding: 3rem 1rem;">
+    <div style="max-width: 42rem; margin: 0 auto; text-align: center;">
+      <div style="font-size: 3rem; margin-bottom: 0.75rem;">🛡️</div>
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: #0B1528; margin-bottom: 0.75rem;">
+        Dreifache Garantie — kein Risiko
+      </h2>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1rem;">
+        <div style="background: #FFFFFF; border-radius: 0.75rem; border: 1px solid #E5E7EB; padding: 1rem 1.25rem; text-align: left; max-width: 200px;">
+          <p style="font-weight: 700; color: #0B1528; font-size: 0.9375rem; margin-bottom: 0.25rem;">KI-Kickstart</p>
+          <p style="font-size: 0.875rem; color: #6B7280;">Kein laufender Prozess → 97€ zurück</p>
+        </div>
+        <div style="background: #FFFFFF; border-radius: 0.75rem; border: 1px solid #E5E7EB; padding: 1rem 1.25rem; text-align: left; max-width: 200px;">
+          <p style="font-weight: 700; color: #0B1528; font-size: 0.9375rem; margin-bottom: 0.25rem;">KI-Sprint</p>
+          <p style="font-size: 0.875rem; color: #6B7280;">Workflow läuft nach dem Tag → sonst kostenlose Nacharbeit</p>
+        </div>
+        <div style="background: #FFFFFF; border-radius: 0.75rem; border: 1px solid #E5E7EB; padding: 1rem 1.25rem; text-align: left; max-width: 200px;">
+          <p style="font-weight: 700; color: #0B1528; font-size: 0.9375rem; margin-bottom: 0.25rem;">KI-Komplettsystem</p>
+          <p style="font-size: 0.875rem; color: #6B7280;">Fertig wie besprochen → sonst keine Zahlung</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ -->
+  <FAQ />
+
+  <!-- 9. E-Mail-Capture für nicht-kaufbereite Besucher (ST24) -->
+  <section style="background-color: #FFFFFF; padding: 3.5rem 1rem; border-top: 1px solid #E5E7EB;">
+    <div style="max-width: 42rem; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 1.5rem; font-weight: 800; color: #0B1528; margin-bottom: 0.5rem;">
+        Kein passender Termin?
+      </h2>
+      <p style="font-size: 1rem; color: #6B7280; margin-bottom: 1.5rem; line-height: 1.6;">
+        Trag dich ein — ich informiere dich persönlich wenn der nächste KI-Kickstart startet.
+        Keine Werbung, kein Spam. Nur ein kurzer Hinweis.
+      </p>
+      <!-- systeme.io Formular-Embed (URL hier einsetzen) -->
+      <a
+        href="/buchen"
+        style="
+          display: inline-block;
+          background-color: #0B1528;
+          color: #FFFFFF;
+          font-weight: 700;
+          padding: 0.875rem 2rem;
+          border-radius: 0.5rem;
+          text-decoration: none;
+          font-size: 1rem;
+        "
+      >
+        Beim nächsten Termin dabei sein →
+      </a>
+      <p style="margin-top: 0.75rem; font-size: 0.8125rem; color: #9CA3AF;">
+        Kostenlos · Unverbindlich · Jederzeit abmeldbar
+      </p>
+    </div>
+  </section>
+
+  <!-- 10. Footer-CTA mit Scarcity (ST15 + ST16) -->
+  <section style="background-color: #0B1528; padding: 4rem 1rem; text-align: center;">
+    <div style="max-width: 42rem; margin: 0 auto;">
+      <p style="font-size: 0.875rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;">
+        Nächster Termin: 24. Juni 2026 · Noch 5 Plätze
+      </p>
+      <h2 style="font-size: 2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.75rem;">
+        Dein erster KI-Prozess läuft — in 2 Stunden.
+      </h2>
+      <p style="font-size: 1rem; color: #D1D5DB; margin-bottom: 2rem; line-height: 1.6;">
+        97€ · 2 Stunden · max. 5 Teilnehmer · Geld-zurück-Garantie.<br/>
+        Das Risiko trage ich, nicht du.
+      </p>
+      <a
+        href="https://buy.stripe.com/00wfZggVEcLs3DVfhi8bS05"
+        target="_blank"
+        rel="noopener"
+        style="
+          display: inline-block;
+          background-color: #F5A623;
+          color: #000000;
+          font-weight: 700;
+          padding: 1rem 2.5rem;
+          border-radius: 0.5rem;
+          text-decoration: none;
+          font-size: 1.0625rem;
+        "
+      >
+        Jetzt Platz sichern — 97€
+      </a>
+      <p style="margin-top: 1rem; font-size: 0.875rem;">
+        <a href="/buchen" style="color: #9CA3AF; text-decoration: none;">
+          Noch Fragen? Kostenloses Erstgespräch buchen →
+        </a>
+      </p>
+    </div>
+  </section>
+
 </Base>
