@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Self-hosted Fonts (DSGVO-konform, kein Google-Fonts-Request) */
+@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/600.css";
+@import "@fontsource/outfit/700.css";
+@import "@fontsource/outfit/800.css";
+@import "@fontsource/montserrat/400.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+
 /* Klassische Tailwind-Konfiguration (brand-Farben + Montserrat) einbinden.
    Pfad ist relativ zu dieser Datei (src/styles/ → Projektwurzel). */
 @config "../../tailwind.config.mjs";

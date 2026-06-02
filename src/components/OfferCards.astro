@@ -7,8 +7,8 @@ const offers = [
     format: "2h · Live · Gruppe (max. 15)",
     contents: [
       "5 fertige LinkedIn-Posts",
-      "Persönliches Prompt-System",
-      "Prompt-Bibliothek",
+      "Persönlicher KI-Baukasten",
+      "Fertige Vorlagen zum Sofort-Einsatz",
       "Content-Kalender",
       "Aufzeichnung",
     ],
@@ -24,8 +24,8 @@ const offers = [
     priceNote: "Workshop-Tag",
     format: "1 Tag · 1:1 mit Marcus",
     contents: [
-      "1 vollständiger KI-Workflow, gemeinsam gebaut",
-      "Du weißt danach, wie er funktioniert",
+      "1 vollständiger automatischer Ablauf, gemeinsam gebaut",
+      "Du verstehst danach jeden Schritt",
     ],
     guarantee: "Läuft nach dem Tag oder kostenlose Nacharbeit.",
     ctaLabel: "Termin anfragen",
@@ -88,7 +88,7 @@ const offers = [
             </div>
             <p class="mt-1 text-sm font-semibold text-brand-gray">{offer.format}</p>
 
-            <ul class="mt-6 flex-1 space-y-3 text-sm">
+            <ul class="mt-6 flex-1 space-y-3 text-base">
               {offer.contents.map((item) => (
                 <li class="flex items-start gap-2">
                   <span class="mt-0.5 font-bold text-brand-blue">✓</span>
@@ -104,7 +104,7 @@ const offers = [
             <a
               href={offer.ctaHref}
               class:list={[
-                "mt-6 block rounded-lg px-4 py-3 text-center text-sm font-bold transition-colors",
+                "mt-6 block rounded-lg px-4 py-3 text-center text-base font-bold transition-colors",
                 offer.style === "solid"
                   ? "bg-brand-blue text-brand-black hover:bg-brand-blueLight"
                   : "border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-brand-black",

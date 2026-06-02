@@ -4,8 +4,8 @@ import FAQ from "../components/FAQ.astro";
 
 const includes = [
   "5 fertige LinkedIn-Posts, die zu dir passen",
-  "Dein persönliches Prompt-System zum Wiederverwenden",
-  "Prompt-Bibliothek für den Sofort-Einsatz",
+  "Dein persönlicher KI-Baukasten zum Wiederverwenden",
+  "Fertige Vorlagen für den Sofort-Einsatz",
   "Content-Kalender-Template",
   "Aufzeichnung der gesamten Session",
 ];
@@ -16,12 +16,12 @@ const steps = [
     text: "Keine Theorie-Schlacht. Wir klären in 20 Minuten, was du über KI wissen musst — und lassen den Rest weg.",
   },
   {
-    title: "Wir bauen dein Prompt-System",
-    text: "Gemeinsam erstellen wir wiederverwendbare Prompts, die zu deiner Stimme und deinem Geschäft passen.",
+    title: "Wir bauen deinen KI-Baukasten",
+    text: "Gemeinsam erstellen wir fertige Vorlagen, die zu deiner Stimme und deinem Geschäft passen.",
   },
   {
     title: "5 Posts zum Mitnehmen",
-    text: "Am Ende hast du 5 fertige LinkedIn-Posts und ein System, um beliebig viele weitere zu erstellen.",
+    text: "Am Ende hast du 5 fertige LinkedIn-Posts und einen KI-Baukasten, um beliebig viele weitere zu erstellen.",
   },
 ];
 ---
@@ -45,9 +45,14 @@ const steps = [
       <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
         Schluss mit Tutorials, die du nie zu Ende schaust. Im KI-Kickstart bauen
         wir live gemeinsam deinen ersten KI-Prozess — und du gehst mit 5 fertigen
-        LinkedIn-Posts und einem wiederverwendbaren Prompt-System raus.
+        LinkedIn-Posts und einem wiederverwendbaren KI-Baukasten raus.
       </p>
-      <div class="mt-10">
+      <!-- M13: Scarcity Banner -->
+      <div class="mt-8 inline-flex items-center gap-2 rounded-full border border-brand-blue bg-brand-blue/10 px-5 py-2 text-sm font-semibold text-brand-blueLight">
+        <span>📅</span>
+        <span>Nächster Termin: 24. Juni 2026 · Noch 11 von 15 Plätzen frei</span>
+      </div>
+      <div class="mt-4">
         <a
           href="/buchen"
           class="inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black shadow-lg hover:bg-brand-blueLight"
@@ -70,7 +75,7 @@ const steps = [
           includes.map((item) => (
             <li class="flex items-start gap-3 rounded-xl bg-brand-lightBg p-4">
               <span class="mt-0.5 text-xl font-bold text-brand-blue">✓</span>
-              <span class="text-brand-dark">{item}</span>
+              <span class="text-base text-brand-dark">{item}</span>
             </li>
           ))
         }
@@ -90,7 +95,7 @@ const steps = [
                 {i + 1}
               </div>
               <h3 class="mt-4 text-lg font-bold">{step.title}</h3>
-              <p class="mt-2 text-sm text-brand-gray">{step.text}</p>
+              <p class="mt-2 text-base text-brand-gray">{step.text}</p>
             </article>
           ))
         }
