@@ -2,67 +2,104 @@
 // Beta-Phase: Echte Testimonials werden nach den ersten Bootcamp-Teilnehmern eingesetzt.
 ---
 
-<section class=”bg-brand-dark py-16 sm:py-24”>
-  <div class=”mx-auto max-w-4xl px-4 sm:px-6 text-center”>
+<section style="background-color: #0B1528; padding: 4rem 1rem;">
+  <div style="max-width: 56rem; margin: 0 auto; text-align: center;">
 
     <!-- Badge -->
-    <span
-      class=”inline-block rounded-full px-4 py-1 text-sm font-semibold mb-6”
-      style=”border: 1px solid #F5A623; background-color: rgba(245,166,35,0.12); color: #F5A623;”
-    >
+    <span style="
+      display: inline-block;
+      border-radius: 9999px;
+      border: 1px solid #F5A623;
+      background-color: rgba(245,166,35,0.12);
+      color: #F5A623;
+      padding: 0.25rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    ">
       Beta-Phase
     </span>
 
-    <h2 class=”text-3xl font-extrabold tracking-tight text-brand-white sm:text-4xl”>
+    <h2 style="
+      font-size: 2rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    ">
       Sei einer der ersten 10 Teilnehmer
     </h2>
 
-    <p class=”mt-4 text-lg text-gray-300 max-w-2xl mx-auto”>
+    <p style="
+      font-size: 1.125rem;
+      color: #D1D5DB;
+      max-width: 42rem;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    ">
       Ich starte gerade — und biete den ersten 10 Teilnehmern den
       Bootcamp-Einstieg zu 97&nbsp;€. Dafür bitte ich um ehrliches Feedback,
       das mir hilft, das Angebot zu schärfen.
     </p>
 
-    <!-- Drei Vorteils-Karten -->
-    <div class=”mt-10 grid gap-6 sm:grid-cols-3 text-left”>
+    <!-- Karten-Grid -->
+    <div style="
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      text-align: left;
+    ">
 
-      <div
-        class=”rounded-2xl p-6”
-        style=”border: 1px solid rgba(245,166,35,0.35); background-color: rgba(245,166,35,0.07);”
-      >
-        <div class=”text-2xl mb-3”>🎯</div>
-        <h3 class=”font-bold text-brand-white”>Direkte Begleitung</h3>
-        <p class=”mt-2 text-sm text-gray-400”>
+      <!-- Karte 1 -->
+      <div style="
+        border-radius: 1rem;
+        border: 1px solid rgba(245,166,35,0.35);
+        background-color: rgba(245,166,35,0.07);
+        padding: 1.5rem;
+      ">
+        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🎯</div>
+        <h3 style="font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Direkte Begleitung</h3>
+        <p style="font-size: 0.9375rem; color: #9CA3AF; line-height: 1.5;">
           Als Beta-Teilnehmer arbeitest du direkt mit mir — kein Kurs, keine Gruppe von 50 Personen.
         </p>
       </div>
 
-      <div
-        class=”rounded-2xl p-6”
-        style=”border: 1px solid rgba(245,166,35,0.35); background-color: rgba(245,166,35,0.07);”
-      >
-        <div class=”text-2xl mb-3”>🛡️</div>
-        <h3 class=”font-bold text-brand-white”>Volle Garantie</h3>
-        <p class=”mt-2 text-sm text-gray-400”>
+      <!-- Karte 2 -->
+      <div style="
+        border-radius: 1rem;
+        border: 1px solid rgba(245,166,35,0.35);
+        background-color: rgba(245,166,35,0.07);
+        padding: 1.5rem;
+      ">
+        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🛡️</div>
+        <h3 style="font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Volle Garantie</h3>
+        <p style="font-size: 0.9375rem; color: #9CA3AF; line-height: 1.5;">
           Dein KI-Prozess läuft nach 2 Stunden — oder du bekommst deine 97&nbsp;€ zurück. Kein Risiko.
         </p>
       </div>
 
-      <!-- Dritte Karte mit leichter Amber-Hervorhebung als Scarcity-Signal -->
-      <div
-        class=”rounded-2xl p-6 relative”
-        style=”border: 1px solid #F5A623; background-color: rgba(245,166,35,0.12);”
-      >
-        <!-- Scarcity-Label oben rechts -->
-        <span
-          class=”absolute top-3 right-3 rounded-full px-2 py-0.5 text-xs font-bold”
-          style=”background-color: #F5A623; color: #0B1528;”
-        >
-          Limitiert
-        </span>
-        <div class=”text-2xl mb-3”>🔟</div>
-        <h3 class=”font-bold text-brand-white”>Nur 10 Plätze</h3>
-        <p class=”mt-2 text-sm text-gray-400”>
+      <!-- Karte 3 — Scarcity hervorgehoben -->
+      <div style="
+        border-radius: 1rem;
+        border: 2px solid #F5A623;
+        background-color: rgba(245,166,35,0.12);
+        padding: 1.5rem;
+        position: relative;
+      ">
+        <span style="
+          position: absolute;
+          top: 0.75rem;
+          right: 0.75rem;
+          background-color: #F5A623;
+          color: #0B1528;
+          font-size: 0.75rem;
+          font-weight: 700;
+          padding: 0.125rem 0.5rem;
+          border-radius: 9999px;
+        ">Limitiert</span>
+        <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🔟</div>
+        <h3 style="font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Nur 10 Plätze</h3>
+        <p style="font-size: 0.9375rem; color: #9CA3AF; line-height: 1.5;">
           Der Beta-Preis gilt für die ersten 10 Teilnehmer. Danach steigt der Preis.
         </p>
       </div>
@@ -70,15 +107,27 @@
     </div>
 
     <!-- CTA -->
-    <div class=”mt-10”>
+    <div style="margin-top: 2.5rem;">
       <a
-        href=”/bootcamp”
-        class=”inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black hover:bg-brand-blueLight transition-colors”
+        href="/bootcamp"
+        style="
+          display: inline-block;
+          background-color: #F5A623;
+          color: #000000;
+          font-weight: 700;
+          padding: 1rem 2rem;
+          border-radius: 0.5rem;
+          text-decoration: none;
+          font-size: 1rem;
+          transition: background-color 0.2s;
+        "
+        onmouseover="this.style.backgroundColor='#FAC03A'"
+        onmouseout="this.style.backgroundColor='#F5A623'"
       >
         Beta-Platz sichern — 97&nbsp;€
       </a>
-      <p class=”mt-3 text-xs text-gray-500”>
-        Nur noch wenige Plätze verfügbar &middot; 30-Tage-Geld-zurück-Garantie
+      <p style="margin-top: 0.75rem; font-size: 0.8125rem; color: #6B7280;">
+        Nur noch wenige Plätze verfügbar &middot; Geld-zurück-Garantie
       </p>
     </div>
 
