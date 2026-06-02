@@ -14,7 +14,7 @@ const offers = [
     ],
     guarantee: "97€ zurück, wenn kein KI-Prozess läuft.",
     ctaLabel: "Jetzt buchen — 97€",
-    ctaHref: "/bootcamp",
+    ctaHref: "https://buy.stripe.com/00wfZggVEcLs3DVfhi8bS05",
     style: "solid",
     featured: true,
   },
@@ -103,6 +103,8 @@ const offers = [
 
             <a
               href={offer.ctaHref}
+              target={offer.style === "solid" ? "_blank" : undefined}
+              rel={offer.style === "solid" ? "noopener" : undefined}
               class:list={[
                 "mt-6 block rounded-lg px-4 py-3 text-center text-base font-bold transition-colors",
                 offer.style === "solid"
