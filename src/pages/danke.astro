@@ -110,6 +110,97 @@ import Base from "../layouts/Base.astro";
     </div>
   </section>
 
+  <!-- Email-Opt-in -->
+  <section style="background-color: #F9F7F7; padding: 3rem 1rem; border-top: 1px solid #E5E7EB;">
+    <div style="max-width: 42rem; margin: 0 auto;">
+      <div style="background: #FFFFFF; border-radius: 1rem; border: 1px solid #E5E7EB; padding: 2rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 800; color: #0B1528; margin-bottom: 0.4rem;">
+          KI-Tipps &amp; nächste Termine
+        </h2>
+        <p style="font-size: 0.9375rem; color: #6B7280; margin-bottom: 1.5rem; line-height: 1.5;">
+          Wir schicken dir gelegentlich praxisnahe KI-Tipps und informieren dich als erstes wenn neue Bootcamp-Termine öffnen. Kein Spam — jederzeit abbestellbar.
+        </p>
+
+        <form id="register-form" style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <input
+              id="reg-vorname"
+              type="text"
+              placeholder="Vorname"
+              autocomplete="given-name"
+              style="flex: 1; min-width: 140px; padding: 0.75rem 1rem; border: 1px solid #D1D5DB; border-radius: 0.5rem; font-size: 0.9375rem; outline: none;"
+            />
+            <input
+              id="reg-email"
+              type="email"
+              placeholder="E-Mail-Adresse"
+              autocomplete="email"
+              required
+              style="flex: 2; min-width: 200px; padding: 0.75rem 1rem; border: 1px solid #D1D5DB; border-radius: 0.5rem; font-size: 0.9375rem; outline: none;"
+            />
+          </div>
+          <button
+            id="reg-btn"
+            type="submit"
+            style="background-color: #0B1528; color: #FFFFFF; font-weight: 700; padding: 0.875rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; font-size: 0.9375rem; transition: background 0.2s;"
+            onmouseover="this.style.backgroundColor='#F5A623'; this.style.color='#000'"
+            onmouseout="this.style.backgroundColor='#0B1528'; this.style.color='#fff'"
+          >
+            Eintragen &amp; informiert bleiben →
+          </button>
+          <p id="reg-msg" style="font-size: 0.875rem; margin: 0; display: none;"></p>
+        </form>
+
+        <p style="font-size: 0.75rem; color: #9CA3AF; margin-top: 0.75rem;">
+          Mit dem Eintragen stimmst du zu, dass wir dir gelegentlich E-Mails schicken dürfen. Du kannst dich jederzeit abmelden. Datenschutz: <a href="/datenschutz" style="color: #6B7280;">valuelift.de/datenschutz</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('register-form');
+    const btn  = document.getElementById('reg-btn');
+    const msg  = document.getElementById('reg-msg');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const vorname = (document.getElementById('reg-vorname') as HTMLInputElement).value.trim();
+      const email   = (document.getElementById('reg-email')   as HTMLInputElement).value.trim();
+
+      if (btn) { btn.setAttribute('disabled', 'true'); (btn as HTMLButtonElement).textContent = 'Wird eingetragen …'; }
+      if (msg) { msg.style.display = 'none'; }
+
+      try {
+        const res  = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ vorname, email }),
+        });
+        const data = await res.json();
+
+        if (msg) {
+          msg.style.display = 'block';
+          if (res.ok && data.ok) {
+            msg.style.color = '#16A34A';
+            msg.textContent = '✓ Du bist eingetragen! Schau kurz ins Postfach — wir haben dir eine Bestätigungs-E-Mail geschickt.';
+            form?.reset();
+          } else if (data.status === 'already_exists') {
+            msg.style.color = '#16A34A';
+            msg.textContent = '✓ Du bist bereits in unserer Liste — wir melden uns!';
+          } else {
+            msg.style.color = '#DC2626';
+            msg.textContent = data.error || 'Etwas ist schiefgelaufen. Bitte versuche es erneut.';
+            if (btn) { btn.removeAttribute('disabled'); (btn as HTMLButtonElement).textContent = 'Eintragen & informiert bleiben →'; }
+          }
+        }
+      } catch {
+        if (msg) { msg.style.display = 'block'; msg.style.color = '#DC2626'; msg.textContent = 'Verbindungsfehler. Bitte versuche es erneut.'; }
+        if (btn) { btn.removeAttribute('disabled'); (btn as HTMLButtonElement).textContent = 'Eintragen & informiert bleiben →'; }
+      }
+    });
+  </script>
+
   <!-- Upsell -->
   <section style="background-color: #FFFFFF; padding: 4rem 1rem;">
     <div style="max-width: 42rem; margin: 0 auto;">
