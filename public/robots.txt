@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://valuelift.de/sitemap-index.xml
