@@ -7,18 +7,22 @@ const painPoints = [
   {
     title: "Konflikte werden vermieden / eskalieren",
     text: "Konflikte kosten dich Energie – egal ob du sie schluckst oder frontal austrägst. Du gehst schwierigen Gesprächen aus dem Weg oder wirst härter als du eigentlich willst. Beides führt zu Reibung, Unsicherheit im Team und schlaflosen Nächten. Statt Klarheit entsteht Daueranspannung.",
+    img: "/leadership/pain-icon-0.png",
   },
   {
     title: "Grenzen setzen fühlt sich falsch an",
     text: "Du willst kooperativ führen – und sagst trotzdem zu oft Ja. Mehr Verantwortung, mehr Erwartungen, mehr Druck. Doch wenn du keine klaren Grenzen setzt, verlierst du Fokus und Respekt. Innerlich wächst der Frust, äußerlich bleibst du professionell – bis es kippt.",
+    img: "/leadership/pain-icon-1.png",
   },
   {
     title: "Zwischen den Fronten zerrieben werden",
     text: "Du stehst zwischen Management, Team und Kollegen. Jede Entscheidung hat politische Folgen. Statt souverän zu führen, fühlst du dich getrieben – und beginnst, dich selbst zu hinterfragen.",
+    img: "/leadership/pain-icon-2.png",
   },
   {
     title: "Fachlich stark — aber nicht wirksam genug",
     text: "Du weißt, was richtig wäre. Aber du setzt dich nicht durch. In Meetings dominieren lautere Persönlichkeiten. Deine Argumente sind gut, aber deine Wirkung verpufft. Sichtbarkeit, Selbstvertrauen und strategische Positionierung fehlen – und damit der sichere nächste Karriereschritt.",
+    img: "/leadership/pain-icon-3.png",
   },
 ];
 
@@ -26,14 +30,17 @@ const outcomes = [
   {
     title: "Innere Klarheit und echte Gelassenheit",
     text: "Du gewinnst Sicherheit in deinen Entscheidungen – auch unter Druck. Statt dich von Erwartungen oder Konflikten treiben zu lassen, handelst du aus innerer Stabilität. Du schläfst ruhiger und führst mit klarem Kopf.",
+    img: "/leadership/outcome-1.png",
   },
   {
     title: "Konfliktstärke und souveräne Durchsetzung",
     text: "Du führst schwierige Gespräche klar, ruhig und wirkungsvoll. Du setzt Grenzen, ohne Beziehungen zu zerstören. Du bleibst respektvoll – aber bestimmt. Und wirst als starke Führungspersönlichkeit wahrgenommen.",
+    img: "/leadership/outcome-2.png",
   },
   {
     title: "Sichtbarkeit für den nächsten Karriereschritt",
     text: "Du wirst strategisch wirksamer – nicht lauter, sondern klarer. Du positionierst dich bewusst, trittst selbstbewusst auf und gehst deinen nächsten Karriereschritt mit Sicherheit statt Selbstzweifel.",
+    img: "/leadership/outcome-3.png",
   },
 ];
 
@@ -43,24 +50,46 @@ const steps = [
     title: "IST- & Ziel Analyse",
     text: "Wir analysieren deine Ausgangssituation und finden gemeinsam heraus, woran deine Überzeugungskraft und dein Karrierewunsch bisher scheiterten. Wir schaffen Klarheit darüber, worauf du bei deiner Zusammenarbeit Wert legst. Die Ist- & Zielanalyse dient als Grundlage für alle weiteren Schritte.",
     bullets: ["Analyse deiner Ausgangssituation & Problemfelder", "Durchführung deiner Wunschsituations-Analyse", "Festlegung der Beratungsschwerpunkte"],
+    img: "/leadership/step-1.png",
   },
   {
     label: "DEIN SELBSTGLAUBE",
     title: "Erkenne deine Spielregeln",
     text: "Erkenne Deine und die Spielregeln deiner Mitspieler und spreche sie gezielt an.",
     bullets: [],
+    img: "/leadership/step-2.png",
   },
   {
     label: "DEIN FAHRPLAN",
     title: "Individueller Fahrplan",
     text: "Wir entwickeln deinen individuellen Fahrplan, damit deine Stärken genutzt werden.",
     bullets: [],
+    img: "/leadership/step-3.png",
   },
   {
     label: "UMSETZEN & ÜBERZEUGEN",
     title: "Sicherheit in der Umsetzung",
     text: "Du erhältst die Sicherheit in der Umsetzung. Wir üben mit Dir und reflektieren bis alles sitzt.",
     bullets: [],
+    img: "/leadership/step-4.png",
+  },
+];
+
+const forWhom = [
+  {
+    title: "Für Berufstätige mit 26–37 Jahren, die zwischen den Fronten stehen",
+    text: "Für viele Fach- und Führungskräfte entstehen die größten Karriereprobleme genau dann, wenn sie fachlich am stärksten sind. Die Ausbildung ist abgeschlossen. Die Ergebnisse stimmen. Trotzdem passiert der nächste Schritt an ihnen vorbei. Die Folge? Man wartet – und wartet.",
+    img: "/leadership/forwhom-1.png",
+  },
+  {
+    title: "Du willst den nächsten Karriereschritt",
+    text: "Du weißt, dass mehr in dir steckt. Fachlich bist du stark, deine Ergebnisse stimmen – aber Wirkung, Sichtbarkeit oder strategische Positionierung fühlen sich noch nicht stabil an. Du weißt, dass du nicht zufällig befördert wirst, sondern gezielt wachsen möchtest und deinen nächsten Schritt sicher gehen willst.",
+    img: "/leadership/forwhom-2.png",
+  },
+  {
+    title: "Du willst belastende Gespräche souverän meistern",
+    text: "Du willst kooperativ arbeiten, aber nicht ausgenutzt werden. Du sagst zu oft Ja, übernimmst zu viel Verantwortung oder vermeidest klare Ansagen, um Harmonie zu wahren. Gleichzeitig spürst du: So kann es nicht bleiben. Du möchtest respektvoll, ruhig und bestimmt auftreten – ohne schlechtes Gewissen.",
+    img: "/leadership/forwhom-3.png",
   },
 ];
 
@@ -69,37 +98,52 @@ const testimonials = [
     quote: "Im Coaching mit Marcus konnte ich mein eigenes Verhalten und meine Wirkung auf andere reflektieren. Ich habe gelernt meine Muster zu hinterfragen und situativ und individuell zu adaptieren. Besonders wertvoll war, dass wir anschließend konkrete Situationen analysiert und gemeinsam Lösungen entwickelt haben. Dadurch gelingt es mir heute, Abstand zu gewinnen, Situationen rationaler zu betrachten und mein Gegenüber für mich zu gewinnen. Ich empfehle Marcus uneingeschränkt jedem, der seine persönliche Weiterentwicklung ernsthaft vorantreiben möchte.",
     name: "Blazej Gackowski",
     role: "Quality Assurance Engineer",
+    icon: "/leadership/quote-left.png",
   },
   {
     quote: "Ich bin zwar beruflich erfolgreich, war aber relativ planlos im Hinblick auf den weiteren Karriereweg. Marcus hat systematisch meine Stärken und Defizite mit mir aufbereitet und mit mir zusammen die künftigen Optionen betrachtet. Ich bin mir nun viel besser bewusst wo es künftig hingehen kann und was ich tun muss um das zu erreichen.",
     name: "Anonym",
     role: "Energie-Experte",
+    icon: "/leadership/quote-right.png",
   },
   {
-    quote: "In unserer gemeinsamen Zeit des Coachings bin ich nochmal enorm persönlich gewachsen. Ich habe gelernt mich selber besser zu reflektieren. Ich habe gelernt, dass es okay ist, nicht immer direkt eine Lösung oder eine Antwort zu kennen. Ich habe gelernt, dass ich mich zurücknehmen darf und die Situation nochmal „von außen\" betrachten darf. Es ist okay, seine Fehler oder seine Meinung im Nachhinein zu reflektieren und diese zuzugeben oder zu ändern. Es ist okay emotional zu sein – dies ist keine Schwäche, sondern ebenfalls eine Stärke.",
+    quote: "In unserer gemeinsamen Zeit des Coachings bin ich nochmal enorm persönlich gewachsen. Ich habe gelernt mich selber besser zu reflektieren. Ich habe gelernt, dass es okay ist, nicht immer direkt eine Lösung oder eine Antwort zu kennen. Ich habe gelernt, dass ich mich zurücknehmen darf und die Situation nochmal \"von außen\" betrachten darf. Es ist okay, seine Fehler oder seine Meinung im Nachhinein zu reflektieren und diese zuzugeben oder zu ändern. Es ist okay emotional zu sein – dies ist keine Schwäche, sondern ebenfalls eine Stärke.",
     name: "Svantje Knöbel",
     role: "Geschäftsführerin",
+    icon: "/leadership/quote-center.png",
   },
   {
     quote: "Marcus ist eine Führungskraft, die Menschen und ihre Stärken in den Mittelpunkt stellt. Er hat die einzigartige Gabe, die individuellen Talente jedes Teammitglieds nicht nur zu erkennen, sondern gezielt zu fördern. Diese Kombination aus gezielter Förderung und echtem Vertrauen schuf ein außerordentlich motivierendes und leistungsstarkes Arbeitsklima. Er hat meinen Wunsch, mich in Richtung Führungskraft zu entwickeln, früh erkannt, aktiv gefördert und mir zu gegebener Zeit die Chance gegeben.",
     name: "Daniela Baum",
     role: "Head of BI & Analytics // Dozentin",
+    icon: "/leadership/quote-center.png",
   },
   {
     quote: "Marcus verfügt über starke Führungsqualitäten, er kommuniziert Visionen klar, verständlich und übersetzt innovative Ideen in umsetzbare Strategien, mit denen wir unser Team motivieren, inspirieren und die Unternehmensleistung steigern konnten.",
     name: "Dana Barette",
     role: "President Displays2Go",
+    icon: "/leadership/quote-left.png",
   },
   {
     quote: "Die Zusammenarbeit mit Marcus war eine bereichernde Erfahrung. Er löst Probleme effizient und führt Projekte erfolgreich zum Abschluss. Ich empfehle Marcus wärmstens für seine außergewöhnliche Fähigkeit, Technologie mit praxisnahen Geschäftsstrategien zu verbinden.",
     name: "Maksym Shvaykovsky",
     role: "Engineering Leader",
+    icon: "/leadership/quote-center.png",
   },
   {
     quote: "Ich habe aus erster Hand erlebt, wie außergewöhnlich er als Führungspersönlichkeit wirkt – Marcus überzeugt durch seine Fähigkeit, Prozesse zu analysieren und zu verbessern, was zu systematischen Optimierungen führt, die Effizienz und Ergebnisse nachhaltig steigern.",
     name: "Batu Karabulut",
     role: "HO int. Key Account Management",
+    icon: "/leadership/quote-right.png",
   },
+];
+
+const trustLogos = [
+  { src: "/leadership/trust-1.png", alt: "Referenz 1" },
+  { src: "/leadership/trust-2.png", alt: "Referenz 2" },
+  { src: "/leadership/trust-3.png", alt: "Referenz 3" },
+  { src: "/leadership/trust-4.png", alt: "Referenz 4" },
+  { src: "/leadership/trust-5.png", alt: "Referenz 5" },
 ];
 ---
 
@@ -130,13 +174,20 @@ const testimonials = [
         <p style="font-size: 0.9375rem; color: rgba(255,255,255,0.7); margin-bottom: 0.75rem;">
           Mit der Erfahrung aus über 29 Jahren Führung, Transformation und Verantwortung
         </p>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem;">
+        <ul style="list-style: none; padding: 0; margin: 0 0 2.5rem; display: flex; flex-direction: column; gap: 0.4rem;">
           {["Vom Mitarbeiter bis zum CEO", "Führung von Organisationen bis 250+ Mitarbeiter", "Umsetzung komplexer Transformations-, Digital- & Veränderungsprojekte", "Coaching von Fach- und Führungskräften an entscheidenden Karrierepunkten"].map(item => (
             <li style="display: flex; gap: 0.6rem; font-size: 0.9375rem; color: rgba(255,255,255,0.85);">
               <span style="color: #93C5FD; flex-shrink: 0;">✓</span> {item}
             </li>
           ))}
         </ul>
+
+        <!-- Trust Logos -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+          {trustLogos.map(logo => (
+            <img src={logo.src} alt={logo.alt} style="height: 48px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.75;" />
+          ))}
+        </div>
       </div>
       <div style="flex-shrink: 0;">
         <img src="/marcus.jpg" alt="Marcus Eichler"
@@ -173,6 +224,7 @@ const testimonials = [
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
         {painPoints.map(p => (
           <div style="border-radius: 1rem; border: 1px solid #DBEAFE; padding: 1.75rem; background-color: #F8FAFF;">
+            <img src={p.img} alt={p.title} style="height: 56px; width: auto; margin-bottom: 1rem; object-fit: contain;" />
             <h3 style="font-weight: 700; color: #0A1628; font-size: 1rem; margin-bottom: 0.75rem;">{p.title}</h3>
             <p style="font-size: 0.9375rem; color: #4B5563; line-height: 1.65;">{p.text}</p>
           </div>
@@ -202,9 +254,7 @@ const testimonials = [
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
         {outcomes.map(o => (
           <div style="border-radius: 1rem; background-color: #FFFFFF; border: 1px solid #DBEAFE; padding: 1.75rem; text-align: left;">
-            <div style="width: 2.5rem; height: 2.5rem; background-color: #015FA3; border-radius: 9999px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
-              <span style="color: #FFFFFF; font-size: 1.25rem;">✓</span>
-            </div>
+            <img src={o.img} alt={o.title} style="height: 72px; width: auto; margin-bottom: 1rem; object-fit: contain;" />
             <h3 style="font-weight: 700; color: #0A1628; font-size: 1rem; margin-bottom: 0.6rem;">{o.title}</h3>
             <p style="font-size: 0.9375rem; color: #4B5563; line-height: 1.65;">{o.text}</p>
           </div>
@@ -214,44 +264,38 @@ const testimonials = [
   </section>
 
   <!-- Termin CTA -->
-  <section style="background: linear-gradient(135deg, #015FA3 0%, #0A1628 100%); padding: 4rem 1rem; text-align: center;">
-    <div style="max-width: 42rem; margin: 0 auto;">
-      <p style="font-size: 0.8125rem; font-weight: 700; color: #93C5FD; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Termin vereinbaren</p>
-      <h2 style="font-size: 1.75rem; font-weight: 800; color: #FFFFFF; margin-bottom: 1rem;">
-        Erreiche mehr Klarheit &amp; Durchsetzungsstärke im Umgang mit schwierigen Situationen – um endlich so zu wirken, wie du intern wahrgenommen werden willst.
-      </h2>
-      <a href={bookingUrl} target="_blank" rel="noopener"
-        style="display: inline-block; background-color: #FFFFFF; color: #015FA3; font-weight: 700; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-size: 1rem;">
-        Buche jetzt Dein kostenloses Beratungsgespräch
-      </a>
+  <section style="background: linear-gradient(135deg, #015FA3 0%, #0A1628 100%); padding: 4rem 1rem;">
+    <div style="max-width: 64rem; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 3rem; align-items: center; justify-content: center;">
+      <div style="max-width: 38rem; text-align: center;">
+        <p style="font-size: 0.8125rem; font-weight: 700; color: #93C5FD; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Termin vereinbaren</p>
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: #FFFFFF; margin-bottom: 1.5rem;">
+          Erreiche mehr Klarheit &amp; Durchsetzungsstärke im Umgang mit schwierigen Situationen – um endlich so zu wirken, wie du intern wahrgenommen werden willst.
+        </h2>
+        <a href={bookingUrl} target="_blank" rel="noopener"
+          style="display: inline-block; background-color: #FFFFFF; color: #015FA3; font-weight: 700; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-size: 1rem;">
+          Buche jetzt Dein kostenloses Beratungsgespräch
+        </a>
+      </div>
+      <div style="flex-shrink: 0;">
+        <img src="/leadership/termin-visual.png" alt="Coaching Termin" style="max-width: 280px; width: 100%; height: auto; border-radius: 1rem; opacity: 0.9;" />
+      </div>
     </div>
   </section>
 
   <!-- Für wen -->
   <section style="background-color: #FFFFFF; padding: 4rem 1rem;">
     <div style="max-width: 56rem; margin: 0 auto;">
-      <h2 style="font-size: 1.875rem; font-weight: 800; color: #0A1628; text-align: center; margin-bottom: 0.5rem;">
+      <h2 style="font-size: 1.875rem; font-weight: 800; color: #0A1628; text-align: center; margin-bottom: 3rem;">
         Für wen eignet sich unsere Beratung &amp; Coaching
       </h2>
-      <p style="font-size: 1rem; font-weight: 600; color: #015FA3; text-align: center; margin-bottom: 0.5rem;">
-        Für Berufstätige mit 26–37 Jahren, die zwischen den Fronten stehen
-      </p>
-      <p style="font-size: 0.9375rem; color: #6B7280; text-align: center; max-width: 42rem; margin: 0 auto 3rem; line-height: 1.7;">
-        Für viele Fach- und Führungskräfte entstehen die größten Karriereprobleme genau dann, wenn sie fachlich am stärksten sind. Die Ausbildung ist abgeschlossen. Die Ergebnisse stimmen. Trotzdem passiert der nächste Schritt an ihnen vorbei. Die Folge? Man wartet – und wartet.
-      </p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-        <div style="border-radius: 1rem; border: 2px solid #015FA3; background-color: #EFF6FF; padding: 1.75rem;">
-          <h3 style="font-weight: 700; color: #0A1628; font-size: 1rem; margin-bottom: 0.75rem;">Du willst den nächsten Karriereschritt</h3>
-          <p style="font-size: 0.9375rem; color: #4B5563; line-height: 1.65;">
-            Du weißt, dass mehr in dir steckt. Fachlich bist du stark, deine Ergebnisse stimmen – aber Wirkung, Sichtbarkeit oder strategische Positionierung fühlen sich noch nicht stabil an. Du weißt, dass du nicht zufällig befördert wirst, sondern gezielt wachsen möchtest und deinen nächsten Schritt sicher gehen willst.
-          </p>
-        </div>
-        <div style="border-radius: 1rem; border: 2px solid #015FA3; background-color: #EFF6FF; padding: 1.75rem;">
-          <h3 style="font-weight: 700; color: #0A1628; font-size: 1rem; margin-bottom: 0.75rem;">Du willst belastende Gespräche souverän meistern</h3>
-          <p style="font-size: 0.9375rem; color: #4B5563; line-height: 1.65;">
-            Du willst kooperativ arbeiten, aber nicht ausgenutzt werden. Du sagst zu oft Ja, übernimmst zu viel Verantwortung oder vermeidest klare Ansagen, um Harmonie zu wahren. Gleichzeitig spürst du: So kann es nicht bleiben. Du möchtest respektvoll, ruhig und bestimmt auftreten – ohne schlechtes Gewissen.
-          </p>
-        </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        {forWhom.map(f => (
+          <div style="border-radius: 1rem; border: 2px solid #015FA3; background-color: #EFF6FF; padding: 1.75rem;">
+            <img src={f.img} alt={f.title} style="height: 56px; width: auto; margin-bottom: 1rem; object-fit: contain;" />
+            <h3 style="font-weight: 700; color: #0A1628; font-size: 1rem; margin-bottom: 0.75rem;">{f.title}</h3>
+            <p style="font-size: 0.9375rem; color: #4B5563; line-height: 1.65;">{f.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -266,6 +310,7 @@ const testimonials = [
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
         {testimonials.map(t => (
           <div style="border-radius: 1rem; background-color: #FFFFFF; border: 1px solid #DBEAFE; padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem;">
+            <img src={t.icon} alt="Zitat" style="height: 40px; width: auto; object-fit: contain; opacity: 0.6;" />
             <p style="font-size: 0.9375rem; color: #374151; line-height: 1.7; font-style: italic; flex: 1;">„{t.quote}"</p>
             <div>
               <p style="font-weight: 700; color: #0A1628; margin: 0; font-size: 0.9375rem;">{t.name}</p>
@@ -289,9 +334,9 @@ const testimonials = [
         Buche jetzt Dein kostenloses Beratungsgespräch
       </a>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; text-align: left;">
-        {steps.map((s, i) => (
+        {steps.map(s => (
           <div style="border-radius: 1rem; border: 1px solid #DBEAFE; background-color: #F8FAFF; padding: 1.5rem;">
-            <div style="width: 2rem; height: 2rem; background-color: #015FA3; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #FFFFFF; font-size: 0.875rem; margin-bottom: 0.75rem;">{i + 1}</div>
+            <img src={s.img} alt={s.label} style="height: 64px; width: auto; margin-bottom: 0.75rem; object-fit: contain;" />
             <p style="font-size: 0.6875rem; font-weight: 700; color: #4A90E2; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.25rem;">{s.label}</p>
             <h3 style="font-weight: 700; color: #0A1628; font-size: 0.9375rem; margin-bottom: 0.5rem;">{s.title}</h3>
             <p style="font-size: 0.875rem; color: #4B5563; line-height: 1.6;">{s.text}</p>
@@ -318,24 +363,40 @@ const testimonials = [
         <p style="font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 1rem;">
           Viele Programme versprechen Sichtbarkeit. Andere zeigen dir wie du dich „richtig" verhalten sollst. Wir halten beides für zu kurz gedacht.
         </p>
-        <p style="font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; font-style: italic;">
+        <p style="font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; font-style: italic; margin-bottom: 2rem;">
           Wirksamkeit entsteht, wenn innere Klarheit, Persönlichkeit und äußeres Handeln zusammenpassen.
         </p>
+        <p style="font-size: 0.9375rem; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 2rem;">
+          29 Jahre Fach-, Führungs- & Managementerfahrung im Konzern & als Unternehmer
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+          <div style="text-align: center; background-color: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.25rem 1.5rem; min-width: 110px;">
+            <p style="font-size: 2rem; font-weight: 800; color: #FFFFFF; margin: 0;">100%</p>
+            <p style="font-size: 0.8125rem; color: rgba(255,255,255,0.75); margin: 0.25rem 0 0;">Führungsleidenschaft</p>
+          </div>
+          <div style="text-align: center; background-color: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.25rem 1.5rem; min-width: 110px;">
+            <p style="font-size: 2rem; font-weight: 800; color: #FFFFFF; margin: 0;">+330</p>
+            <p style="font-size: 0.8125rem; color: rgba(255,255,255,0.75); margin: 0.25rem 0 0;">Mitarbeiter entwickelt</p>
+          </div>
+          <div style="text-align: center; background-color: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.25rem 1.5rem; min-width: 110px;">
+            <p style="font-size: 2rem; font-weight: 800; color: #FFFFFF; margin: 0;">+29</p>
+            <p style="font-size: 0.8125rem; color: rgba(255,255,255,0.75); margin: 0.25rem 0 0;">Jahre Führung &amp; Management</p>
+          </div>
+        </div>
       </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
-        <div style="text-align: center; background-color: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem 2rem; min-width: 120px;">
-          <p style="font-size: 2.25rem; font-weight: 800; color: #FFFFFF; margin: 0;">100%</p>
-          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.75); margin: 0.25rem 0 0;">Führungsleidenschaft</p>
-        </div>
-        <div style="text-align: center; background-color: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem 2rem; min-width: 120px;">
-          <p style="font-size: 2.25rem; font-weight: 800; color: #FFFFFF; margin: 0;">+330</p>
-          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.75); margin: 0.25rem 0 0;">Mitarbeiter entwickelt</p>
-        </div>
-        <div style="text-align: center; background-color: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem 2rem; min-width: 120px;">
-          <p style="font-size: 2.25rem; font-weight: 800; color: #FFFFFF; margin: 0;">+29</p>
-          <p style="font-size: 0.875rem; color: rgba(255,255,255,0.75); margin: 0.25rem 0 0;">Jahre Führung &amp; Management</p>
-        </div>
+      <div style="flex-shrink: 0;">
+        <img src="/leadership/marcus-about.jpeg" alt="Marcus Eichler – Coaching"
+          style="width: 260px; height: 320px; border-radius: 1rem; object-fit: cover; border: 3px solid rgba(255,255,255,0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.4);" />
       </div>
+    </div>
+  </section>
+
+  <!-- Trust Logos (repeat) -->
+  <section style="background-color: #F8FAFF; padding: 2.5rem 1rem;">
+    <div style="max-width: 56rem; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: center;">
+      {trustLogos.map(logo => (
+        <img src={logo.src} alt={logo.alt} style="height: 44px; width: auto; object-fit: contain; opacity: 0.55; filter: grayscale(1);" />
+      ))}
     </div>
   </section>
 
