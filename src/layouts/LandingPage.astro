@@ -6,17 +6,20 @@ export interface Props {
   title?: string;
   description?: string;
   path?: string;
+  /** Vollständige URL oder absoluter Pfad zum OG-Image (überschreibt das Standardbild). */
+  ogImage?: string;
 }
 
 const {
   title = "Value Lift AI",
   description = "KI-Prozesse für Berater, Coaches und Dienstleister im DACH-Raum.",
   path = "",
+  ogImage: ogImageProp,
 } = Astro.props;
 
 const siteUrl = "https://valuelift.de";
 const canonical = siteUrl + path;
-const ogImage = siteUrl + "/og-image.jpg";
+const ogImage = ogImageProp ?? siteUrl + "/og-image.jpg";
 
 const organizationSchema = {
   "@context": "https://schema.org",
