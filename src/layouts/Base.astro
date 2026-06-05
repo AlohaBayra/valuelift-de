@@ -79,22 +79,70 @@ const personSchema = {
       set:html={JSON.stringify(personSchema)}
     />
 
-    <!-- GTM -->
-    <!--
-      Google Tag Manager (Platzhalter — vor Go-Live aktivieren, GTM-ID einsetzen):
-      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
-    -->
+    <!-- Tracking: wird nur nach Cookie-Einwilligung geladen (siehe Script unten) -->
   </head>
   <body class="bg-brand-white font-sans text-brand-dark antialiased">
-    <!-- GTM (noscript) Platzhalter — zusammen mit dem Snippet oben aktivieren. -->
-    <!--
-      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    -->
+
+    <!-- Cookie-Banner -->
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999;
+      background:#0B1528; color:#fff; padding:1rem 1.5rem; box-shadow:0 -4px 20px rgba(0,0,0,0.3);">
+      <div style="max-width:64rem; margin:0 auto; display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;">
+        <p style="margin:0; font-size:0.875rem; line-height:1.5; flex:1; min-width:260px;">
+          Wir verwenden Cookies und Analysetools (Google Analytics, Microsoft Clarity), um unsere Website zu verbessern.
+          Mehr dazu in unserer <a href="/datenschutz" style="color:#F5A623; text-decoration:underline;">Datenschutzerklärung</a>.
+        </p>
+        <div style="display:flex; gap:0.75rem; flex-shrink:0;">
+          <button id="cookie-reject"
+            style="background:transparent; border:1px solid rgba(255,255,255,0.4); color:#fff;
+            padding:0.5rem 1rem; border-radius:0.375rem; font-size:0.875rem; cursor:pointer;">
+            Nur notwendige
+          </button>
+          <button id="cookie-accept"
+            style="background:#F5A623; border:none; color:#0B1528;
+            padding:0.5rem 1.25rem; border-radius:0.375rem; font-size:0.875rem; font-weight:700; cursor:pointer;">
+            Alle akzeptieren
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // GTM-ID hier eintragen, sobald eingerichtet:
+      const GTM_ID = 'GTM-XXXXXXX';
+
+      function loadGTM() {
+        if (!GTM_ID || GTM_ID === 'GTM-XXXXXXX') return;
+        (function(w,d,s,l,i){
+          w[l]=w[l]||[];
+          w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+          var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),
+              dl=l!='dataLayer'?'&l='+l:'';
+          j.async=true;
+          j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+          f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer',GTM_ID);
+      }
+
+      var consent = localStorage.getItem('vl_cookie_consent');
+
+      if (consent === 'accepted') {
+        loadGTM();
+      } else if (consent === null) {
+        document.getElementById('cookie-banner').style.display = 'block';
+      }
+
+      document.getElementById('cookie-accept').addEventListener('click', function() {
+        localStorage.setItem('vl_cookie_consent', 'accepted');
+        document.getElementById('cookie-banner').style.display = 'none';
+        loadGTM();
+      });
+
+      document.getElementById('cookie-reject').addEventListener('click', function() {
+        localStorage.setItem('vl_cookie_consent', 'rejected');
+        document.getElementById('cookie-banner').style.display = 'none';
+      });
+    </script>
 
     {!hideNav && <Header />}
 
