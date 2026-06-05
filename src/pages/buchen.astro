@@ -10,34 +10,80 @@ const tidycalUrl = `https://tidycal.com/${tidycalPath}`;
   description="Buche dein kostenloses Erstgespräch mit Marcus Eichler von Value Lift AI. 20 Minuten, kostenlos, ohne Pitch."
   path="/buchen"
 >
-  <!-- Hero-Bereich -->
-  <section class="bg-brand-dark text-brand-white">
-    <div class="mx-auto max-w-3xl px-4 py-14 text-center sm:px-6">
-      <h1 class="text-4xl font-extrabold sm:text-5xl">Termin buchen</h1>
-      <p class="mx-auto mt-4 max-w-xl text-lg text-gray-300">
-        20 Minuten, kostenlos, ohne Pitch. Wir klären gemeinsam, ob und wie ich dir helfen kann.
+
+  <div style="display: flex; flex-wrap: wrap; min-height: calc(100vh - 72px);">
+
+    <!-- Linke Spalte: Kontext & Person -->
+    <div style="background: #0B1528; color: #FFFFFF; flex: 0 0 360px; padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center; gap: 1.75rem;">
+
+      <!-- Marcus -->
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <img
+          src="/marcus.jpg"
+          alt="Marcus Eichler"
+          style="width: 64px; height: 64px; border-radius: 9999px; object-fit: cover; border: 2px solid #F5A623; flex-shrink: 0;"
+        />
+        <div>
+          <p style="font-size: 1rem; font-weight: 700; color: #FFFFFF; margin: 0;">Marcus Eichler</p>
+          <p style="font-size: 0.8125rem; color: #9CA3AF; margin: 0;">KI-Architekt · Ex-CEO · Lean Six Sigma MBB</p>
+        </div>
+      </div>
+
+      <!-- Meeting-Info -->
+      <div>
+        <p style="font-size: 0.75rem; font-weight: 600; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">Kostenloses Erstgespräch</p>
+        <p style="font-size: 1.375rem; font-weight: 800; color: #FFFFFF; line-height: 1.2; margin-bottom: 0.75rem;">20 Minuten.<br />Kein Pitch.<br />Nur Klarheit.</p>
+        <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: #9CA3AF;">
+          <span>🕐</span><span>30 Minuten</span>
+          <span style="color: #374151;">·</span>
+          <span>📹</span><span>Video-Call</span>
+        </div>
+      </div>
+
+      <!-- Was passiert -->
+      <div>
+        <p style="font-size: 0.75rem; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.75rem;">Was wir klären</p>
+        <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+          {[
+            "Wo stehst du gerade mit KI?",
+            "Welches Format passt zu dir?",
+            "Was ist realistisch in 2–4 Wochen?"
+          ].map(item => (
+            <div style="display: flex; align-items: flex-start; gap: 0.625rem;">
+              <span style="color: #F5A623; font-size: 0.875rem; flex-shrink: 0; margin-top: 1px;">✓</span>
+              <span style="font-size: 0.875rem; color: #D1D5DB; line-height: 1.5;">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Vertrauens-Zeile -->
+      <p style="font-size: 0.8125rem; color: #6B7280; border-top: 1px solid #1e2d42; padding-top: 1.25rem; line-height: 1.6;">
+        29 Jahre Führungserfahrung · CEO-Exit · &gt;1 Mrd. € Impact bei Telefónica
       </p>
+
     </div>
-  </section>
 
-  <!-- TidyCal Inline-Embed (kein iframe, kein eigener Scroll) -->
-  <section class="bg-brand-lightBg py-10 sm:py-14">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+    <!-- Rechte Spalte: TidyCal Kalender -->
+    <div style="flex: 1; min-width: 300px; background: #FFFFFF; padding: 2rem 1.5rem; display: flex; flex-direction: column;">
 
-      <div class="tidycal-embed" data-path={tidycalPath}></div>
+      <p style="font-size: 0.8125rem; font-weight: 600; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 1.25rem;">
+        Termin wählen
+      </p>
+
+      <!-- TidyCal Inline-Embed -->
+      <div class="tidycal-embed" data-path={tidycalPath} style="flex: 1;"></div>
       <script src="https://asset-tidycal.b-cdn.net/js/embed.js" async></script>
 
-      <p class="mt-8 text-center text-sm text-brand-gray">
+      <p style="margin-top: 1.5rem; font-size: 0.75rem; color: #9CA3AF; text-align: center;">
         Kalender lädt nicht?{" "}
-        <a
-          href={tidycalUrl}
-          class="font-semibold text-brand-blue underline hover:text-brand-blueLight"
-          target="_blank"
-          rel="noopener"
-        >
+        <a href={tidycalUrl} target="_blank" rel="noopener" style="color: #F5A623; text-decoration: underline;">
           Direkt bei TidyCal buchen →
         </a>
       </p>
+
     </div>
-  </section>
+
+  </div>
+
 </Base>
