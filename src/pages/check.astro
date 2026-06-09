@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import AngelWriteDemo from "../components/AngelWriteDemo.astro";
 
 const tidycalUrl =
   "https://tidycal.com/marcuseichler/kennenlerngesprach-mit-marcus-eichler-1wr7yd6";
@@ -105,13 +106,11 @@ const tidycalUrl =
             <div class="gift-badge">19 € → 0 €</div>
             <div class="gift-head">🎁 Dein Willkommensgeschenk: AngelWrite&nbsp;Free</div>
             <p class="gift-sub">sonst 19 €, für dich dauerhaft kostenlos</p>
-            <img class="gift-media" src="/check/angelwrite-demo.gif" loading="lazy"
-                 alt="AngelWrite: Taste halten, sprechen — der Text erscheint am Cursor"
-                 onerror="this.remove()" />
             <p class="gift-benefit">Statt zu tippen, sprichst du einfach. AngelWrite verwandelt deine Sprache in
               fertigen Text — direkt dort, wo dein Cursor steht, in jeder App. 100 % lokal auf deinem Mac, keine Cloud.</p>
             <p class="gift-proof"><em>Ich habe die App selbst in einer Woche mit KI gebaut — sie ist der lebende
               Beweis, dass die Methode funktioniert.</em></p>
+            <div class="gift-demo"><AngelWriteDemo /></div>
           </div>
 
           <!-- E-Mail-Gate -->
@@ -181,13 +180,11 @@ const tidycalUrl =
           <div class="gift-badge">19 € → 0 €</div>
           <div class="gift-head">🎁 Dein Willkommensgeschenk: AngelWrite&nbsp;Free</div>
           <p class="gift-sub">Sonst 19 € — für dich dauerhaft kostenlos.</p>
-          <img class="gift-media" src="/check/angelwrite-demo.gif" loading="lazy"
-               alt="AngelWrite: Taste halten, sprechen — der Text erscheint am Cursor"
-               onerror="this.remove()" />
           <p class="gift-benefit">Statt zu tippen, sprichst du. AngelWrite macht aus gesprochener Sprache fertigen
             Text — in jeder App, 100 % lokal auf deinem Mac, ohne Cloud. In einer Woche mit KI gebaut: der lebende
             Beweis, dass Verständnis + KI mehr schafft als reines Coden.</p>
           <p class="gift-platform" id="bonus-platform"></p>
+          <div class="gift-demo"><AngelWriteDemo /></div>
         </div>
 
         <!-- CTA -->
@@ -369,10 +366,7 @@ const tidycalUrl =
     font-size:1.18rem; line-height:1.3; margin:0 0 .3rem; padding-right:5.2rem;
   }
   .gift-sub { font-style:italic; color:#C2410C; font-weight:600; font-size:.95rem; margin:0 0 .95rem; }
-  .gift-media {
-    display:block; width:100%; height:auto; border-radius:.6rem; margin:0 0 .95rem;
-    border:1px solid #F1E3CC;
-  }
+  .gift-demo { margin:1.05rem 0 .15rem; }
   .gift-benefit { color:#374151; font-size:.98rem; line-height:1.6; margin:0 0 .7rem; }
   .gift-proof { color:#6B7280; font-size:.92rem; line-height:1.55; margin:0; }
   .gift-proof em { font-style:italic; }

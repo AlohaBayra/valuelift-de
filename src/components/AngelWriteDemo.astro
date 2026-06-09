@@ -1,0 +1,190 @@
+---
+// Kompakte, selbstlaufende Demo: "Manuell tippen vs. AngelWrite (Push-to-Talk)".
+// Web-taugliche Trim-Version der AngelWrite_Demo_Vergleich.html (Loop ~14s).
+// Mehrfach-instanzfähig: animiert jede .aw-demo unabhängig.
+// Avatar: /check/demo-avatar.jpg (3,4 KB, optimiert).
+---
+
+<div class="aw-demo" role="img" aria-label="Animierter Vergleich: manuelles Tippen gegen Diktat mit AngelWrite – gesprochener Text erscheint sofort.">
+  <div class="awd-cols">
+    <!-- Manuell -->
+    <div class="awd-panel">
+      <div class="awd-head awd-bad">
+        <span class="awd-dot" style="background:#ef5350"></span>
+        <span class="awd-title awd-t-bad">Manuell tippen</span>
+        <span class="awd-timer awd-t-bad" data-tbad>0:00</span>
+      </div>
+      <div class="awd-editor">
+        <div class="awd-box" data-badbox></div>
+        <div class="awd-think" data-think>💭 denkt nach …</div>
+      </div>
+    </div>
+    <!-- AngelWrite -->
+    <div class="awd-panel">
+      <div class="awd-head awd-good">
+        <span class="awd-dot" style="background:#6366F1"></span>
+        <span class="awd-title awd-t-good">✦ AngelWrite</span>
+        <span class="awd-timer awd-t-good" data-tgood>0:00</span>
+      </div>
+      <div class="awd-editor">
+        <div class="awd-box" data-goodbox><span class="awd-cur" style="background:#6366F1"></span></div>
+      </div>
+      <div class="awd-bar">
+        <span class="awd-av"><img src="/check/demo-avatar.jpg" alt="" width="34" height="34" loading="lazy" /><span class="awd-ring" data-ring></span></span>
+        <span class="awd-wvs" data-wvs><span class="awd-wv w1"></span><span class="awd-wv w2"></span><span class="awd-wv w3"></span><span class="awd-wv w4"></span></span>
+        <span class="awd-keys"><span class="awd-key" data-fn>fn</span><span class="awd-key" data-sh>⇧</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="awd-result" data-result>Vergleich startet …</div>
+</div>
+
+<style is:global>
+  .aw-demo { max-width: 480px; margin: 0 auto; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+  .aw-demo .awd-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .aw-demo .awd-panel { border-radius: 10px; overflow: hidden; border: 0.5px solid #3a3a4a; background: #1e1e1e; box-shadow: 0 6px 20px rgba(0,0,0,0.16); }
+  .aw-demo .awd-head { padding: 7px 10px; display: flex; align-items: center; gap: 6px; }
+  .aw-demo .awd-bad { background: #251a1a; border-bottom: 0.5px solid #4a2020; }
+  .aw-demo .awd-good { background: #1a1a2a; border-bottom: 0.5px solid #25254a; }
+  .aw-demo .awd-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .aw-demo .awd-title { font-size: 10px; font-weight: 600; }
+  .aw-demo .awd-t-bad { color: #ef9a9a; }
+  .aw-demo .awd-t-good { color: #9fa8da; }
+  .aw-demo .awd-timer { font-size: 10px; margin-left: auto; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .aw-demo .awd-editor { background: #f8f8f5; padding: 11px 12px; min-height: 92px; position: relative; }
+  .aw-demo .awd-box { font-size: 11.5px; color: #1a1a1a; line-height: 1.7; min-height: 58px; word-break: break-word; }
+  .aw-demo .awd-sq { text-decoration: underline wavy #e53935; }
+  .aw-demo .awd-cur { display: inline-block; width: 2px; height: 13px; vertical-align: text-bottom; margin-left: 1px; animation: awdBl 0.9s step-end infinite; }
+  @keyframes awdBl { 0%,100%{opacity:1} 50%{opacity:0} }
+  .aw-demo .awd-think { position: absolute; bottom: 7px; left: 12px; font-size: 10px; color: #aaa; opacity: 0; transition: opacity 0.3s; }
+  .aw-demo .awd-think.on { opacity: 1; }
+  .aw-demo .awd-bar { background: #13131f; border-top: 0.5px solid #2a2a4a; padding: 7px 12px; display: flex; align-items: center; gap: 9px; }
+  .aw-demo .awd-av { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; flex-shrink: 0; position: relative; display: inline-block; }
+  .aw-demo .awd-av img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .aw-demo .awd-ring { position: absolute; inset: -3px; border-radius: 50%; border: 2.5px solid transparent; pointer-events: none; }
+  .aw-demo .awd-ring.on { border-color: #6366F1; animation: awdRp 0.8s ease-in-out infinite; }
+  @keyframes awdRp { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .aw-demo .awd-wvs { display: flex; gap: 2.5px; align-items: center; height: 16px; opacity: 0; transition: opacity 0.3s; }
+  .aw-demo .awd-wvs.on { opacity: 1; }
+  .aw-demo .awd-wv { display: block; width: 2.5px; border-radius: 2px; background: #6366F1; }
+  .aw-demo .awd-wvs.on .w1 { animation: awdW1 0.5s ease-in-out infinite; }
+  .aw-demo .awd-wvs.on .w2 { animation: awdW2 0.5s ease-in-out infinite 0.1s; }
+  .aw-demo .awd-wvs.on .w3 { animation: awdW3 0.5s ease-in-out infinite 0.2s; }
+  .aw-demo .awd-wvs.on .w4 { animation: awdW4 0.5s ease-in-out infinite 0.3s; }
+  @keyframes awdW1 {0%,100%{height:4px}50%{height:13px}}
+  @keyframes awdW2 {0%,100%{height:6px}50%{height:16px}}
+  @keyframes awdW3 {0%,100%{height:5px}50%{height:14px}}
+  @keyframes awdW4 {0%,100%{height:3px}50%{height:9px}}
+  .aw-demo .awd-keys { display: flex; gap: 3px; margin-left: auto; }
+  .aw-demo .awd-key { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 20px; border-radius: 4px; background: #3a3a4a; border: 1px solid #555; border-bottom: 2.5px solid #2a2a3a; font-size: 8px; color: #bbb; font-weight: 700; transition: all 0.15s; }
+  .aw-demo .awd-key.on { background: #6366F1; border-color: #4F46E5; border-bottom: 1px solid #4338CA; color: #fff; transform: translateY(1.5px); }
+  .aw-demo .awd-result { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 9px; padding: 9px 14px; margin-top: 9px; text-align: center; font-size: 11.5px; color: #555; min-height: 34px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  @media (max-width: 440px) {
+    .aw-demo .awd-cols { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .aw-demo .awd-cur, .aw-demo .awd-ring.on, .aw-demo .awd-wvs.on .awd-wv { animation: none !important; }
+  }
+</style>
+
+<script>
+  (function () {
+    function initDemo(root) {
+      const q = (s) => root.querySelector(s);
+      const badBox = q('[data-badbox]'), goodBox = q('[data-goodbox]');
+      const tbad = q('[data-tbad]'), tgood = q('[data-tgood]');
+      const ring = q('[data-ring]'), wvs = q('[data-wvs]');
+      const fn = q('[data-fn]'), sh = q('[data-sh]');
+      const thinkEl = q('[data-think]'), result = q('[data-result]');
+
+      const FINAL = 'Ich wollte kurz nachfragen, ob du morgen Zeit hast.';
+      // Getrimmte, langsame Tipp-Choreografie mit einem Tippfehler + einem Denk-Stopp.
+      const SEQ = [
+        { t: 'type', v: 'I', d: 150 }, { t: 'type', v: 'c', d: 110 }, { t: 'type', v: 'h', d: 120 }, { t: 'type', v: ' ', d: 200 },
+        { t: 'type', v: 'w', d: 130 }, { t: 'type', v: 'o', d: 110 }, { t: 'type', v: 'l', d: 100 }, { t: 'type', v: 't', d: 110 }, { t: 'type', v: 'e', d: 120 },
+        { t: 'pause', d: 1500 },
+        { t: 'del', d: 200 }, { t: 'del', d: 180 }, { t: 'del', d: 170 },
+        { t: 'type', v: 'l', d: 140 }, { t: 'type', v: 't', d: 110 }, { t: 'type', v: 'e', d: 120 }, { t: 'type', v: ' ', d: 200 },
+        { t: 'think', d: 2400 },
+        { t: 'type', v: 'k', d: 130 }, { t: 'type', v: 'u', d: 110 }, { t: 'type', v: 'r', d: 100 }, { t: 'type', v: 'z', d: 120 }, { t: 'type', v: ' ', d: 190 },
+        { t: 'type', v: 'n', d: 125 }, { t: 'type', v: 'a', d: 105 }, { t: 'type', v: 'c', d: 110 }, { t: 'type', v: 'h', d: 100 }, { t: 'type', v: 'f', d: 120 }, { t: 'type', v: 'r', d: 110 },
+        { t: 'pause', d: 1800 }
+      ];
+
+      let raw = '', si = 0, badSec = 0, goodSec = 0, gi = 0, thinking = false;
+      const timers = [];
+      const wait = (fnc, ms) => { const id = setTimeout(fnc, ms); timers.push(id); return id; };
+      const fmt = (s) => '0:' + String(s).padStart(2, '0');
+
+      function renderBad() {
+        // markiere den Tippfehler "wolte" (fehlendes l) solange er dasteht
+        let html = '', i = 0;
+        while (i < raw.length) {
+          if (raw.substr(i, 6) === 'wolte ' || (raw.substr(i, 5) === 'wolte' && i + 5 === raw.length)) {
+            html += '<span class="awd-sq">wolte</span>'; i += 5;
+          } else {
+            const c = raw[i]; html += (c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '&' ? '&amp;' : c); i++;
+          }
+        }
+        badBox.innerHTML = html + '<span class="awd-cur" style="background:' + (thinking ? '#aaa' : '#777') + '"></span>';
+      }
+
+      function runSeq() {
+        if (si >= SEQ.length) return; // bleibt stehen ("tippen läuft noch")
+        const step = SEQ[si++];
+        if (step.t === 'type') { thinking = false; thinkEl.className = 'awd-think'; raw += step.v; renderBad(); wait(runSeq, step.d); }
+        else if (step.t === 'del') { thinking = false; thinkEl.className = 'awd-think'; raw = raw.slice(0, -1); renderBad(); wait(runSeq, step.d); }
+        else if (step.t === 'pause') { thinking = false; thinkEl.className = 'awd-think'; renderBad(); wait(runSeq, step.d); }
+        else if (step.t === 'think') { thinking = true; thinkEl.className = 'awd-think on'; renderBad(); wait(() => { thinking = false; thinkEl.className = 'awd-think'; runSeq(); }, step.d); }
+      }
+
+      function startGood() {
+        fn.classList.add('on'); sh.classList.add('on'); ring.classList.add('on'); wvs.classList.add('on');
+        result.textContent = 'fn + ⇧ halten · sprechen …';
+        wait(() => {
+          fn.classList.remove('on'); sh.classList.remove('on'); ring.classList.remove('on'); wvs.classList.remove('on');
+          typeGood();
+        }, 2200);
+      }
+
+      function typeGood() {
+        if (gi <= FINAL.length) {
+          goodBox.innerHTML = FINAL.slice(0, gi).replace(/&/g, '&amp;').replace(/</g, '&lt;') + '<span class="awd-cur" style="background:#6366F1"></span>';
+          gi++; wait(typeGood, 24);
+        } else {
+          result.textContent = '✦ AngelWrite fertig in ' + fmt(goodSec) + ' — tippen läuft noch …';
+        }
+      }
+
+      let badIv, goodIv;
+      function reset() {
+        timers.forEach(clearTimeout); timers.length = 0;
+        clearInterval(badIv); clearInterval(goodIv);
+        raw = ''; si = 0; badSec = 0; goodSec = 0; gi = 0; thinking = false;
+        badBox.innerHTML = '<span class="awd-cur" style="background:#777"></span>';
+        goodBox.innerHTML = '<span class="awd-cur" style="background:#6366F1"></span>';
+        tbad.textContent = '0:00'; tgood.textContent = '0:00';
+        fn.classList.remove('on'); sh.classList.remove('on'); ring.classList.remove('on'); wvs.classList.remove('on');
+        thinkEl.className = 'awd-think'; result.textContent = 'Vergleich startet …';
+      }
+
+      function run() {
+        reset();
+        wait(() => {
+          result.textContent = 'Links: manuell · Rechts: AngelWrite — gleichzeitig gestartet';
+          badIv = setInterval(() => { badSec++; tbad.textContent = fmt(badSec); }, 1000);
+          goodIv = setInterval(() => { goodSec++; tgood.textContent = fmt(goodSec); }, 1000);
+          runSeq();
+          wait(startGood, 400);
+        }, 800);
+        wait(run, 14000); // Loop
+      }
+
+      run();
+    }
+
+    function start() { document.querySelectorAll('.aw-demo').forEach(initDemo); }
+    if (document.readyState !== 'loading') start();
+    else document.addEventListener('DOMContentLoaded', start);
+  })();
+</script>
