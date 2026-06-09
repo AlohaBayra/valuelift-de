@@ -1,0 +1,195 @@
+---
+import Base from "../layouts/Base.astro";
+import AngelWriteDemo from "../components/AngelWriteDemo.astro";
+
+const erstgespraech =
+  "https://tidycal.com/marcuseichler/kennenlerngesprach-mit-marcus-eichler-1wr7yd6";
+const downloadUrl =
+  "https://github.com/AlohaBayra/angelwrite-landing/releases/latest/download/AngelWrite.zip";
+---
+
+<Base
+  title="Willkommen — dein AngelWrite-Geschenk | Value Lift AI"
+  description="Bestätigt: deine KI-Zeitspar-Auswertung ist unterwegs und dein AngelWrite-Geschenk steht bereit. Lizenzkey, Download und nächster Schritt."
+  path="/willkommen"
+>
+  <section class="wk-wrap">
+    <div class="wk-inner">
+
+      <!-- Bestätigung -->
+      <div class="wk-check">✓</div>
+      <h1 class="wk-h1">Bestätigt — alles startklar<span id="wk-name"></span>.</h1>
+      <p class="wk-sub">Deine vollständige Auswertung liegt in deinem Postfach. (Schau zur Sicherheit auch im Spam-Ordner nach.)</p>
+
+      <!-- Beweis-Block -->
+      <div class="wk-proof">
+        <h2>Dein Geschenk ist eigentlich ein Beweis.</h2>
+        <p>
+          Die App, die du gerade bekommst — <strong>AngelWrite</strong> — habe ich selbst mit KI gebaut.
+          Sie spart mir ~60 % meiner Schreibzeit: ich spreche, fertiger Text erscheint. Genau darum geht es bei
+          Value Lift AI: solche Werkzeuge und Workflows musst du nicht kaufen — du kannst sie dir <strong>selbst
+          bauen</strong>, für deine Aufgaben. Verstehen und besitzen statt abhängig sein.
+        </p>
+      </div>
+
+      <!-- Geschenk-Karte -->
+      <div class="wk-gift">
+        <div class="wk-gift-badge">19 € → 0 €</div>
+        <div class="wk-gift-head">🎁 Dein Willkommensgeschenk: AngelWrite&nbsp;Free</div>
+        <p class="wk-gift-sub">dauerhaft kostenlos · 100 % lokal auf deinem Mac</p>
+
+        <!-- Lizenzkey (erscheint nur wenn ?key= vorhanden) -->
+        <div id="wk-key-wrap" class="wk-key-wrap hidden">
+          <p class="wk-key-label">Dein Lizenzkey · Basic (lokal, dauerhaft kostenlos)</p>
+          <p class="wk-key" id="wk-key" title="Zum Kopieren klicken"></p>
+          <p class="wk-key-copied" id="wk-key-copied">Kopiert ✓</p>
+        </div>
+        <!-- Fallback wenn kein Key in der URL -->
+        <p id="wk-key-fallback" class="wk-key-fallback hidden">
+          Dein persönlicher Lizenzkey ist in der Bestätigungsmail — einfach von dort übernehmen.
+        </p>
+
+        <a class="wk-download" href={downloadUrl}>AngelWrite für macOS laden →</a>
+
+        <ol class="wk-steps">
+          <li>ZIP entpacken → <strong>AngelWrite.app</strong> in den Programme-Ordner ziehen</li>
+          <li>App starten → Einstellungen → Lizenz → Key eintragen → Aktivieren</li>
+          <li>Taste halten, sprechen, loslassen — der Text erscheint am Cursor ✓</li>
+        </ol>
+        <p class="wk-mac-hint">AngelWrite ist eine macOS-App. Kein Mac zur Hand? Dein Key bleibt gültig — du kannst ihn einlösen, sobald du an einem Mac bist.</p>
+
+        <div class="wk-demo"><AngelWriteDemo /></div>
+      </div>
+
+      <!-- Primärer (einziger) CTA -->
+      <div class="wk-cta">
+        <h2>Unsicher, was du zuerst automatisieren solltest — und wie?</h2>
+        <p>Genau das klären wir in 30 Minuten: ein konkreter erster KI-Prozess für deine Aufgaben. Unverbindlich, ohne Verkauf.</p>
+        <a class="wk-cta-btn" href={erstgespraech} target="_blank" rel="noopener">Kostenloses Erstgespräch buchen →</a>
+      </div>
+
+    </div>
+  </section>
+</Base>
+
+<style>
+  .wk-wrap { background:#0B1528; padding:3.5rem 1rem 5rem; }
+  .wk-inner { max-width:42rem; margin:0 auto; text-align:center; }
+
+  .wk-check {
+    width:3.4rem; height:3.4rem; margin:0 auto 1.2rem; border-radius:50%;
+    background:#F5A623; color:#0B1528; font-size:1.8rem; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .wk-h1 {
+    font-family:"Outfit","Montserrat",sans-serif; font-weight:800; color:#fff;
+    font-size:2.1rem; line-height:1.2; margin:0 0 .8rem;
+  }
+  .wk-sub { color:#C7D0DE; font-size:1.05rem; line-height:1.6; max-width:34rem; margin:0 auto 2.4rem; }
+
+  /* Beweis-Block */
+  .wk-proof {
+    background:rgba(245,166,35,.08); border:1px solid rgba(245,166,35,.3);
+    border-radius:1rem; padding:1.6rem 1.6rem; margin:0 0 1.8rem; text-align:left;
+  }
+  .wk-proof h2 {
+    font-family:"Outfit",sans-serif; font-weight:800; color:#F5A623; font-size:1.3rem; margin:0 0 .7rem;
+  }
+  .wk-proof p { color:#D7DEE9; font-size:1rem; line-height:1.7; margin:0; }
+  .wk-proof strong { color:#fff; }
+
+  /* Geschenk-Karte */
+  .wk-gift {
+    position:relative; background:#fff; border-radius:1.1rem; padding:2rem 1.75rem;
+    box-shadow:0 20px 50px rgba(0,0,0,.35); text-align:left; margin:0 0 1.8rem;
+  }
+  .wk-gift-badge {
+    position:absolute; top:1.3rem; right:1.3rem; background:#0B1528; color:#F5A623;
+    font-weight:800; font-size:.8rem; padding:.32rem .6rem; border-radius:.5rem; white-space:nowrap;
+  }
+  .wk-gift-head {
+    font-family:"Outfit",sans-serif; font-weight:800; color:#0B1528; font-size:1.3rem;
+    line-height:1.3; margin:0 0 .3rem; padding-right:5.2rem;
+  }
+  .wk-gift-sub { color:#C2410C; font-weight:600; font-size:.95rem; margin:0 0 1.3rem; }
+
+  .wk-key-wrap { background:#0B1528; border-radius:12px; padding:1.1rem 1.2rem; margin:0 0 1.1rem; }
+  .wk-key-label {
+    font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:#F5A623; margin:0 0 .5rem;
+  }
+  .wk-key {
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:1.3rem; font-weight:700;
+    color:#fff; letter-spacing:.04em; cursor:pointer; word-break:break-all; margin:0;
+  }
+  .wk-key-copied { color:#34D399; font-size:.82rem; font-weight:700; margin:.5rem 0 0; opacity:0; transition:opacity .2s; }
+  .wk-key-copied.on { opacity:1; }
+  .wk-key-fallback {
+    background:#F9F7F7; border-left:3px solid #F5A623; border-radius:.4rem;
+    padding:.8rem 1rem; color:#374151; font-size:.95rem; line-height:1.5; margin:0 0 1.1rem;
+  }
+
+  .wk-download {
+    display:block; text-align:center; background:#F5A623; color:#0B1528; font-weight:800;
+    font-size:1.05rem; padding:.95rem 1.25rem; border-radius:.7rem; text-decoration:none;
+    font-family:"Outfit",sans-serif; transition:background .12s; margin:0 0 1.4rem;
+  }
+  .wk-download:hover { background:#FAC03A; }
+
+  .wk-steps { margin:0 0 1rem; padding-left:1.2rem; color:#374151; }
+  .wk-steps li { font-size:.98rem; line-height:1.5; padding:.25rem 0; }
+  .wk-steps strong { color:#0B1528; }
+  .wk-mac-hint { color:#6B7280; font-size:.88rem; line-height:1.5; margin:0 0 1.4rem; }
+
+  .wk-demo { margin:.4rem 0 .2rem; }
+
+  /* CTA */
+  .wk-cta {
+    background:#fff; border:2px solid #F5A623; border-radius:1.1rem; padding:2rem 1.75rem; text-align:center;
+  }
+  .wk-cta h2 { font-family:"Outfit",sans-serif; font-weight:800; color:#0B1528; font-size:1.4rem; line-height:1.25; margin:0 0 .7rem; }
+  .wk-cta p { color:#4B5563; font-size:1rem; line-height:1.6; max-width:32rem; margin:0 auto 1.4rem; }
+  .wk-cta-btn {
+    display:inline-block; background:#0B1528; color:#fff; font-weight:800; font-size:1.05rem;
+    padding:1rem 1.6rem; border-radius:.7rem; text-decoration:none; font-family:"Outfit",sans-serif;
+    transition:transform .12s;
+  }
+  .wk-cta-btn:hover { transform:translateY(-1px); }
+
+  .hidden { display:none !important; }
+
+  @media (max-width:560px) {
+    .wk-h1 { font-size:1.7rem; }
+    .wk-gift, .wk-cta { padding:1.5rem 1.15rem; }
+    .wk-key { font-size:1.1rem; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var name = (params.get("name") || "").trim().slice(0, 60);
+    var key = (params.get("key") || "").trim().slice(0, 60);
+
+    if (name) {
+      document.getElementById("wk-name").textContent = ", " + name;
+    }
+
+    if (key) {
+      var keyEl = document.getElementById("wk-key");
+      keyEl.textContent = key;
+      document.getElementById("wk-key-wrap").classList.remove("hidden");
+      keyEl.addEventListener("click", function () {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(key).then(function () {
+            var c = document.getElementById("wk-key-copied");
+            c.classList.add("on");
+            setTimeout(function () { c.classList.remove("on"); }, 1800);
+          });
+        }
+      });
+    } else {
+      document.getElementById("wk-key-fallback").classList.remove("hidden");
+    }
+  })();
+</script>

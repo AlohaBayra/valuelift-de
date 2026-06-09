@@ -23,6 +23,10 @@ const tidycalUrl =
           sofort deine persönliche Auswertung: gesparte Stunden &amp; Euro pro Jahr,
           die 3 Aufgaben mit dem größten Hebel und einen Mini-Bauplan für Platz&nbsp;1.
         </p>
+        <p class="hero-gift">
+          🎁 Obendrauf geschenkt: <strong>AngelWrite Free</strong> — die Diktat-App, die ich selbst mit KI
+          gebaut habe und die mir ~60 % Schreibzeit spart. Mach den Check, am Ende gehört sie dir.
+        </p>
       </header>
 
       <!-- ============ FRAGEBOGEN ============ -->
@@ -105,11 +109,10 @@ const tidycalUrl =
           <div class="gift-card">
             <div class="gift-badge">19 € → 0 €</div>
             <div class="gift-head">🎁 Dein Willkommensgeschenk: AngelWrite&nbsp;Free</div>
-            <p class="gift-sub">sonst 19 €, für dich dauerhaft kostenlos</p>
-            <p class="gift-benefit">Statt zu tippen, sprichst du einfach. AngelWrite verwandelt deine Sprache in
-              fertigen Text — direkt dort, wo dein Cursor steht, in jeder App. 100 % lokal auf deinem Mac, keine Cloud.</p>
-            <p class="gift-proof"><em>Ich habe die App selbst in einer Woche mit KI gebaut — sie ist der lebende
-              Beweis, dass die Methode funktioniert.</em></p>
+            <p class="gift-sub">sonst 19 €, dauerhaft kostenlos</p>
+            <p class="gift-benefit">Statt zu tippen, sprichst du — AngelWrite verwandelt Sprache in fertigen Text,
+              direkt wo dein Cursor steht. 100 % lokal, keine Cloud. Ich habe die App selbst mit KI gebaut; sie spart
+              mir ~60 % Schreibzeit. <strong>Genau solche Werkzeuge kannst du dir auch selbst bauen.</strong></p>
             <div class="gift-demo"><AngelWriteDemo /></div>
           </div>
 
@@ -180,9 +183,9 @@ const tidycalUrl =
           <div class="gift-badge">19 € → 0 €</div>
           <div class="gift-head">🎁 Dein Willkommensgeschenk: AngelWrite&nbsp;Free</div>
           <p class="gift-sub">Sonst 19 € — für dich dauerhaft kostenlos.</p>
-          <p class="gift-benefit">Statt zu tippen, sprichst du. AngelWrite macht aus gesprochener Sprache fertigen
-            Text — in jeder App, 100 % lokal auf deinem Mac, ohne Cloud. In einer Woche mit KI gebaut: der lebende
-            Beweis, dass Verständnis + KI mehr schafft als reines Coden.</p>
+          <p class="gift-benefit">Statt zu tippen, sprichst du — AngelWrite verwandelt Sprache in fertigen Text,
+            direkt wo dein Cursor steht. 100 % lokal, keine Cloud. Ich habe die App selbst mit KI gebaut; sie spart
+            mir ~60 % Schreibzeit. <strong>Genau solche Werkzeuge kannst du dir auch selbst bauen.</strong></p>
           <p class="gift-platform" id="bonus-platform"></p>
           <div class="gift-demo"><AngelWriteDemo /></div>
         </div>
@@ -218,6 +221,12 @@ const tidycalUrl =
   .hl { color:#F5A623; }
   .hl-soft { color:#FAC03A; }
   .lead { color:#C7D0DE; font-size:1.06rem; line-height:1.6; max-width:36rem; margin:0 auto; }
+  .hero-gift {
+    margin:1.4rem auto 0; max-width:34rem; background:rgba(245,166,35,.1);
+    border:1px solid rgba(245,166,35,.35); border-radius:.7rem; padding:.7rem .95rem;
+    color:#E9D9BD; font-size:.92rem; line-height:1.5; text-align:left;
+  }
+  .hero-gift strong { color:#F5A623; }
 
   .card {
     background:#fff; border-radius:1.1rem; padding:2rem 1.75rem;
@@ -368,8 +377,6 @@ const tidycalUrl =
   .gift-sub { font-style:italic; color:#C2410C; font-weight:600; font-size:.95rem; margin:0 0 .95rem; }
   .gift-demo { margin:1.05rem 0 .15rem; }
   .gift-benefit { color:#374151; font-size:.98rem; line-height:1.6; margin:0 0 .7rem; }
-  .gift-proof { color:#6B7280; font-size:.92rem; line-height:1.55; margin:0; }
-  .gift-proof em { font-style:italic; }
   .gift-platform { color:#374151; font-size:.95rem; line-height:1.55; margin:.95rem 0 0; font-weight:600; }
 
   /* Wert-Stack über dem Button */
@@ -611,7 +618,7 @@ const tidycalUrl =
       var plat = navigator.platform || "";
       var isMac = /Mac/.test(plat) || (/Mac OS X/.test(ua) && !/iPhone|iPad|iPod/.test(ua));
       $("bonus-platform").innerHTML = isMac
-        ? "Nach der E-Mail-Bestätigung erscheinen dein persönlicher Lizenzkey + Download."
+        ? "Nach der E-Mail-Bestätigung erscheinen dein Lizenzkey + Download auf der Willkommensseite."
         : "AngelWrite Free (sonst 19 €) gibt es für macOS — deinen Key kannst du einlösen, sobald du an einem Mac bist.";
 
       $("preview").classList.add("hidden");
