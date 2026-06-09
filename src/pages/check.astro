@@ -1,0 +1,585 @@
+---
+import Base from "../layouts/Base.astro";
+
+const tidycalUrl =
+  "https://tidycal.com/marcuseichler/kennenlerngesprach-mit-marcus-eichler-1wr7yd6";
+---
+
+<Base
+  title="KI-Zeitspar-Check — wie viele Stunden gibt dir KI zurück? | Value Lift AI"
+  description="In 2 Minuten herausfinden, wie viele Stunden und Euro pro Jahr du durch KI-Automatisierung sparst — inklusive Top-3-Aufgaben und Mini-Bauplan. Plus: AngelWrite Free für Mac-Nutzer."
+  path="/check"
+>
+  <section class="check-wrap">
+    <div class="check-inner">
+
+      <!-- Intro -->
+      <header class="intro" id="intro">
+        <span class="kicker">KI-Zeitspar-Check · 2 Minuten</span>
+        <h1>Wie viele Stunden gibt dir&nbsp;KI <span class="hl">zurück</span>?</h1>
+        <p class="lead">
+          Beantworte 6 kurze Fragen zu deinen wiederkehrenden Aufgaben. Du bekommst
+          sofort deine persönliche Auswertung: gesparte Stunden &amp; Euro pro Jahr,
+          die 3 Aufgaben mit dem größten Hebel und einen Mini-Bauplan für Platz&nbsp;1.
+        </p>
+      </header>
+
+      <!-- ============ FRAGEBOGEN ============ -->
+      <form id="check-form" class="card" novalidate>
+
+        <!-- Frage 1 -->
+        <fieldset class="q">
+          <legend><span class="qnum">1</span> Welche wiederkehrenden Aufgaben fressen die meiste Zeit?</legend>
+          <p class="qhint">Mehrfachauswahl — wähle alles, was zutrifft.</p>
+          <div class="task-grid" id="task-grid"></div>
+        </fieldset>
+
+        <!-- Frage 2 -->
+        <fieldset class="q">
+          <legend><span class="qnum">2</span> Wie viele Stunden pro Woche kosten dich diese Aufgaben zusammen?</legend>
+          <div class="inline-field">
+            <input type="number" id="hours" min="1" max="80" step="1" inputmode="numeric"
+                   placeholder="z.&nbsp;B. 12" aria-label="Stunden pro Woche" />
+            <span class="unit">Std. / Woche</span>
+          </div>
+        </fieldset>
+
+        <!-- Frage 3 -->
+        <fieldset class="q">
+          <legend><span class="qnum">3</span> Was ist deine Arbeitsstunde wert?</legend>
+          <div class="inline-field">
+            <span class="unit prefix">€</span>
+            <input type="number" id="rate" min="0" max="2000" step="5" inputmode="numeric"
+                   placeholder="80" aria-label="Stundensatz in Euro" />
+            <span class="unit">/ Stunde</span>
+          </div>
+          <p class="qhint">Lässt du es leer, rechnen wir konservativ mit 80&nbsp;€.</p>
+        </fieldset>
+
+        <!-- Frage 4 -->
+        <fieldset class="q">
+          <legend><span class="qnum">4</span> Wie weit nutzt du KI heute schon?</legend>
+          <div class="pill-grid" id="status-grid"></div>
+        </fieldset>
+
+        <!-- Frage 5 -->
+        <fieldset class="q">
+          <legend><span class="qnum">5</span> Welche EINE Aufgabe würdest du am liebsten zuerst loswerden?</legend>
+          <div class="pill-grid" id="prio-grid"></div>
+        </fieldset>
+
+        <!-- Frage 6 -->
+        <fieldset class="q">
+          <legend><span class="qnum">6</span> Deine Rolle oder Branche <span class="opt">(optional)</span></legend>
+          <input type="text" id="rolle" maxlength="80" class="text-input"
+                 placeholder="z.&nbsp;B. Business-Coach, Steuerberaterin, Agentur" aria-label="Rolle oder Branche" />
+        </fieldset>
+
+        <p class="form-error" id="form-error" hidden></p>
+        <button type="submit" class="btn-primary" id="calc-btn">Meine Auswertung berechnen →</button>
+      </form>
+
+      <!-- ============ VORSCHAU (Results-Gate) ============ -->
+      <section class="preview card hidden" id="preview" aria-live="polite">
+        <span class="result-kicker">Deine Vorschau</span>
+        <h2 class="preview-head">Das holt KI für dich raus:</h2>
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-num" id="pv-hours">–</div>
+            <div class="metric-lbl">Stunden / Jahr gespart</div>
+          </div>
+          <div class="metric metric-accent">
+            <div class="metric-num" id="pv-euro">–</div>
+            <div class="metric-lbl">Euro / Jahr gespart</div>
+          </div>
+        </div>
+
+        <div class="locked">
+          <div class="locked-list">
+            <p>🔒 Deine <strong>Top-3-Aufgaben</strong> nach Hebel</p>
+            <p>🔒 <strong>Mini-Bauplan</strong> für Platz 1 — Schritt für Schritt</p>
+            <p>🔒 <strong>AngelWrite Free</strong> — Diktat-App für macOS, dauerhaft gratis</p>
+          </div>
+
+          <!-- E-Mail-Gate -->
+          <form id="gate-form" class="gate">
+            <p class="gate-head">Vollständige Auswertung freischalten</p>
+            <div class="gate-fields">
+              <input type="text" id="g-vorname" required maxlength="60" placeholder="Vorname" autocomplete="given-name" />
+              <input type="email" id="g-email" required maxlength="120" placeholder="Deine E-Mail" autocomplete="email" />
+            </div>
+            <label class="consent">
+              <input type="checkbox" id="g-consent" required />
+              <span>
+                Ja, schick mir meine Auswertung und gelegentlich Praxis-Tipps zu KI.
+                Ich kann mich jederzeit abmelden. <a href="/datenschutz" target="_blank" rel="noopener">Datenschutz</a>.
+              </span>
+            </label>
+            <p class="form-error" id="gate-error" hidden></p>
+            <button type="submit" class="btn-primary" id="gate-btn">Auswertung freischalten &amp; AngelWrite sichern →</button>
+            <p class="gate-foot">Deine Auswertung erscheint sofort. Du bekommst zusätzlich eine kurze Bestätigungsmail — sie schaltet AngelWrite Free frei.</p>
+          </form>
+        </div>
+      </section>
+
+      <!-- ============ VOLLSTÄNDIGE AUSWERTUNG ============ -->
+      <section class="results card hidden" id="results" aria-live="polite">
+        <div class="confirm-banner" id="confirm-banner">
+          <strong>Fast geschafft!</strong> Wir haben dir eine Bestätigungsmail geschickt.
+          Bestätige kurz deine Adresse — dann landen <strong>AngelWrite Free</strong> und deine
+          Auswertung auch in deinem Postfach. (Schau ggf. im Spam-Ordner nach.)
+        </div>
+
+        <span class="result-kicker">Deine vollständige Auswertung</span>
+        <h2 class="results-head">Mit KI sparst du <span class="hl" id="r-hours-week">–</span> pro Woche</h2>
+
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-num" id="r-hours-year">–</div>
+            <div class="metric-lbl">Stunden / Jahr</div>
+          </div>
+          <div class="metric metric-accent">
+            <div class="metric-num" id="r-euro-year">–</div>
+            <div class="metric-lbl">Euro / Jahr</div>
+          </div>
+        </div>
+        <p class="status-note" id="status-note"></p>
+
+        <!-- Top-3 -->
+        <h3 class="block-head">Deine Top-3-Aufgaben zum Automatisieren</h3>
+        <div class="top3" id="top3"></div>
+
+        <!-- Mini-Bauplan -->
+        <h3 class="block-head">Mini-Bauplan für Platz 1: <span id="plan-title" class="hl-soft"></span></h3>
+        <ol class="plan" id="plan"></ol>
+
+        <!-- AngelWrite Bonus -->
+        <div class="bonus" id="bonus">
+          <div class="bonus-icon">🎁</div>
+          <div>
+            <p class="bonus-head" id="bonus-head">Dein Bonus: AngelWrite Free</p>
+            <p class="bonus-text" id="bonus-text"></p>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+          <h3>Willst du Platz 1 wirklich umsetzen?</h3>
+          <p>In einem kostenlosen Erstgespräch schauen wir gemeinsam auf deine Aufgaben
+             und welcher KI-Prozess dir am schnellsten Zeit zurückgibt. Unverbindlich, ohne Verkauf.</p>
+          <a class="btn-primary btn-cta" href={tidycalUrl} target="_blank" rel="noopener">
+            Kostenloses Erstgespräch buchen →
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </section>
+</Base>
+
+<style>
+  .check-wrap { background:#0B1528; padding:3.5rem 1rem 5rem; }
+  .check-inner { max-width: 44rem; margin:0 auto; }
+
+  .intro { text-align:center; margin-bottom:2.25rem; }
+  .kicker, .result-kicker {
+    display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; color:#F5A623; margin-bottom:1rem;
+  }
+  .intro h1 {
+    font-family:"Outfit","Montserrat",sans-serif; font-weight:800; color:#fff;
+    font-size:2.4rem; line-height:1.15; margin:0 0 1rem;
+  }
+  .hl { color:#F5A623; }
+  .hl-soft { color:#FAC03A; }
+  .lead { color:#C7D0DE; font-size:1.06rem; line-height:1.6; max-width:36rem; margin:0 auto; }
+
+  .card {
+    background:#fff; border-radius:1.1rem; padding:2rem 1.75rem;
+    box-shadow:0 20px 50px rgba(0,0,0,.35); margin-bottom:1.5rem;
+  }
+
+  .q { border:0; padding:0; margin:0 0 1.9rem; }
+  .q:last-of-type { margin-bottom:1rem; }
+  legend {
+    font-family:"Outfit","Montserrat",sans-serif; font-weight:700; color:#0B1528;
+    font-size:1.12rem; line-height:1.35; padding:0; margin-bottom:.35rem; display:block;
+  }
+  .qnum {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.6rem; height:1.6rem; border-radius:50%; background:#0B1528; color:#F5A623;
+    font-size:.85rem; font-weight:800; margin-right:.55rem; vertical-align:middle;
+  }
+  .qhint { color:#6B7280; font-size:.9rem; margin:.15rem 0 .9rem; }
+  .opt { color:#9CA3AF; font-weight:500; font-size:.9rem; }
+
+  /* Aufgaben-Checkboxen */
+  .task-grid { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+  .task-grid label, .pill {
+    display:flex; align-items:center; gap:.55rem; cursor:pointer;
+    border:2px solid #E5E7EB; border-radius:.7rem; padding:.7rem .8rem;
+    font-size:.95rem; color:#0B1528; font-weight:600; transition:all .12s; user-select:none;
+  }
+  .task-grid label:hover, .pill:hover { border-color:#F5A623; }
+  .task-grid input, .pill input { accent-color:#F5A623; width:1.1rem; height:1.1rem; flex-shrink:0; }
+  .task-grid label.on, .pill.on { border-color:#F5A623; background:#FFF7EC; }
+
+  .pill-grid { display:flex; flex-wrap:wrap; gap:.55rem; }
+  .pill { flex:1 1 auto; }
+
+  /* Eingabefelder */
+  .inline-field { display:flex; align-items:center; gap:.6rem; }
+  .inline-field input { width:8rem; }
+  input[type=number], .text-input {
+    border:2px solid #E5E7EB; border-radius:.6rem; padding:.65rem .8rem;
+    font-size:1.05rem; font-weight:600; color:#0B1528; outline:none; transition:border-color .12s;
+    -moz-appearance:textfield;
+  }
+  .text-input { width:100%; font-weight:500; }
+  input[type=number]:focus, .text-input:focus, .gate input:focus { border-color:#F5A623; }
+  .unit { color:#6B7280; font-weight:600; font-size:.95rem; }
+  .unit.prefix { font-size:1.1rem; color:#0B1528; }
+
+  .btn-primary {
+    display:inline-block; width:100%; text-align:center; cursor:pointer; border:0;
+    background:#F5A623; color:#0B1528; font-weight:800; font-size:1.05rem;
+    padding:.95rem 1.25rem; border-radius:.7rem; transition:background .12s;
+    font-family:"Outfit","Montserrat",sans-serif; text-decoration:none;
+  }
+  .btn-primary:hover { background:#FAC03A; }
+  .btn-primary:disabled { opacity:.6; cursor:default; }
+
+  .form-error { color:#DC2626; font-size:.9rem; font-weight:600; margin:.2rem 0 .8rem; }
+
+  .hidden { display:none !important; }
+
+  /* Vorschau */
+  .preview-head, .results-head, .block-head {
+    font-family:"Outfit","Montserrat",sans-serif; color:#0B1528;
+  }
+  .preview-head { font-size:1.5rem; font-weight:800; margin:.2rem 0 1.2rem; }
+  .results-head { font-size:1.6rem; font-weight:800; margin:.2rem 0 1.3rem; line-height:1.2; }
+  .result-kicker { color:#C2410C; }
+
+  .metric-row { display:flex; gap:1rem; margin-bottom:1.2rem; }
+  .metric {
+    flex:1; background:#F9F7F7; border-radius:.9rem; padding:1.3rem 1rem; text-align:center;
+  }
+  .metric-accent { background:#0B1528; }
+  .metric-num {
+    font-family:"Outfit","Montserrat",sans-serif; font-weight:800; font-size:2.1rem;
+    color:#0B1528; line-height:1;
+  }
+  .metric-accent .metric-num { color:#F5A623; }
+  .metric-lbl { font-size:.82rem; font-weight:600; color:#6B7280; margin-top:.45rem; }
+  .metric-accent .metric-lbl { color:#C7D0DE; }
+
+  .locked { margin-top:.5rem; }
+  .locked-list { border-top:1px dashed #E5E7EB; padding-top:1.1rem; margin-bottom:1.3rem; }
+  .locked-list p { color:#6B7280; font-size:.98rem; margin:.45rem 0; }
+
+  .gate { background:#F9F7F7; border-radius:.9rem; padding:1.4rem 1.2rem; }
+  .gate-head {
+    font-family:"Outfit","Montserrat",sans-serif; font-weight:800; color:#0B1528;
+    font-size:1.15rem; margin:0 0 .9rem;
+  }
+  .gate-fields { display:flex; gap:.6rem; margin-bottom:.8rem; flex-wrap:wrap; }
+  .gate-fields input {
+    flex:1 1 12rem; min-width:0; border:2px solid #E5E7EB; border-radius:.6rem;
+    padding:.7rem .8rem; font-size:1rem; color:#0B1528; outline:none;
+  }
+  .consent { display:flex; gap:.55rem; align-items:flex-start; font-size:.86rem; color:#6B7280; line-height:1.45; margin-bottom:.9rem; }
+  .consent input { accent-color:#F5A623; width:1.05rem; height:1.05rem; margin-top:.1rem; flex-shrink:0; }
+  .consent a { color:#C2410C; }
+  .gate-foot { font-size:.8rem; color:#9CA3AF; margin:.7rem 0 0; text-align:center; }
+
+  /* Ergebnis */
+  .confirm-banner {
+    background:#FFF7EC; border:1px solid #F5A623; border-radius:.8rem;
+    padding:1rem 1.1rem; font-size:.95rem; color:#7C3D00; line-height:1.5; margin-bottom:1.6rem;
+  }
+  .status-note { background:#F9F7F7; border-left:3px solid #F5A623; border-radius:.4rem;
+    padding:.8rem 1rem; color:#374151; font-size:.96rem; line-height:1.5; margin:0 0 1.8rem; }
+
+  .block-head { font-size:1.2rem; font-weight:800; margin:1.8rem 0 1rem; }
+
+  .top3 { display:flex; flex-direction:column; gap:.7rem; }
+  .top3-item { }
+  .top3-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:.3rem; }
+  .top3-rank { font-weight:800; color:#0B1528; font-size:1rem; }
+  .top3-rank em { color:#F5A623; font-style:normal; }
+  .top3-pct { font-size:.85rem; font-weight:700; color:#6B7280; }
+  .bar { height:.55rem; background:#EEF0F3; border-radius:1rem; overflow:hidden; }
+  .bar-fill { height:100%; background:#F5A623; border-radius:1rem; }
+
+  .plan { margin:0; padding-left:0; list-style:none; counter-reset:step; }
+  .plan li {
+    position:relative; padding:.2rem 0 1.1rem 2.6rem; counter-increment:step;
+    color:#374151; font-size:.98rem; line-height:1.5;
+  }
+  .plan li::before {
+    content:counter(step); position:absolute; left:0; top:0;
+    width:1.8rem; height:1.8rem; border-radius:50%; background:#0B1528; color:#F5A623;
+    font-weight:800; font-size:.9rem; display:flex; align-items:center; justify-content:center;
+  }
+  .plan li:not(:last-child)::after {
+    content:""; position:absolute; left:.85rem; top:1.8rem; bottom:.2rem; width:2px; background:#E5E7EB;
+  }
+
+  .bonus {
+    display:flex; gap:1rem; align-items:flex-start; background:#0B1528; border-radius:.9rem;
+    padding:1.3rem 1.3rem; margin:1.9rem 0; }
+  .bonus-icon { font-size:1.8rem; line-height:1; }
+  .bonus-head { font-family:"Outfit",sans-serif; font-weight:800; color:#F5A623; margin:0 0 .35rem; font-size:1.1rem; }
+  .bonus-text { color:#C7D0DE; font-size:.95rem; line-height:1.55; margin:0; }
+  .bonus-text a { color:#F5A623; }
+
+  .cta { text-align:center; border-top:1px solid #E5E7EB; padding-top:1.8rem; margin-top:.5rem; }
+  .cta h3 { font-family:"Outfit",sans-serif; font-weight:800; color:#0B1528; font-size:1.35rem; margin:0 0 .6rem; }
+  .cta p { color:#4B5563; font-size:1rem; line-height:1.55; max-width:32rem; margin:0 auto 1.3rem; }
+  .btn-cta { max-width:24rem; }
+
+  @media (max-width:560px) {
+    .intro h1 { font-size:1.95rem; }
+    .task-grid { grid-template-columns:1fr; }
+    .metric-num { font-size:1.7rem; }
+    .card { padding:1.5rem 1.15rem; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    // ---------- Daten ----------
+    var TASKS = [
+      { id: "content",   label: "Content / LinkedIn",     factor: 0.60 },
+      { id: "recherche", label: "Recherche",              factor: 0.50 },
+      { id: "email",     label: "E-Mails / Anfragen",     factor: 0.40 },
+      { id: "angebote",  label: "Angebote / Proposals",   factor: 0.40 },
+      { id: "admin",     label: "Admin / Doku",           factor: 0.30 },
+      { id: "kunden",    label: "Kundenkommunikation",    factor: 0.25 }
+    ];
+
+    var STATUS = [
+      { id: "gar_nicht",     label: "Gar nicht",
+        note: "Du startest bei null — der Hebel ist jetzt am größten. Schon ein einziger KI-Prozess bringt sofort spürbar Zeit zurück." },
+      { id: "ausprobiert",   label: "Mal ausprobiert",
+        note: "Du hast erste Erfahrung gesammelt — jetzt fehlt nur ein fester Prozess, der jede Woche zuverlässig läuft." },
+      { id: "unregelmaessig",label: "Unregelmäßig",
+        note: "Du nutzt KI punktuell — als wiederkehrender Prozess wird daraus echte, planbare Ersparnis statt Zufallstreffer." },
+      { id: "im_einsatz",    label: "Fest im Einsatz",
+        note: "Du bist schon dran — jetzt geht es um Skalierung und die nächsten Aufgaben auf deiner Liste." }
+    ];
+
+    var PLANS = {
+      content: ["Sammle 5 deiner besten bisherigen Posts und deine Kernthemen als kurzes „Stil-Briefing“.",
+        "Baue einen Prompt, der aus einer Stichwort-Notiz einen Post in deiner Stimme erzeugt.",
+        "Lege eine Ideen-Liste an, aus der die KI wöchentlich 3 fertige Entwürfe zieht.",
+        "Feinschliff-Schleife: 2 Korrektur-Durchläufe pro Post, bis der Ton sitzt."],
+      recherche: ["Lege fest, welche Quellen du regelmäßig auswertest (Markt, Wettbewerb, Themen).",
+        "Baue einen Recherche-Prompt mit klarer Struktur: Frage → Quellen → Zusammenfassung → Fazit.",
+        "Lass die KI je Thema ein 1-Seiten-Briefing mit Kernpunkten und Links erstellen.",
+        "Wöchentlicher Lauf — du liest 1 Seite, statt 2 Stunden zu suchen."],
+      email: ["Definiere 4–5 wiederkehrende Anfrage-Typen (Preis, Termin, Absage, Rückfrage).",
+        "Hinterlege je Typ eine Antwort-Vorlage plus deinen Tonfall als Prompt.",
+        "Schalte einen KI-Schritt davor, der dir den passenden Entwurf vorschlägt.",
+        "Du prüfst nur noch, passt 1–2 Sätze an und sendest."],
+      angebote: ["Zerlege dein Standard-Angebot in Bausteine (Leistung, Nutzen, Preis, Ablauf).",
+        "Erstelle eine Vorlage, die die KI aus 5 Eckdaten zum Kunden befüllt.",
+        "Lege eine Nutzen-Bibliothek an, aus der die KI passende Argumente zieht.",
+        "Du finalisierst Preis und persönliche Note — der Rohentwurf steht in Minuten."],
+      admin: ["Liste deine wiederkehrenden Doku-Aufgaben (Protokolle, Berichte, Ablage).",
+        "Baue Vorlagen und Prompts, die aus Stichpunkten saubere Dokumente machen.",
+        "Nutze Diktat (z. B. AngelWrite), um Notizen direkt in Text zu verwandeln.",
+        "Die KI strukturiert und formatiert — du kontrollierst nur noch."],
+      kunden: ["Erfasse die häufigsten Nachrichten-Situationen mit Kunden.",
+        "Hinterlege deinen Kommunikationsstil als Prompt (klar, empathisch, lösungsorientiert).",
+        "Lass die KI Entwürfe für aufwändige oder heikle Nachrichten vorbereiten.",
+        "Die persönliche Freigabe bleibt bei dir — Tempo und Konsistenz steigen."]
+    };
+
+    var FALLBACK_RATE = 80;
+    var state = { computed: null };
+
+    // ---------- Helpers ----------
+    var $ = function (id) { return document.getElementById(id); };
+    function fmt(n) { return Math.round(n).toLocaleString("de-DE"); }
+    function taskById(id) { for (var i = 0; i < TASKS.length; i++) if (TASKS[i].id === id) return TASKS[i]; return null; }
+
+    // ---------- Render Inputs ----------
+    var tg = $("task-grid");
+    TASKS.forEach(function (t) {
+      var l = document.createElement("label");
+      l.innerHTML = '<input type="checkbox" name="task" value="' + t.id + '"><span>' + t.label + '</span>';
+      var cb = l.querySelector("input");
+      cb.addEventListener("change", function () { l.classList.toggle("on", cb.checked); });
+      tg.appendChild(l);
+    });
+
+    var sg = $("status-grid");
+    STATUS.forEach(function (s, i) {
+      var l = document.createElement("label"); l.className = "pill";
+      l.innerHTML = '<input type="radio" name="status" value="' + s.id + '"><span>' + s.label + '</span>';
+      var rb = l.querySelector("input");
+      rb.addEventListener("change", function () {
+        Array.prototype.forEach.call(sg.children, function (c) { c.classList.remove("on"); });
+        l.classList.add("on");
+      });
+      sg.appendChild(l);
+    });
+
+    var pg = $("prio-grid");
+    TASKS.forEach(function (t) {
+      var l = document.createElement("label"); l.className = "pill";
+      l.innerHTML = '<input type="radio" name="prio" value="' + t.id + '"><span>' + t.label + '</span>';
+      var rb = l.querySelector("input");
+      rb.addEventListener("change", function () {
+        Array.prototype.forEach.call(pg.children, function (c) { c.classList.remove("on"); });
+        l.classList.add("on");
+      });
+      pg.appendChild(l);
+    });
+
+    // ---------- Berechnung ----------
+    $("check-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var err = $("form-error");
+      err.hidden = true;
+
+      var selected = Array.prototype.map.call(
+        document.querySelectorAll('input[name="task"]:checked'), function (c) { return c.value; });
+      var hours = parseFloat($("hours").value);
+      var rateRaw = $("rate").value.trim();
+      var rate = rateRaw === "" ? FALLBACK_RATE : parseFloat(rateRaw);
+      var statusEl = document.querySelector('input[name="status"]:checked');
+      var prioEl = document.querySelector('input[name="prio"]:checked');
+
+      if (!selected.length) return fail("Bitte wähle mindestens eine Aufgabe (Frage 1).");
+      if (!(hours > 0)) return fail("Bitte gib deine Stunden pro Woche ein (Frage 2).");
+      if (!statusEl) return fail("Bitte wähle deinen KI-Status (Frage 4).");
+      if (!prioEl) return fail("Bitte wähle deine Top-Priorität (Frage 5).");
+      if (!(rate >= 0)) rate = FALLBACK_RATE;
+
+      function fail(msg) { err.textContent = msg; err.hidden = false; err.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+
+      // Ø-Faktor der gewählten Aufgaben
+      var sumF = 0;
+      selected.forEach(function (id) { sumF += taskById(id).factor; });
+      var avg = sumF / selected.length;
+
+      var hoursWeek = hours * avg;
+      var hoursYear = hoursWeek * 52;
+      var euroYear = hoursYear * rate;
+
+      // Top-3 nach Faktor
+      var ranked = selected.map(taskById).sort(function (a, b) { return b.factor - a.factor; }).slice(0, 3);
+
+      var prio = taskById(prioEl.value);
+      var status = null;
+      STATUS.forEach(function (s) { if (s.id === statusEl.value) status = s; });
+
+      state.computed = {
+        hoursWeek: hoursWeek, hoursYear: hoursYear, euroYear: euroYear,
+        ranked: ranked, prio: prio, status: status,
+        rolle: $("rolle").value.trim()
+      };
+
+      // Vorschau füllen + zeigen
+      $("pv-hours").textContent = fmt(hoursYear);
+      $("pv-euro").textContent = fmt(euroYear) + " €";
+      $("check-form").classList.add("hidden");
+      var pv = $("preview"); pv.classList.remove("hidden");
+      pv.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // ---------- E-Mail-Gate ----------
+    $("gate-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var gErr = $("gate-error"); gErr.hidden = true;
+      var vorname = $("g-vorname").value.trim();
+      var email = $("g-email").value.trim();
+      var consent = $("g-consent").checked;
+
+      if (vorname.length < 2) return gateFail("Bitte gib deinen Vornamen ein.");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return gateFail("Bitte gib eine gültige E-Mail-Adresse ein.");
+      if (!consent) return gateFail("Bitte bestätige die Einwilligung, damit wir dir die Auswertung schicken dürfen.");
+
+      function gateFail(m) { gErr.textContent = m; gErr.hidden = false; return; }
+
+      var c = state.computed;
+      var topListe = c.ranked.map(function (t) { return t.label; }).join(", ");
+      var payload = {
+        email: email, vorname: vorname,
+        resultSummary: {
+          stdJahr: Math.round(c.hoursYear),
+          eurJahr: Math.round(c.euroYear),
+          topListe: topListe,
+          prioTitel: c.prio.label
+        }
+      };
+
+      var btn = $("gate-btn");
+      btn.disabled = true; btn.textContent = "Wird gesendet …";
+
+      fetch("https://angelwrite-server-production.up.railway.app/leadmagnet/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (res.ok && res.d.ok) { revealResults(); }
+          else { gateFail((res.d && res.d.error) || "Etwas ist schiefgelaufen. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Auswertung freischalten & AngelWrite sichern →"; }
+        })
+        .catch(function () { gateFail("Verbindung fehlgeschlagen. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Auswertung freischalten & AngelWrite sichern →"; });
+    });
+
+    // ---------- Vollständige Auswertung ----------
+    function revealResults() {
+      var c = state.computed;
+      $("r-hours-week").textContent = fmt(c.hoursWeek) + " Std.";
+      $("r-hours-year").textContent = fmt(c.hoursYear);
+      $("r-euro-year").textContent = fmt(c.euroYear) + " €";
+      $("status-note").textContent = c.status ? c.status.note : "";
+
+      // Top-3 Balken (relativ zum höchsten Faktor)
+      var maxF = c.ranked[0].factor;
+      var t3 = $("top3"); t3.innerHTML = "";
+      c.ranked.forEach(function (t, i) {
+        var pct = Math.round(t.factor * 100);
+        var w = Math.round((t.factor / maxF) * 100);
+        var d = document.createElement("div"); d.className = "top3-item";
+        d.innerHTML =
+          '<div class="top3-row"><span class="top3-rank"><em>#' + (i + 1) + '</em> ' + t.label + '</span>' +
+          '<span class="top3-pct">bis ' + pct + ' % automatisierbar</span></div>' +
+          '<div class="bar"><div class="bar-fill" style="width:' + w + '%"></div></div>';
+        t3.appendChild(d);
+      });
+
+      // Mini-Bauplan
+      $("plan-title").textContent = c.prio.label;
+      var plan = $("plan"); plan.innerHTML = "";
+      (PLANS[c.prio.id] || []).forEach(function (step) {
+        var li = document.createElement("li"); li.textContent = step; plan.appendChild(li);
+      });
+
+      // AngelWrite-Bonus (macOS-Erkennung)
+      var ua = navigator.userAgent || "";
+      var plat = navigator.platform || "";
+      var isMac = /Mac/.test(plat) || (/Mac OS X/.test(ua) && !/iPhone|iPad|iPod/.test(ua));
+      if (isMac) {
+        $("bonus-head").textContent = "Dein Bonus: AngelWrite Free für deinen Mac";
+        $("bonus-text").innerHTML = "Als Dankeschön bekommst du <strong>AngelWrite Free</strong> dazu — meine Diktat-App für macOS. " +
+          "Du sprichst, dein Text erscheint am Cursor: dauerhaft kostenlos und 100 % lokal, ohne Cloud. " +
+          "Deinen persönlichen Lizenzkey siehst du direkt nach der E-Mail-Bestätigung.";
+      } else {
+        $("bonus-head").textContent = "Bonus für Mac-Nutzer: AngelWrite Free";
+        $("bonus-text").innerHTML = "Obendrauf gibt es <strong>AngelWrite Free</strong>, meine Diktat-App für macOS — " +
+          "dauerhaft kostenlos und 100 % lokal. Du nutzt gerade kein Mac-Gerät? Deine Auswertung bekommst du natürlich " +
+          "trotzdem; den AngelWrite-Key kannst du einlösen, sobald du an einem Mac bist.";
+      }
+
+      $("preview").classList.add("hidden");
+      var r = $("results"); r.classList.remove("hidden");
+      r.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  })();
+</script>
