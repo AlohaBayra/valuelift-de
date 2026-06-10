@@ -2,13 +2,14 @@
 import Base from "../layouts/Base.astro";
 import AngelWriteDemo from "../components/AngelWriteDemo.astro";
 
-// ─── Zentrale Konstanten (Fragenkatalog 2026-06-10) ──────────────────────────
+// ─── Zentrale Konstanten (Fragenkatalog v2, 2026-06-10) ──────────────────────
 const TIDYCAL =
   "https://tidycal.com/marcuseichler/kennenlerngesprach-mit-marcus-eichler-1wr7yd6";
 const SIGNUP_URL =
   "https://angelwrite-server-production.up.railway.app/leadmagnet/signup";
 const FACTORS = { content: 0.60, recherche: 0.50, angebote: 0.40, admin: 0.30, kundenkomm: 0.25 };
 const WEEKS = 46;
+const HRS_PER_WEEK = 40;
 const FB_STUNDEN = 5;
 const FB_SATZ = 80;
 
@@ -23,7 +24,7 @@ const STEPS = [
     ],
   },
   {
-    type: "choice", key: "aufgabe", q: "Welche wiederkehrende Aufgabe würdest du am liebsten nie wieder selbst machen?", opts: [
+    type: "choice", key: "aufgabe", q: "Und welche konkrete Aufgabe steckt da am meisten drin — die du am liebsten nie wieder selbst machen würdest?", opts: [
       { l: "Content & LinkedIn", v: "content" },
       { l: "Recherche & Aufbereitung", v: "recherche" },
       { l: "Angebote & E-Mails schreiben", v: "angebote" },
@@ -59,6 +60,12 @@ const OPEN = {
   rollen: "Die meiste Energie verlierst du nicht in den Aufgaben, sondern im ständigen Umschalten zwischen ihnen.",
 };
 
+const KISTAT = {
+  start: "Du musst nicht erst zum KI-Experten werden. Du brauchst einen klaren ersten Schritt — und jemanden, der ihn mit dir geht.",
+  probiert: "Und du hast längst genug ausprobiert. Es hakt nicht am Wissen — es hakt daran, dass noch niemand mit dir den ersten Prozess fertig gebaut hat.",
+  system: "Du bist weiter als die meisten. Jetzt geht es darum, aus Einzelteilen ein System zu machen.",
+};
+
 const PLAN = {
   content: ["Ein wiederverwendbares Prompt-System für deine 5 Kernthemen", "Eine Vorlage „Idee → Post → erster Kommentar“", "Ein fester 30-Minuten-Slot pro Woche, in dem die KI 80 % vorschreibt"],
   recherche: ["Eine KI-Routine, die Quellen sammelt und vorsortiert", "Automatische Zusammenfassung direkt in dein Format", "Ein wiederverwendbares Recherche-Template statt leerem Blatt"],
@@ -70,7 +77,7 @@ const PLAN = {
 
 <Base
   title="KI-Zeitspar-Check — was kostet dich die eine Aufgabe im Jahr? | Value Lift AI"
-  description="In 2 Minuten: Welche eine Sache raubt dir gerade am meisten Zeit — und was sie dich im Jahr kostet. Ehrliche Selbsteinschätzung, konkrete Zahl, erster Schritt. Kein Login, kein Pitch."
+  description="In 2 Minuten: Wie viel Zeit — und Geld — du gerade an die eine Aufgabe verlierst, die du am liebsten loswärst. Plus dein erster konkreter Schritt. Kein Login, kein Pitch."
   path="/check"
   hideNav={true}
 >
@@ -85,7 +92,7 @@ const PLAN = {
 
 <style is:global>
   .vlc-wrap { font-family: "Inter", system-ui, -apple-system, sans-serif;
-    background: radial-gradient(1200px 600px at 50% -10%, #13294a 0%, #0B1528 55%);
+    background: radial-gradient(1100px 560px at 50% -10%, #13294a 0%, #0B1528 58%);
     color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 18px 56px; }
   .vlc-shell { width: 100%; max-width: 540px; }
   .vlc-card { background: #10203b; border: 1px solid #20335a; border-radius: 20px; padding: 30px;
@@ -95,8 +102,8 @@ const PLAN = {
   .vlc-progress { height: 6px; background: #1c2c4a; border-radius: 6px; margin-bottom: 22px; overflow: hidden; }
   .vlc-progress > i { display: block; height: 100%; background: #F5A623; width: 0; transition: width .35s ease; }
   .vlc-eyebrow { font-size: 12px; letter-spacing: .05em; color: #94a3b8; margin-bottom: 10px; }
-  .vlc-h { font-family: "Outfit", "Inter", sans-serif; font-size: 26px; font-weight: 800; line-height: 1.2; margin: 0 0 12px; letter-spacing: -.01em; }
-  .vlc-q { font-family: "Outfit", "Inter", sans-serif; font-size: 22px; font-weight: 800; line-height: 1.28; margin: 0 0 22px; letter-spacing: -.01em; }
+  .vlc-h { font-family: "Outfit", "Inter", sans-serif; font-size: 24px; font-weight: 800; line-height: 1.24; margin: 0 0 10px; letter-spacing: -.01em; }
+  .vlc-q { font-family: "Outfit", "Inter", sans-serif; font-size: 21px; font-weight: 800; line-height: 1.3; margin: 0 0 22px; letter-spacing: -.01em; }
   .vlc-sub { color: #c7d2e0; font-size: 15px; line-height: 1.55; margin: 0 0 24px; }
 
   .vlc-opt { display: block; width: 100%; text-align: left; background: #152743; color: #fff; border: 1px solid #284069;
@@ -109,18 +116,22 @@ const PLAN = {
   .vlc-field input { flex: 1; background: transparent; border: 0; outline: 0; color: #fff; font-size: 26px; font-weight: 700; font-family: inherit; width: 100%; }
   .vlc-field input::placeholder { color: #4d6488; }
   .vlc-unit { color: #94a3b8; font-size: 15px; font-weight: 600; padding-right: 8px; white-space: nowrap; }
-  .vlc-hint { color: #94a3b8; font-size: 13px; margin: 0 0 22px; }
+  .vlc-hint { color: #94a3b8; font-size: 13px; margin: 0 0 18px; }
 
   .vlc-in { width: 100%; background: #152743; border: 1px solid #284069; border-radius: 13px; padding: 14px 16px;
     color: #fff; font-size: 16px; font-family: inherit; margin-bottom: 11px; outline: 0; }
   .vlc-in:focus { border-color: #F5A623; }
   .vlc-in::placeholder { color: #4d6488; }
 
-  .vlc-btn { display: inline-block; width: 100%; text-align: center; background: #F5A623; color: #0B1528; border: 0;
+  .vlc-btn { display: block; width: 100%; text-align: center; background: #F5A623; color: #0B1528; border: 0;
     border-radius: 13px; padding: 15px 18px; font-size: 16px; font-weight: 800; cursor: pointer; font-family: inherit;
     text-decoration: none; transition: .15s; }
   .vlc-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
   .vlc-btn[disabled] { opacity: .6; cursor: default; transform: none; filter: none; }
+
+  .vlc-skip { display: block; width: 100%; text-align: center; background: none; border: 0; color: #94a3b8;
+    font-size: 13px; cursor: pointer; font-family: inherit; padding: 10px 4px 0; }
+  .vlc-skip:hover { color: #fff; }
 
   .vlc-check { display: flex; gap: 9px; align-items: flex-start; color: #94a3b8; font-size: 12.5px; line-height: 1.45; margin: 4px 0 18px; }
   .vlc-check input { margin-top: 2px; }
@@ -128,26 +139,32 @@ const PLAN = {
   .vlc-err { color: #fca5a5; font-size: 13.5px; font-weight: 600; margin: 0 0 12px; }
 
   .vlc-res-label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #94a3b8; margin-bottom: 12px; }
-  .vlc-open { font-family: "Outfit", "Inter", sans-serif; font-size: 19px; font-weight: 700; line-height: 1.4; margin: 0 0 16px; }
-  .vlc-money { font-size: 16px; line-height: 1.55; color: #dbe4f0; margin: 0 0 24px; }
+  .vlc-open { font-family: "Outfit", "Inter", sans-serif; font-size: 18.5px; font-weight: 700; line-height: 1.4; margin: 0 0 12px; }
+  .vlc-kistat { color: #c7d2e0; font-size: 15px; line-height: 1.5; margin: 0 0 20px; }
+  .vlc-money { font-size: 16px; line-height: 1.55; color: #dbe4f0; margin: 0 0 4px; }
   .vlc-money b { color: #fff; }
+  .vlc-bighours { font-family: "Outfit", "Inter", sans-serif; font-size: 30px; font-weight: 800; color: #F5A623; line-height: 1.1; }
+  .vlc-money-sub { color: #94a3b8; font-size: 13.5px; line-height: 1.5; margin: 0 0 22px; }
 
   .vlc-plan { background: #0d1c34; border: 1px solid #21345b; border-radius: 14px; padding: 18px 18px 6px; margin: 0 0 18px; }
   .vlc-plan h4 { margin: 0 0 12px; font-size: 14px; letter-spacing: .02em; color: #F5A623; }
   .vlc-plan ul { margin: 0; padding: 0; list-style: none; }
   .vlc-plan li { position: relative; padding: 0 0 12px 26px; font-size: 14.5px; line-height: 1.45; color: #dbe4f0; }
-  .vlc-plan li:before { content: "→"; position: absolute; left: 0; top: 0; color: #F5A623; font-weight: 800; }
+  .vlc-plan li:before { content: "\2192"; position: absolute; left: 0; top: 0; color: #F5A623; font-weight: 800; }
 
   .vlc-gift { display: flex; gap: 13px; align-items: flex-start; background: #171a12; border: 1px solid #3a3413;
     border-radius: 14px; padding: 15px 16px; margin: 0 0 16px; }
+  .vlc-gift.win { background: #101d18; border-color: #1f4036; }
   .vlc-gift .g-anchor { font-size: 12px; color: #F5A623; font-weight: 800; white-space: nowrap; border: 1px solid #5a4a16;
     border-radius: 8px; padding: 3px 7px; align-self: center; }
+  .vlc-gift.win .g-anchor { color: #5dcaa5; border-color: #1f4036; }
   .vlc-gift p { margin: 0; font-size: 13.5px; line-height: 1.45; color: #e7ddc2; }
+  .vlc-gift.win p { color: #cfe7dd; }
   #vlc-demo-slot { margin: 0 0 20px; }
 
-  .vlc-cta-note { text-align: center; color: #94a3b8; font-size: 12.5px; margin: 11px 0 0; }
+  .vlc-cta-note { text-align: center; color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 11px 0 0; }
   .vlc-tiny { color: #5e7196; font-size: 12px; text-align: center; line-height: 1.5; margin: 20px 0 0; }
-  .vlc-back { background: none; border: 0; color: #94a3b8; font-size: 13px; cursor: pointer; margin-top: 16px; font-family: inherit; padding: 4px; }
+  .vlc-back { display: block; margin: 14px auto 0; background: none; border: 0; color: #94a3b8; font-size: 13px; cursor: pointer; font-family: inherit; padding: 4px; }
   .vlc-back:hover { color: #fff; }
 
   .vlc-rolle { border-top: 1px solid #21345b; margin-top: 22px; padding-top: 18px; }
@@ -159,7 +176,7 @@ const PLAN = {
   .vlc-rolle-save:hover { border-color: #F5A623; }
 </style>
 
-<script is:inline define:vars={{ FACTORS, WEEKS, FB_STUNDEN, FB_SATZ, TIDYCAL, SIGNUP_URL, STEPS, OPEN, PLAN }}>
+<script is:inline define:vars={{ FACTORS, WEEKS, HRS_PER_WEEK, FB_STUNDEN, FB_SATZ, TIDYCAL, SIGNUP_URL, STEPS, OPEN, KISTAT, PLAN }}>
   (function () {
     var IS_MAC = /Mac/.test(navigator.platform) || /Macintosh/.test(navigator.userAgent);
     var state = { stunden: FB_STUNDEN, stundensatz: FB_SATZ };
@@ -187,8 +204,8 @@ const PLAN = {
 
       if (s.type === "intro") {
         card.innerHTML =
-          '<h1 class="vlc-h">In 2 Minuten: Welche eine Sache raubt dir gerade am meisten Zeit — und was sie dich im Jahr kostet.</h1>' +
-          '<p class="vlc-sub">Kein Login, kein Pitch. Ehrliche Selbsteinschätzung statt Guru-Sprüche. Am Ende bekommst du eine konkrete Zahl und den ersten Schritt.</p>' +
+          '<h1 class="vlc-h">In 2 Minuten: Wie viel Zeit — und Geld — du gerade an die eine Aufgabe verlierst, die du am liebsten loswärst. Plus dein erster konkreter Schritt, sie zurückzuholen.</h1>' +
+          '<p class="vlc-sub">Kein Login, kein Pitch. Ehrliche Selbsteinschätzung statt Guru-Sprüche.</p>' +
           '<button class="vlc-btn" id="vlc-start">Check starten →</button>';
         document.getElementById("vlc-start").onclick = function () { go(1); };
         return;
@@ -215,10 +232,12 @@ const PLAN = {
           '<div class="vlc-field"><input id="vlc-num" type="number" inputmode="numeric" placeholder="' + s.ph + '" value="' + (state[s.key] != null ? state[s.key] : "") + '"><span class="vlc-unit">' + s.unit + "</span></div>" +
           (s.hint ? '<p class="vlc-hint">' + s.hint + "</p>" : '<div style="height:14px"></div>') +
           '<button class="vlc-btn" id="vlc-next">Weiter →</button>' +
+          '<button class="vlc-skip" id="vlc-skip">Weiß ich nicht — mit Schätzwert ' + s.ph + ' weiter</button>' +
           '<button class="vlc-back">← zurück</button>';
         var inp = document.getElementById("vlc-num");
         function nxt() { var v = parseFloat(inp.value); state[s.key] = (isNaN(v) || v <= 0) ? parseFloat(s.ph) : v; go(idx + 1); }
         document.getElementById("vlc-next").onclick = nxt;
+        document.getElementById("vlc-skip").onclick = function () { state[s.key] = parseFloat(s.ph); go(idx + 1); };
         inp.onkeydown = function (e) { if (e.key === "Enter") nxt(); };
         inp.focus();
         card.querySelector(".vlc-back").onclick = function () { go(idx - 1); };
@@ -233,7 +252,7 @@ const PLAN = {
           '<input class="vlc-in" id="g-vor" placeholder="Vorname" autocomplete="given-name">' +
           '<input class="vlc-in" id="g-mail" type="email" placeholder="E-Mail" autocomplete="email">' +
           '<input class="vlc-in" id="g-tel" placeholder="Telefon (optional)" autocomplete="tel">' +
-          '<label class="vlc-check"><input type="checkbox" id="g-ok"><span>Ich bin einverstanden, die Auswertung und gelegentlich hilfreiche Impulse per E-Mail zu erhalten (jederzeit abbestellbar). <a href="/datenschutz" target="_blank" rel="noopener">Datenschutz</a>.</span></label>' +
+          '<label class="vlc-check"><input type="checkbox" id="g-ok"><span>Ich möchte meine Auswertung per E-Mail erhalten und bin einverstanden, gelegentlich hilfreiche Impulse zu bekommen (jederzeit abbestellbar). Es gilt die <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span></label>' +
           '<p class="vlc-err" id="g-err" style="display:none"></p>' +
           '<button class="vlc-btn" id="g-go">Ergebnis ansehen →</button>' +
           '<button class="vlc-back">← zurück</button>';
@@ -282,26 +301,35 @@ const PLAN = {
 
       if (s.type === "result") {
         var wk = state.stunden * (state.faktor || 0.5);
+        var wkR = Math.round(wk * 10) / 10;
         var yr = Math.round(wk * WEEKS);
+        var wochen = Math.max(1, Math.round(yr / HRS_PER_WEEK));
         var eur = Math.round(yr * state.stundensatz);
         var eurF = eur.toLocaleString("de-DE");
         var plan = PLAN[state.aufgabe] || PLAN.content;
         var open = OPEN[state.schmerz] || OPEN.lost;
+        var kistat = KISTAT[state.ki_status] || "";
 
         var h = '<div class="vlc-res-label">Deine Auswertung, ' + (state.vorname || "") + "</div>" +
           '<p class="vlc-open">' + open + "</p>" +
-          '<p class="vlc-money">Du verlierst aktuell rund <b>' + (Math.round(wk * 10) / 10) + ' Std./Woche</b> an dieser Aufgabe. Das sind <b>~' + yr + ' Stunden im Jahr</b> — etwa <b>' + eurF + ' €</b> an Wert, die nicht dir, sondern dem Hamsterrad gehören.</p>' +
+          (kistat ? '<p class="vlc-kistat">' + kistat + "</p>" : "") +
+          '<p class="vlc-money">Du verlierst aktuell rund <b>' + wkR + ' Std./Woche</b> an dieser Aufgabe — das sind</p>' +
+          '<div class="vlc-bighours">~' + yr + ' Stunden im Jahr</div>' +
+          '<p class="vlc-money" style="margin-top:6px">mehr als <b>' + wochen + ' volle Arbeitswochen</b>, die nicht dir gehören.</p>' +
+          '<p class="vlc-money-sub">Gegengerechnet mit deinem Stundenwert entspricht das rund ' + eurF + ' € im Jahr.</p>' +
           '<div class="vlc-plan"><h4>Dein erster Schritt</h4><ul>' +
           plan.map(function (p) { return "<li>" + p + "</li>"; }).join("") +
           "</ul></div>";
 
         if (IS_MAC) {
-          h += '<div class="vlc-gift"><span class="g-anchor">19 € → 0 €</span><p><b>Bonus für Mac:</b> AngelWrite Free — mit KI gebaut, spart mir ~60 % Schreibzeit. Solche Workflows kannst du dir auch selbst bauen. Deinen Lizenzkey schalte ich nach der E-Mail-Bestätigung frei.</p></div>' +
+          h += '<div class="vlc-gift"><span class="g-anchor">19 € → 0 €</span><p><b>Bonus für Mac:</b> AngelWrite Free — diktier statt tippen, die KI macht den Rest. Hab ich selbst in einer Woche mit KI gebaut. Genau solche Workflows baust du dir auch — ich zeig dir wie.</p></div>' +
             '<div id="vlc-demo-slot"></div>';
+        } else {
+          h += '<div class="vlc-gift win"><span class="g-anchor">Gratis</span><p><b>Dein Mini-Bauplan zum Mitnehmen:</b> Ich schicke dir die 3 Schritte oben als kompakte Vorlage per Mail — sofort umsetzbar, ohne Vorkenntnisse.</p></div>';
         }
 
         h += '<a class="vlc-btn" href="' + TIDYCAL + '" target="_blank" rel="noopener">Kostenloses Erstgespräch buchen</a>' +
-          '<p class="vlc-cta-note">30 Min per Video. Klare Einschätzung — kein Pitch, kein Druck.</p>' +
+          '<p class="vlc-cta-note">30 Min per Video. Klare Einschätzung — kein Pitch, kein Druck. Du gehst mit einem konkreten ersten Schritt raus, auch wenn wir nie wieder sprechen.</p>' +
           '<p class="vlc-tiny">Ich habe dir gerade eine Bestätigungsmail geschickt. Bestätige sie kurz — dann bekommst du die Auswertung per Mail' + (IS_MAC ? ' und schaltest dein AngelWrite-Geschenk frei' : '') + '.</p>' +
           '<div class="vlc-rolle">' +
           '<label class="vlc-rolle-lbl" for="r-rolle">Optional: Was machst du beruflich? Hilft mir, dein Erstgespräch vorzubereiten.</label>' +
