@@ -20,17 +20,17 @@ const STEPS = [
     type: "choice", key: "schmerz", q: "Was raubt dir als Interim Manager gerade am meisten Energie?", opts: [
       { l: "Sichtbar bleiben, während ich im Mandat stecke — fachlich liefere ich, aber für Akquise bleibt keine Zeit.", v: "akquise" },
       { l: "Mein nächstes Mandat hängt komplett an mir — kein System, das im Hintergrund weiterläuft.", v: "allein" },
-      { l: "Ich bin voll im Mandat — und verdränge, dass danach wieder Funkstille droht.", v: "lost" },
-      { l: "Liefern, dokumentieren, akquirieren gleichzeitig — das ständige Umschalten zerreißt mich.", v: "rollen" },
+      { l: "Ich bin voll im Mandat — und im Hinterkopf nagt, dass danach wieder Funkstille kommt.", v: "lost" },
+      { l: "Liefern, dokumentieren, nebenbei akquirieren — das ständige Umschalten zwischen den Rollen kostet mich am meisten.", v: "rollen" },
     ],
   },
   {
     type: "choice", key: "aufgabe", q: "Und welche Aufgabe rund um dein nächstes Mandat frisst am meisten Zeit — die du am liebsten nie wieder selbst machen würdest?", opts: [
-      { l: "Sichtbarkeit & LinkedIn-Präsenz", v: "content" },
+      { l: "Sichtbarkeit aufbauen & LinkedIn-Präsenz halten", v: "content" },
       { l: "Markt-/Auftraggeber-Recherche & Vorbereitung", v: "recherche" },
       { l: "Angebote, Exposés & Akquise-Mails", v: "angebote" },
       { l: "Reporting, Doku & Mandats-Admin", v: "admin" },
-      { l: "Netzwerk pflegen & Provider-Kontakte", v: "kundenkomm" },
+      { l: "Nachfassen, Warmhalten & Provider-Kommunikation", v: "kundenkomm" },
     ],
   },
   { type: "num", key: "stunden", q: "Wie viele Stunden pro Woche verschluckt das — Zeit, die eigentlich ins Mandat, ins nächste Mandat oder zu dir selbst gehört?", ph: "5", unit: "Std/Woche" },
@@ -38,7 +38,7 @@ const STEPS = [
   {
     type: "choice", key: "ki_status", q: "Wo stehst du mit KI gerade — ehrlich?", opts: [
       { l: "Noch gar nicht — im Mandat fehlt mir die Zeit, mich einzuarbeiten.", v: "start" },
-      { l: "Viel ausprobiert (ChatGPT, Tools), aber nichts läuft dauerhaft neben dem Mandat.", v: "probiert" },
+      { l: "Einiges ausprobiert (ChatGPT, Tools) — aber nichts läuft dauerhaft, während ich im Mandat bin.", v: "probiert" },
       { l: "Erste Dinge laufen, aber kein System, das mich während des Mandats sichtbar hält.", v: "system" },
     ],
   },
