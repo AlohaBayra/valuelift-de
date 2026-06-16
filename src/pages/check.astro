@@ -10,43 +10,44 @@ const SIGNUP_URL =
 const FACTORS = { content: 0.60, recherche: 0.50, angebote: 0.40, admin: 0.30, kundenkomm: 0.25 };
 const WEEKS = 46;
 const HRS_PER_WEEK = 40;
+const HRS_PER_DAY = 8;
 const FB_STUNDEN = 5;
-const FB_SATZ = 80;
+const FB_SATZ = 1400;
 
 const STEPS = [
   { type: "intro" },
   {
-    type: "choice", key: "schmerz", q: "Was raubt dir gerade am meisten Energie?", opts: [
-      { l: "Sichtbarkeit & Kunden gewinnen — fachlich bin ich top, aber das liegt mir nicht.", v: "akquise" },
-      { l: "Ich mache zu viel allein — am Ende hängt alles an mir.", v: "allein" },
-      { l: "Ich arbeite viel und frage mich abends, ob ich am Richtigen saß.", v: "lost" },
-      { l: "Das ständige Springen zwischen lauter Rollen zerreißt mich.", v: "rollen" },
+    type: "choice", key: "schmerz", q: "Was raubt dir als Interim Manager gerade am meisten Energie?", opts: [
+      { l: "Sichtbar bleiben, während ich im Mandat stecke — fachlich liefere ich, aber für Akquise bleibt keine Zeit.", v: "akquise" },
+      { l: "Mein nächstes Mandat hängt komplett an mir — kein System, das im Hintergrund weiterläuft.", v: "allein" },
+      { l: "Ich bin voll im Mandat — und verdränge, dass danach wieder Funkstille droht.", v: "lost" },
+      { l: "Liefern, dokumentieren, akquirieren gleichzeitig — das ständige Umschalten zerreißt mich.", v: "rollen" },
     ],
   },
   {
-    type: "choice", key: "aufgabe", q: "Und welche konkrete Aufgabe steckt da am meisten drin — die du am liebsten nie wieder selbst machen würdest?", opts: [
-      { l: "Content & LinkedIn", v: "content" },
-      { l: "Recherche & Aufbereitung", v: "recherche" },
-      { l: "Angebote & E-Mails schreiben", v: "angebote" },
-      { l: "Admin & Orga", v: "admin" },
-      { l: "Kundenkommunikation & Termine", v: "kundenkomm" },
+    type: "choice", key: "aufgabe", q: "Und welche Aufgabe rund um dein nächstes Mandat frisst am meisten Zeit — die du am liebsten nie wieder selbst machen würdest?", opts: [
+      { l: "Sichtbarkeit & LinkedIn-Präsenz", v: "content" },
+      { l: "Markt-/Auftraggeber-Recherche & Vorbereitung", v: "recherche" },
+      { l: "Angebote, Exposés & Akquise-Mails", v: "angebote" },
+      { l: "Reporting, Doku & Mandats-Admin", v: "admin" },
+      { l: "Netzwerk pflegen & Provider-Kontakte", v: "kundenkomm" },
     ],
   },
-  { type: "num", key: "stunden", q: "Wie viele Stunden pro Woche verschluckt das — Zeit, die eigentlich Kunden, Familie oder dir selbst gehört?", ph: "5", unit: "Std/Woche" },
-  { type: "num", key: "stundensatz", q: "Was ist eine Stunde deiner Zeit wert, wenn du sie in echte Kundenarbeit stecken könntest?", ph: "80", unit: "€", hint: "Grobe Schätzung reicht — es geht ums Größenverhältnis, nicht um die Buchhaltung." },
+  { type: "num", key: "stunden", q: "Wie viele Stunden pro Woche verschluckt das — Zeit, die eigentlich ins Mandat, ins nächste Mandat oder zu dir selbst gehört?", ph: "5", unit: "Std/Woche" },
+  { type: "num", key: "stundensatz", q: "Was ist dein Tagessatz im Mandat — grob?", ph: "1400", unit: "€/Tag", hint: "Grobe Schätzung reicht — es geht ums Größenverhältnis, nicht um die Buchhaltung." },
   {
     type: "choice", key: "ki_status", q: "Wo stehst du mit KI gerade — ehrlich?", opts: [
-      { l: "Noch gar nicht — ich weiß nicht, wo ich anfangen soll.", v: "start" },
-      { l: "Viel ausprobiert (ChatGPT, Tools, Kurse), aber nichts läuft dauerhaft.", v: "probiert" },
-      { l: "Erste Dinge laufen, aber kein echtes System.", v: "system" },
+      { l: "Noch gar nicht — im Mandat fehlt mir die Zeit, mich einzuarbeiten.", v: "start" },
+      { l: "Viel ausprobiert (ChatGPT, Tools), aber nichts läuft dauerhaft neben dem Mandat.", v: "probiert" },
+      { l: "Erste Dinge laufen, aber kein System, das mich während des Mandats sichtbar hält.", v: "system" },
     ],
   },
   {
-    type: "choice", key: "ziel", q: "Wenn dir nächste Woche die Zeit geschenkt würde — was käme zuerst?", opts: [
-      { l: "Endlich planbar Kunden gewinnen.", v: "kunden" },
-      { l: "Mal wieder durchatmen.", v: "durchatmen" },
-      { l: "An der Strategie statt im Klein-Klein arbeiten.", v: "strategie" },
-      { l: "Etwas, das mir wirklich Spaß macht.", v: "freude" },
+    type: "choice", key: "ziel", q: "Wenn dir das nächste Mandat sicher wäre — was käme zuerst?", opts: [
+      { l: "Endlich planbar Anschlussmandate — ohne Leerlauf dazwischen.", v: "kunden" },
+      { l: "Mal wieder durchatmen — ohne Akquise-Druck im Nacken.", v: "durchatmen" },
+      { l: "Mich aufs Mandat konzentrieren statt nebenbei Akquise zu jonglieren.", v: "strategie" },
+      { l: "Wieder Mandate, die wirklich zu mir passen.", v: "freude" },
     ],
   },
   { type: "gate" },
@@ -54,30 +55,30 @@ const STEPS = [
 ];
 
 const OPEN = {
-  akquise: "Dein Engpass ist nicht dein Können. Es ist, dass Sichtbarkeit und Akquise dir Energie rauben, statt sie zu bringen — und genau dieser Teil lässt sich systematisieren.",
-  allein: "Das Problem ist nicht, dass du zu wenig tust. Es ist, dass alles an dir hängt — und niemand diese Stunden für dich übernimmt.",
-  lost: "Du arbeitest nicht zu wenig. Du arbeitest nur ohne klare Priorität — und das kostet dich am meisten.",
-  rollen: "Die meiste Energie verlierst du nicht in den Aufgaben, sondern im ständigen Umschalten zwischen ihnen.",
+  akquise: "Dein Engpass ist nicht dein Können. Es ist das Akquise-Paradox: Im Mandat hast du keine Zeit für Sichtbarkeit — und genau das rächt sich in der Lücke danach. Dieser Teil lässt sich systematisieren, ohne dass du ihn selbst machst.",
+  allein: "Das Problem ist nicht, dass du zu wenig tust. Es ist, dass dein nächstes Mandat allein an dir hängt — und niemand im Hintergrund deine Sichtbarkeit am Laufen hält.",
+  lost: "Du arbeitest nicht zu wenig. Du verdrängst nur, dass nach dem Mandat die Funkstille kommt — und genau das kostet dich am meisten.",
+  rollen: "Die meiste Energie verlierst du nicht im Liefern, sondern im ständigen Umschalten zwischen Mandat, Doku und Akquise.",
 };
 
 const KISTAT = {
-  start: "Du musst nicht erst zum KI-Experten werden. Du brauchst einen klaren ersten Schritt — und jemanden, der ihn mit dir geht.",
-  probiert: "Und du hast längst genug ausprobiert. Es hakt nicht am Wissen — es hakt daran, dass noch niemand mit dir den ersten Prozess fertig gebaut hat.",
-  system: "Du bist weiter als die meisten. Jetzt geht es darum, aus Einzelteilen ein System zu machen.",
+  start: "Du musst nicht zum KI-Experten werden. Du brauchst ein System, das dich während des Mandats sichtbar hält — und jemanden, der es mit dir aufsetzt.",
+  probiert: "Und du hast längst genug ausprobiert. Es hakt nicht am Wissen — es hakt daran, dass neben dem Mandat niemand den ersten Prozess mit dir fertig baut.",
+  system: "Du bist weiter als die meisten. Jetzt geht es darum, aus Einzelteilen ein System zu machen, das dein nächstes Mandat anbahnt, während du lieferst.",
 };
 
 const PLAN = {
-  content: ["Ein wiederverwendbares Prompt-System für deine 5 Kernthemen", "Eine Vorlage „Idee → Post → erster Kommentar“", "Ein fester 30-Minuten-Slot pro Woche, in dem die KI 80 % vorschreibt"],
-  recherche: ["Eine KI-Routine, die Quellen sammelt und vorsortiert", "Automatische Zusammenfassung direkt in dein Format", "Ein wiederverwendbares Recherche-Template statt leerem Blatt"],
-  angebote: ["KI-Entwurf aus 3 Stichpunkten statt leerer Seite", "Angebots-Vorlage mit dynamischen Bausteinen", "Automatisierte Nachfass-Mails nach X Tagen"],
-  admin: ["Wiederkehrende Aufgaben als Automation statt Handarbeit", "KI-Vorsortierung von Posteingang und Belegen", "Ein einfaches Dashboard statt Zettelwirtschaft"],
-  kundenkomm: ["Antwort-Vorlagen mit KI-Entwurf für Standardfragen", "Terminbuchung komplett automatisiert", "Ein FAQ-Assistent, der die Hälfte der Fragen abfängt"],
+  content: ["Ein Prompt-System für deine 5 Kernthemen als Interim-Profil", "Eine Vorlage „Mandats-Learning → Post → erster Kommentar“", "Ein fester 30-Minuten-Slot pro Woche, in dem die KI 80 % vorschreibt"],
+  recherche: ["Eine KI-Routine, die Auftraggeber und Provider vorsortiert", "Auto-Zusammenfassung der Branchen-/Mandatslage in dein Format", "Ein wiederverwendbares Recherche-Template statt leerem Blatt"],
+  angebote: ["KI-Entwurf für Exposé/Angebot aus 3 Stichpunkten", "Angebots-Vorlage je Mandatstyp mit dynamischen Bausteinen", "Automatisierte Nachfass-Mails an warme Provider"],
+  admin: ["Mandats-Reporting als KI-Entwurf statt Handarbeit", "Anonymisierte Erfolgs-Doku als Beleg für dein nächstes Mandat", "Ein einfaches Pipeline-Board statt Zettelwirtschaft"],
+  kundenkomm: ["Antwort-Vorlagen für Provider- und Netzwerk-Fragen", "Touchpoint-Erinnerungen 6–8 Wochen vor Mandatsende", "Eine Warmhalte-Sequenz fürs Netzwerk — ohne Spam"],
 };
 ---
 
 <Base
-  title="KI-Zeitspar-Check — was kostet dich die eine Aufgabe im Jahr? | Value Lift AI"
-  description="In 2 Minuten: Wie viel Zeit — und Geld — du gerade an die eine Aufgabe verlierst, die du am liebsten loswärst. Plus dein erster konkreter Schritt. Kein Login, kein Pitch."
+  title="Interim-Akquise-Check — was kostet dich die Lücke zwischen den Mandaten? | Value Lift AI"
+  description="In 2 Minuten: Wie viel dich das Akquise-Paradox kostet — Sichtbarkeit, die im Mandat fehlt, und der Leerlauf danach. Plus dein erster Schritt. Kein Login, kein Pitch."
   path="/check"
   hideNav={true}
 >
@@ -176,7 +177,7 @@ const PLAN = {
   .vlc-rolle-save:hover { border-color: #F5A623; }
 </style>
 
-<script is:inline define:vars={{ FACTORS, WEEKS, HRS_PER_WEEK, FB_STUNDEN, FB_SATZ, TIDYCAL, SIGNUP_URL, STEPS, OPEN, KISTAT, PLAN }}>
+<script is:inline define:vars={{ FACTORS, WEEKS, HRS_PER_WEEK, HRS_PER_DAY, FB_STUNDEN, FB_SATZ, TIDYCAL, SIGNUP_URL, STEPS, OPEN, KISTAT, PLAN }}>
   (function () {
     var IS_MAC = /Mac/.test(navigator.platform) || /Macintosh/.test(navigator.userAgent);
     var state = { stunden: FB_STUNDEN, stundensatz: FB_SATZ };
@@ -204,8 +205,8 @@ const PLAN = {
 
       if (s.type === "intro") {
         card.innerHTML =
-          '<h1 class="vlc-h">In 2 Minuten: Wie viel Zeit — und Geld — du gerade an die eine Aufgabe verlierst, die du am liebsten loswärst. Plus dein erster konkreter Schritt, sie zurückzuholen.</h1>' +
-          '<p class="vlc-sub">Kein Login, kein Pitch. Ehrliche Selbsteinschätzung statt Guru-Sprüche.</p>' +
+          '<h1 class="vlc-h">Im Mandat keine Zeit für Sichtbarkeit. Danach Funkstille. Rechne in 2 Minuten aus, was dich diese Lücke jedes Jahr kostet — und sieh deinen ersten Schritt raus.</h1>' +
+          '<p class="vlc-sub">Kein Login, kein Pitch. Ehrliche Selbsteinschätzung — von einem, der selbst im Mandat steht. Kein Berater-Sprech.</p>' +
           '<button class="vlc-btn" id="vlc-start">Check starten →</button>';
         document.getElementById("vlc-start").onclick = function () { go(1); };
         return;
@@ -248,7 +249,7 @@ const PLAN = {
         card.innerHTML = progress() +
           '<div class="vlc-eyebrow">Fast geschafft</div>' +
           '<div class="vlc-q">Deine Auswertung ist fertig.</div>' +
-          '<p class="vlc-sub" style="margin-bottom:18px">Sag mir, wohin ich sie schicken darf — dann siehst du sie direkt.</p>' +
+          '<p class="vlc-sub" style="margin-bottom:18px">Wohin soll deine Auswertung gehen? Dann siehst du sie sofort.</p>' +
           '<input class="vlc-in" id="g-vor" placeholder="Vorname" autocomplete="given-name">' +
           '<input class="vlc-in" id="g-mail" type="email" placeholder="E-Mail" autocomplete="email">' +
           '<input class="vlc-in" id="g-tel" placeholder="Telefon (optional)" autocomplete="tel">' +
@@ -268,12 +269,12 @@ const PLAN = {
           var ok = document.getElementById("g-ok").checked;
           if (!v) return gerr("Bitte gib deinen Vornamen ein.");
           if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)) return gerr("Bitte gib eine gültige E-Mail-Adresse ein.");
-          if (!ok) return gerr("Bitte setze das Häkchen, damit ich dir die Auswertung schicken darf.");
+          if (!ok) return gerr("Bitte setze kurz das Häkchen — dann kommt die Auswertung sofort.");
 
           state.vorname = v; state.email = m; state.telefon = tel;
           var wk = state.stunden * (state.faktor || 0.5);
           var yr = Math.round(wk * WEEKS);
-          var eur = Math.round(yr * state.stundensatz);
+          var eur = Math.round(yr * (state.stundensatz / HRS_PER_DAY));
           var aufgabeLabel = labelFor("aufgabe", state.aufgabe);
 
           var payload = {
@@ -304,7 +305,7 @@ const PLAN = {
         var wkR = Math.round(wk * 10) / 10;
         var yr = Math.round(wk * WEEKS);
         var wochen = Math.max(1, Math.round(yr / HRS_PER_WEEK));
-        var eur = Math.round(yr * state.stundensatz);
+        var eur = Math.round(yr * (state.stundensatz / HRS_PER_DAY));
         var eurF = eur.toLocaleString("de-DE");
         var plan = PLAN[state.aufgabe] || PLAN.content;
         var open = OPEN[state.schmerz] || OPEN.lost;
@@ -316,24 +317,24 @@ const PLAN = {
           '<p class="vlc-money">Du verlierst aktuell rund <b>' + wkR + ' Std./Woche</b> an dieser Aufgabe — das sind</p>' +
           '<div class="vlc-bighours">~' + yr + ' Stunden im Jahr</div>' +
           '<p class="vlc-money" style="margin-top:6px">mehr als <b>' + wochen + ' volle Arbeitswochen</b>, die nicht dir gehören.</p>' +
-          '<p class="vlc-money-sub">Gegengerechnet mit deinem Stundenwert entspricht das rund ' + eurF + ' € im Jahr.</p>' +
+          '<p class="vlc-money-sub">Gegengerechnet mit deinem Tagessatz entspricht das rund ' + eurF + ' € im Jahr.</p>' +
           '<div class="vlc-plan"><h4>Dein erster Schritt</h4><ul>' +
           plan.map(function (p) { return "<li>" + p + "</li>"; }).join("") +
           "</ul></div>";
 
         if (IS_MAC) {
-          h += '<div class="vlc-gift"><span class="g-anchor">19 € → 0 €</span><p><b>Bonus für Mac:</b> AngelWrite Free — diktier statt tippen, die KI macht den Rest. Hab ich selbst in einer Woche mit KI gebaut. Genau solche Workflows baust du dir auch — ich zeig dir wie.</p></div>' +
+          h += '<div class="vlc-gift"><span class="g-anchor">19 € → 0 €</span><p><b>Bonus für Mac:</b> AngelWrite Free — diktier dein Mandats-Reporting, statt es zu tippen, die KI macht den Rest. Hab ich selbst in einer Woche mit KI gebaut. Genau solche Workflows baust du dir auch — ich zeig dir wie.</p></div>' +
             '<div id="vlc-demo-slot"></div>';
         } else {
-          h += '<div class="vlc-gift win"><span class="g-anchor">Gratis</span><p><b>Dein Mini-Bauplan zum Mitnehmen:</b> Ich schicke dir die 3 Schritte oben als kompakte Vorlage per Mail — sofort umsetzbar, ohne Vorkenntnisse.</p></div>';
+          h += '<div class="vlc-gift win"><span class="g-anchor">Gratis</span><p><b>Dein Mini-Bauplan zum Mitnehmen:</b> Ich schicke dir die 3 Schritte oben als kompakte Vorlage per Mail — für dein nächstes Mandat sofort umsetzbar, ohne Vorkenntnisse.</p></div>';
         }
 
         h += '<a class="vlc-btn" href="' + TIDYCAL + '" target="_blank" rel="noopener">Kostenloses Erstgespräch buchen</a>' +
-          '<p class="vlc-cta-note">30 Min per Video. Klare Einschätzung — kein Pitch, kein Druck. Du gehst mit einem konkreten ersten Schritt raus, auch wenn wir nie wieder sprechen.</p>' +
+          '<p class="vlc-cta-note">30 Min per Video, von einem, der selbst im Mandat steht. Du gehst mit einem konkreten ersten Schritt raus — kein Pitch, kein Druck. Mein Modell: Ich verdiene erst, wenn dein nächstes Mandat steht. Das Risiko trage ich, nicht du.</p>' +
           '<p class="vlc-tiny">Ich habe dir gerade eine Bestätigungsmail geschickt. Bestätige sie kurz — dann bekommst du die Auswertung per Mail' + (IS_MAC ? ' und schaltest dein AngelWrite-Geschenk frei' : '') + '.</p>' +
           '<div class="vlc-rolle">' +
           '<label class="vlc-rolle-lbl" for="r-rolle">Optional: Was machst du beruflich? Hilft mir, dein Erstgespräch vorzubereiten.</label>' +
-          '<div class="vlc-rolle-row"><input class="vlc-in" id="r-rolle" placeholder="z. B. Business-Coach, Steuerberaterin, Agentur"><button class="vlc-rolle-save" id="r-save">Senden</button></div>' +
+          '<div class="vlc-rolle-row"><input class="vlc-in" id="r-rolle" placeholder="z. B. Interim COO, Operations-Manager, Head of Operations"><button class="vlc-rolle-save" id="r-save">Senden</button></div>' +
           '<p class="vlc-hint" id="r-thanks" style="display:none;margin:8px 0 0">Danke — notiert. ✓</p>' +
           "</div>";
 
