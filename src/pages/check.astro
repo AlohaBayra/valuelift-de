@@ -161,7 +161,17 @@ const PLAN = {
   .vlc-gift.win .g-anchor { color: #5dcaa5; border-color: #1f4036; }
   .vlc-gift p { margin: 0; font-size: 13.5px; line-height: 1.45; color: #e7ddc2; }
   .vlc-gift.win p { color: #cfe7dd; }
-  #vlc-demo-slot { margin: 0 0 20px; }
+
+  .vlc-demo-toggle { margin: 0 0 20px; }
+  .vlc-demo-toggle > summary { list-style: none; cursor: pointer; color: #94a3b8; font-size: 13px; line-height: 1.5;
+    padding: 2px 0 2px 18px; position: relative; user-select: none; transition: color .15s; }
+  .vlc-demo-toggle > summary::-webkit-details-marker { display: none; }
+  .vlc-demo-toggle > summary:hover { color: #fff; }
+  .vlc-demo-toggle > summary:before { content: "\25B8"; position: absolute; left: 0; top: 2px; color: #F5A623;
+    transition: transform .15s; }
+  .vlc-demo-toggle[open] > summary:before { transform: rotate(90deg); }
+  .vlc-demo-toggle[open] > summary { margin-bottom: 12px; }
+  #vlc-demo-slot { margin: 0; }
 
   .vlc-cta-note { text-align: center; color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 11px 0 0; }
   .vlc-tiny { color: #5e7196; font-size: 12px; text-align: center; line-height: 1.5; margin: 20px 0 0; }
@@ -322,15 +332,17 @@ const PLAN = {
           plan.map(function (p) { return "<li>" + p + "</li>"; }).join("") +
           "</ul></div>";
 
+        h += '<a class="vlc-btn" href="' + TIDYCAL + '" target="_blank" rel="noopener">Kostenloses Erstgespräch buchen</a>' +
+          '<p class="vlc-cta-note">30 Min per Video, von einem, der selbst im Mandat steht. Du gehst mit einem konkreten ersten Schritt raus — kein Pitch, kein Druck. Mein Modell: Ich verdiene erst, wenn dein nächstes Mandat steht. Das Risiko trage ich, nicht du.</p>';
+
         if (IS_MAC) {
-          h += '<div class="vlc-gift"><span class="g-anchor">19 € → 0 €</span><p><b>Bonus für Mac:</b> AngelWrite Free — diktier dein Mandats-Reporting, statt es zu tippen, die KI macht den Rest. Hab ich selbst in einer Woche mit KI gebaut. Genau solche Workflows baust du dir auch — ich zeig dir wie.</p></div>' +
-            '<div id="vlc-demo-slot"></div>';
+          h += '<div class="vlc-gift"><span class="g-anchor">Mein Tipp</span><p><b>Noch ein persönlicher Tipp:</b> Was mir im Mandatsalltag enorm geholfen hat: AngelWrite. Du sprichst einfach aus, was du denkst — Reporting, Notizen, Mails — und die KI formuliert deine Gedanken aus. Als Mac-Nutzer bekommst du die Free-Version dazu.</p></div>' +
+            '<details class="vlc-demo-toggle"><summary>Kurz ansehen, wie das aussieht (30 Sek.)</summary><div id="vlc-demo-slot"></div></details>';
         } else {
           h += '<div class="vlc-gift win"><span class="g-anchor">Gratis</span><p><b>Dein Mini-Bauplan zum Mitnehmen:</b> Ich schicke dir die 3 Schritte oben als kompakte Vorlage per Mail — für dein nächstes Mandat sofort umsetzbar, ohne Vorkenntnisse.</p></div>';
         }
 
-        h += '<a class="vlc-btn" href="' + TIDYCAL + '" target="_blank" rel="noopener">Kostenloses Erstgespräch buchen</a>' +
-          '<p class="vlc-cta-note">30 Min per Video, von einem, der selbst im Mandat steht. Du gehst mit einem konkreten ersten Schritt raus — kein Pitch, kein Druck. Mein Modell: Ich verdiene erst, wenn dein nächstes Mandat steht. Das Risiko trage ich, nicht du.</p>' +
+        h +=
           '<p class="vlc-tiny">Ich habe dir gerade eine Bestätigungsmail geschickt. Bestätige sie kurz — dann bekommst du die Auswertung per Mail' + (IS_MAC ? ' und schaltest dein AngelWrite-Geschenk frei' : '') + '.</p>' +
           '<div class="vlc-rolle">' +
           '<label class="vlc-rolle-lbl" for="r-rolle">Optional: Was machst du beruflich? Hilft mir, dein Erstgespräch vorzubereiten.</label>' +
