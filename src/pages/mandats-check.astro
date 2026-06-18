@@ -267,11 +267,54 @@ const THEATER = [
         function start() {
           var u = inp.value.trim();
           if (!validUrl(u)) { err.textContent = "Bitte gib eine gültige Web- oder Profil-Adresse ein (z. B. dein-name.de)."; err.style.display = "block"; return; }
-          state.website = u; go(2);
+          state.website = u; go(1);
         }
         document.getElementById("vlc-start").onclick = start;
         inp.onkeydown = function (e) { if (e.key === "Enter") start(); };
         inp.focus();
+        return;
+      }
+
+      // ─── SC-05: Crawl-Theater + Micro-Commitment-Gate (Tagessatz @95%) ──────
+      if (idx === 1) {
+        card.innerHTML =
+          '<div class="vlc-eyebrow">Sichtbarkeits-Check läuft</div>' +
+          '<div class="vlc-progress-pct" id="t-pct">0 %</div>' +
+          '<div class="vlc-progress"><i id="t-bar"></i></div>' +
+          '<p class="vlc-theater-line" id="t-line">Wir öffnen deine öffentliche Präsenz …</p>' +
+          '<div id="t-gate"></div>';
+        var bar = document.getElementById("t-bar"), pct = document.getElementById("t-pct"),
+            line = document.getElementById("t-line"), gateBox = document.getElementById("t-gate");
+        var p = 0, paused = false;
+        function setLine(v) { for (var i = 0; i < THEATER.length; i++) if (v >= THEATER[i].at) line.textContent = THEATER[i].t; }
+        var timer = setInterval(function () {
+          if (paused) return;
+          p += 1;
+          if (p >= 95 && !paused && !state.committed) { p = 95; paused = true; microCommit(); }
+          bar.style.width = p + "%"; pct.textContent = p + " %"; setLine(p);
+          if (p >= 100) { clearInterval(timer); setTimeout(function () { go(2); }, 450); }
+        }, 28);
+
+        // Micro-Commitment: Tagessatz fragen, BEVOR der Score steht (Wert-Anker).
+        function microCommit() {
+          line.textContent = THEATER[THEATER.length - 1].t;
+          gateBox.innerHTML =
+            '<div style="margin-top:20px">' +
+            '<div class="vlc-q" style="font-size:18px">Eine Frage noch, dann steht dein Score:</div>' +
+            '<p class="vlc-sub" style="margin-bottom:14px">Was ist dein ungefährer Tagessatz im Mandat? So zeige ich dir gleich nicht nur einen Score — sondern was dich Unsichtbarkeit konkret kostet.</p>' +
+            '<div class="vlc-field"><input id="t-satz" type="number" inputmode="numeric" placeholder="1400" value="1400"><span class="vlc-unit">€/Tag</span></div>' +
+            '<p class="vlc-hint">Grobe Schätzung reicht — es geht ums Größenverhältnis.</p>' +
+            '<button class="vlc-btn" id="t-satz-go">Score anzeigen →</button>' +
+            '<button class="vlc-skip" id="t-satz-skip">Lieber nicht angeben — trotzdem weiter</button>' +
+            '</div>';
+          var si = document.getElementById("t-satz");
+          function commit(v) { state.tagessatz = v; state.committed = true; paused = false; gateBox.innerHTML = ""; }
+          document.getElementById("t-satz-go").onclick = function () {
+            var v = parseFloat(si.value); commit((isNaN(v) || v <= 0) ? 1400 : v);
+          };
+          document.getElementById("t-satz-skip").onclick = function () { state.satzSkipped = true; commit(0); };
+          si.focus();
+        }
         return;
       }
 
