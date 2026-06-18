@@ -1,0 +1,340 @@
+---
+import Base from "../layouts/Base.astro";
+
+// ─── Zentrale Konstanten ─────────────────────────────────────────────────────
+// SC-07: GENAU EIN CTA = Erstgespräch (kein Preis).
+const TIDYCAL =
+  "https://tidycal.com/marcuseichler/kennenlerngesprach-mit-marcus-eichler-1wr7yd6";
+// SC-08: DOI-Capture über bestehende Leadmagnet-Route (Brevo „Warme Leads", Liste 3).
+const SIGNUP_URL =
+  "https://angelwrite-server-production.up.railway.app/leadmagnet/signup";
+// SC-01/02: Sichtbarkeits-Engine (Python-Sidecar). LEER = Demo-Modus (kein Scan-
+// Backend-Call). 🔴 Erst nach EU-Region (Railway) + AVV mit echten Profilen befüllen.
+const VISIBILITY_URL = "";
+
+// SC-06: vier Achsen — Free zeigt nur die NAMEN (keine Einzel-Scores).
+const AXES = [
+  { key: "a1", name: "Positionierungs-Schärfe", gewicht: 25 },
+  { key: "a2", name: "Wirkungs-Belege", gewicht: 20 },
+  { key: "a3", name: "Provider-Tauglichkeit", gewicht: 40 },
+  { key: "a4", name: "Auffindbarkeit", gewicht: 15 },
+];
+
+// SC-06: Lücken-Klartext je Achse (Anrede „du", kein Tech-Jargon im Haupttext).
+const GAP_COPY = {
+  a1: {
+    bedeutet: "Wenn jemand 5 Sekunden auf dein Profil schaut, ist noch nicht sofort klar, welches EINE Problem du für WEN löst — es liest sich eher wie „erfahrener Manager, der vieles kann“.",
+    bringt: "Auftraggeber und Provider erkennen dich sofort wieder, wenn sie ihr konkretes Problem haben — statt dich als Allrounder zu überblättern.",
+    schritt: "Headline auf die Formel „Interim [Rolle] für [Problem] bei [Zielgruppe]“ bringen. (~15 Min)",
+  },
+  a2: {
+    bedeutet: "Deine Erfahrung ist da — aber sie steht noch nicht mit Zahlen da, wo ein Auftraggeber sie sieht. „Durchlaufzeit −30 %“ wirkt anders als „viel Erfahrung“.",
+    bringt: "Ein Provider hat sofort die Munition, dich seinem Kunden vorzuschlagen — anonymisiert, aber konkret.",
+    schritt: "Zwei stärkste Mandate als anonymisierte Mini-Cases mit je einer Ergebnis-Zahl. (~1 h)",
+  },
+  a3: {
+    bedeutet: "Rund die Hälfte der Interim-Mandate läuft über Provider. Ein Berater muss dich in Minuten einschätzen — findet aber noch nicht sofort Verfügbarkeit, Fokus und Modalitäten und nimmt dann lieber den Nächsten.",
+    bringt: "Der Provider findet alles für den Vorschlag auf einen Blick — du landest auf der Shortlist statt in der Nachfrage-Schleife.",
+    schritt: "Kompakter „Verfügbarkeit + Fokus + Region“-Block ganz oben. (~20 Min)",
+  },
+  a4: {
+    bedeutet: "Tippt ein Auftraggeber „Interim COO Maschinenbau“ bei Google oder fragt ChatGPT — tauchst du auf? Aktuell findet die Maschine dich vor allem, wenn man deinen Namen schon kennt.",
+    bringt: "Du wirst auch über dein Thema gefunden, nicht nur über deinen Namen — und korrekt als Interim-Manager eingeordnet.",
+    schritt: "Wichtigste Präsenz (meist LinkedIn) mit klarer Rollen-Headline + vollständigem „Über mich“. (~30 Min)",
+    tech: "Optional & technisch: strukturierte Daten (Person-Schema/JSON-LD), sameAs-Verknüpfung der Profile, knowsAbout-Themenfelder, GEO-Lesbarkeit für KI-Crawler.",
+  },
+};
+
+// SC-06: Ein-Satz-Diagnose je Achse für den „schärfsten Befund".
+const DIAGNOSE = {
+  a1: "Auftraggeber erkennen noch nicht in 5 Sekunden, welches eine Problem du für wen löst.",
+  a2: "Deine Erfolge sind real, stehen aber noch nicht mit Zahlen dort, wo der Auftraggeber sie sieht.",
+  a3: "Ein Provider-Berater findet noch nicht sofort alles, was er für einen Vorschlag braucht.",
+  a4: "Aktuell findet die Maschine dich vor allem, wenn man deinen Namen schon kennt.",
+};
+
+// SC-06: Score-Lesehilfe (immer mit erstem Schritt; nie nackter Wert).
+const BANDS = [
+  { max: 39, label: "Großes Potenzial", lesart: "Die Maschine findet und versteht dich noch kaum — hier liegt der größte schnelle Hebel.",
+    spiegel: "Ein Provider, der dich heute aufruft, müsste fast alles erfragen — die meisten nehmen dann den Nächsten." },
+  { max: 70, label: "Solide Basis, klare Lücken", lesart: "Dein Fundament steht; einzelne Lücken kosten dich Sichtbarkeit bei Providern. Gezielt geschlossen kommst du über 70.",
+    spiegel: "Ein Provider erkennt das Fundament — stolpert aber über ein, zwei fehlende Angaben und zögert." },
+  { max: 100, label: "Stark sichtbar", lesart: "Du bist provider- und maschinen-sichtbar. Jetzt geht es um Feinschliff und Vorsprung.",
+    spiegel: "Ein Provider kann dich fast ohne Rückfrage vorschlagen — du bist auf der Shortlist." },
+];
+
+// SC-05: Crawl-Theater-Schritte in Nutzen-Sprache (kein Tech-Jargon).
+const THEATER = [
+  { at: 18, t: "Wir schauen, was ein Auftraggeber auf deiner Seite zuerst sieht …" },
+  { at: 40, t: "Wir prüfen, ob dein Profil EIN Problem für EINE Zielgruppe sichtbar löst …" },
+  { at: 60, t: "Wir prüfen, ob ein Provider Verfügbarkeit, Fokus und Belege sofort findet …" },
+  { at: 80, t: "Wir prüfen, ob Google und KI dich als Interim-Manager erkennen …" },
+  { at: 95, t: "Fast fertig — wir rechnen deinen Sichtbarkeits-Score zusammen …" },
+];
+---
+
+<Base
+  title="Sichtbarkeits-Check für Interim Manager — wie findet dich ein Provider? | Value Lift AI"
+  description="In 60 Sekunden: Findet ein Auftraggeber oder Provider dich über Google und KI — und versteht er sofort, wofür du stehst? Dein Sichtbarkeits-Score plus erster Schritt. Nur öffentliche Daten, kein Login."
+  path="/mandats-check"
+  hideNav={true}
+>
+  <section class="vlc-wrap">
+    <div class="vlc-shell">
+      <div class="vlc-card" id="vlc-card"></div>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .vlc-wrap { font-family: "Inter", system-ui, -apple-system, sans-serif;
+    background: radial-gradient(1100px 560px at 50% -10%, #13294a 0%, #0B1528 58%);
+    color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 18px 56px; }
+  .vlc-shell { width: 100%; max-width: 560px; }
+  .vlc-card { background: #10203b; border: 1px solid #20335a; border-radius: 20px; padding: 30px;
+    box-shadow: 0 24px 70px rgba(0,0,0,.45); }
+  @media (max-width: 480px) { .vlc-card { padding: 22px 18px; } }
+
+  .vlc-eyebrow { font-size: 12px; letter-spacing: .05em; color: #94a3b8; margin-bottom: 10px; }
+  .vlc-h { font-family: "Outfit", "Inter", sans-serif; font-size: 24px; font-weight: 800; line-height: 1.24; margin: 0 0 10px; letter-spacing: -.01em; }
+  .vlc-q { font-family: "Outfit", "Inter", sans-serif; font-size: 21px; font-weight: 800; line-height: 1.3; margin: 0 0 18px; letter-spacing: -.01em; }
+  .vlc-sub { color: #c7d2e0; font-size: 15px; line-height: 1.55; margin: 0 0 22px; }
+  .vlc-meta-quote { border-left: 3px solid #F5A623; padding: 2px 0 2px 14px; margin: 0 0 22px; color: #c7d2e0;
+    font-size: 14.5px; line-height: 1.55; font-style: italic; }
+
+  .vlc-in { width: 100%; background: #152743; border: 1px solid #284069; border-radius: 13px; padding: 14px 16px;
+    color: #fff; font-size: 16px; font-family: inherit; margin-bottom: 11px; outline: 0; }
+  .vlc-in:focus { border-color: #F5A623; }
+  .vlc-in::placeholder { color: #4d6488; }
+  .vlc-field { display: flex; align-items: center; gap: 12px; background: #152743; border: 1px solid #284069;
+    border-radius: 13px; padding: 6px 6px 6px 16px; margin-bottom: 8px; }
+  .vlc-field input { flex: 1; background: transparent; border: 0; outline: 0; color: #fff; font-size: 24px; font-weight: 700; font-family: inherit; width: 100%; }
+  .vlc-field input::placeholder { color: #4d6488; }
+  .vlc-unit { color: #94a3b8; font-size: 15px; font-weight: 600; padding-right: 8px; white-space: nowrap; }
+  .vlc-hint { color: #94a3b8; font-size: 13px; margin: 0 0 18px; }
+
+  .vlc-btn { display: block; width: 100%; text-align: center; background: #F5A623; color: #0B1528; border: 0;
+    border-radius: 13px; padding: 15px 18px; font-size: 16px; font-weight: 800; cursor: pointer; font-family: inherit;
+    text-decoration: none; transition: .15s; }
+  .vlc-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+  .vlc-btn[disabled] { opacity: .6; cursor: default; transform: none; filter: none; }
+  .vlc-skip { display: block; width: 100%; text-align: center; background: none; border: 0; color: #94a3b8;
+    font-size: 13px; cursor: pointer; font-family: inherit; padding: 10px 4px 0; }
+  .vlc-skip:hover { color: #fff; }
+  .vlc-back { display: block; margin: 14px auto 0; background: none; border: 0; color: #94a3b8; font-size: 13px; cursor: pointer; font-family: inherit; padding: 4px; }
+  .vlc-back:hover { color: #fff; }
+  .vlc-err { color: #fca5a5; font-size: 13.5px; font-weight: 600; margin: 0 0 12px; }
+  .vlc-check { display: flex; gap: 9px; align-items: flex-start; color: #94a3b8; font-size: 12.5px; line-height: 1.45; margin: 4px 0 18px; }
+  .vlc-check input { margin-top: 2px; }
+  .vlc-check a { color: #F5A623; }
+
+  /* SC-05: Crawl-Theater */
+  .vlc-progress { height: 8px; background: #1c2c4a; border-radius: 8px; margin: 20px 0 14px; overflow: hidden; }
+  .vlc-progress > i { display: block; height: 100%; background: linear-gradient(90deg,#F5A623,#f6b84e); width: 0; transition: width .5s ease; }
+  .vlc-progress-pct { font-family: "Outfit", sans-serif; font-size: 13px; color: #F5A623; font-weight: 700; text-align: right; margin: 0 0 6px; }
+  .vlc-theater-line { color: #c7d2e0; font-size: 15px; line-height: 1.5; min-height: 44px; margin: 0; }
+
+  /* SC-06: Befund */
+  .vlc-res-label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #94a3b8; margin-bottom: 14px; }
+  .vlc-score-wrap { text-align: center; background: #0d1c34; border: 1px solid #21345b; border-radius: 16px; padding: 22px 18px; margin: 0 0 18px; }
+  .vlc-score-line { font-family: "Outfit", sans-serif; font-weight: 800; line-height: 1; }
+  .vlc-score-ist { font-size: 40px; color: #fff; }
+  .vlc-score-arrow { font-size: 22px; color: #94a3b8; margin: 0 8px; }
+  .vlc-score-pot { font-size: 40px; color: #F5A623; }
+  .vlc-score-cap { color: #94a3b8; font-size: 12.5px; margin: 10px 0 0; }
+  .vlc-band { font-family: "Outfit", sans-serif; font-weight: 800; font-size: 16px; margin: 16px 0 6px; }
+  .vlc-band.low { color: #f6b84e; } .vlc-band.mid { color: #f6b84e; } .vlc-band.high { color: #5dcaa5; }
+  .vlc-lesart { color: #dbe4f0; font-size: 14.5px; line-height: 1.5; margin: 0; }
+
+  .vlc-spiegel { background: #11233f; border: 1px solid #284069; border-radius: 13px; padding: 15px 16px; margin: 0 0 18px; }
+  .vlc-spiegel b { color: #F5A623; }
+  .vlc-spiegel p { margin: 6px 0 0; color: #dbe4f0; font-size: 14.5px; line-height: 1.5; }
+
+  .vlc-axes { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+  .vlc-axis-chip { background: #152743; border: 1px solid #284069; border-radius: 999px; padding: 7px 13px; font-size: 13px; color: #c7d2e0; }
+  .vlc-axis-chip.sharp { border-color: #F5A623; color: #fff; }
+
+  .vlc-sharp { background: #1a1408; border: 1px solid #5a4a16; border-radius: 14px; padding: 16px 17px; margin: 0 0 20px; }
+  .vlc-sharp .lbl { font-size: 12px; letter-spacing: .04em; color: #F5A623; font-weight: 800; text-transform: uppercase; }
+  .vlc-sharp p { margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: #f0e6cf; }
+
+  .vlc-gaps h4 { font-size: 14px; color: #fff; margin: 0 0 12px; font-family: "Outfit", sans-serif; }
+  .vlc-gap { border: 1px solid #21345b; border-radius: 13px; margin: 0 0 10px; overflow: hidden; }
+  .vlc-gap > summary { list-style: none; cursor: pointer; padding: 14px 16px; font-size: 15px; font-weight: 700;
+    color: #fff; position: relative; user-select: none; background: #122036; }
+  .vlc-gap > summary::-webkit-details-marker { display: none; }
+  .vlc-gap > summary:before { content: "+"; position: absolute; right: 16px; top: 13px; color: #F5A623; font-weight: 800; font-size: 18px; }
+  .vlc-gap[open] > summary:before { content: "–"; }
+  .vlc-gap .body { padding: 4px 16px 16px; }
+  .vlc-gap .body p { margin: 10px 0 0; font-size: 14px; line-height: 1.5; color: #dbe4f0; }
+  .vlc-gap .body .k { color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; display: block; margin-top: 12px; }
+  .vlc-tech { margin-top: 12px; }
+  .vlc-tech > summary { cursor: pointer; color: #5e7196; font-size: 12.5px; list-style: none; }
+  .vlc-tech > summary::-webkit-details-marker { display: none; }
+  .vlc-tech > summary:before { content: "\25B8 "; color: #5e7196; }
+  .vlc-tech[open] > summary:before { content: "\25BE "; }
+  .vlc-tech p { color: #8195b5; font-size: 12.5px; line-height: 1.5; margin: 8px 0 0; }
+
+  /* SC-07: Premium-Gate + Überleitung */
+  .vlc-premium { background: #0d1c34; border: 1px dashed #3a527e; border-radius: 16px; padding: 20px 18px; margin: 22px 0 8px; }
+  .vlc-premium h4 { font-family: "Outfit", sans-serif; font-size: 16px; color: #fff; margin: 0 0 8px; }
+  .vlc-premium .lock { font-size: 12px; color: #F5A623; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .vlc-premium ul { margin: 12px 0 0; padding: 0; list-style: none; }
+  .vlc-premium li { position: relative; padding: 0 0 10px 24px; font-size: 14px; line-height: 1.45; color: #dbe4f0; }
+  .vlc-premium li:before { content: "\2192"; position: absolute; left: 0; top: 0; color: #F5A623; font-weight: 800; }
+  .vlc-bridge { color: #c7d2e0; font-size: 14.5px; line-height: 1.55; margin: 18px 0 0; }
+  .vlc-bridge b { color: #fff; }
+  .vlc-cta-note { text-align: center; color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 11px 0 0; }
+  .vlc-tiny { color: #5e7196; font-size: 12px; text-align: center; line-height: 1.5; margin: 20px 0 0; }
+  .vlc-guard { border-top: 1px solid #21345b; margin-top: 22px; padding-top: 16px; }
+  .vlc-guard p { color: #7d90b0; font-size: 12px; line-height: 1.5; margin: 0 0 8px; }
+</style>
+
+<script is:inline define:vars={{ TIDYCAL, SIGNUP_URL, VISIBILITY_URL, AXES, GAP_COPY, DIAGNOSE, BANDS, THEATER }}>
+  (function () {
+    var state = { website: "", tagessatz: 1400 };
+    var idx = 0; // 0 intro · 1 scan · 2 gate · 3 result
+    var befund = null;
+    var card = document.getElementById("vlc-card");
+
+    function go(n) { idx = n; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+    function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+    function normUrl(u) {
+      u = (u || "").trim();
+      if (!u) return "";
+      if (!/^https?:\/\//i.test(u)) u = "https://" + u;
+      return u;
+    }
+    function validUrl(u) { return /^https?:\/\/[^\s.]+\.[^\s]{2,}/i.test(normUrl(u)); }
+
+    function bandFor(score) {
+      for (var i = 0; i < BANDS.length; i++) if (score <= BANDS[i].max) return BANDS[i];
+      return BANDS[BANDS.length - 1];
+    }
+
+    // SC-04 (Demo-Spiegel der Engine): deterministischer Befund aus der URL.
+    // Live ersetzt VISIBILITY_URL diesen Pfad durch den echten Scan.
+    function demoBefund(url) {
+      var h = 0; for (var i = 0; i < url.length; i++) h = (h * 31 + url.charCodeAt(i)) >>> 0;
+      function pick(off, lo, hi) { return lo + ((h >>> off) % (hi - lo + 1)); }
+      var ist = { a1: pick(0, 30, 70), a2: pick(3, 25, 65), a3: pick(6, 20, 55), a4: pick(9, 35, 75) };
+      var axes = AXES.map(function (a) {
+        return { key: a.key, name: a.name, gewicht: a.gewicht, ist: ist[a.key],
+                 luecke: (100 - ist[a.key]) * a.gewicht / 100 };
+      });
+      var gesamt = Math.round(axes.reduce(function (s, a) { return s + a.gewicht * a.ist / 100; }, 0));
+      var potenzial = Math.max(gesamt, Math.min(88, gesamt + 30));
+      var sorted = axes.slice().sort(function (x, y) { return y.luecke - x.luecke; });
+      return { gesamt_ist: gesamt, gesamt_potenzial: potenzial, axes: axes,
+               schaerfste: sorted[0], luecken: sorted.slice(0, 3), demo: true };
+    }
+
+    function loadBefund(cb) {
+      var url = normUrl(state.website);
+      if (!VISIBILITY_URL) { cb(demoBefund(url)); return; }
+      fetch(VISIBILITY_URL.replace(/\/$/, "") + "/api/scan_sync", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ website: url }),
+      }).then(function (r) { return r.json(); })
+        .then(function (d) { cb(normalizeServer(d, url)); })
+        .catch(function () { cb(demoBefund(url)); });
+    }
+    function normalizeServer(d, url) {
+      // Erwartet build_sichtbarkeits_check-Form; fällt sonst auf Demo zurück.
+      if (!d || !d.achsen) return demoBefund(url);
+      var axes = d.achsen.map(function (a) {
+        return { key: a.achse, name: a.name, gewicht: Math.round(a.gewicht * 100), ist: a.ist_score,
+                 luecke: (100 - a.ist_score) * a.gewicht };
+      });
+      var sorted = axes.slice().sort(function (x, y) { return y.luecke - x.luecke; });
+      return { gesamt_ist: d.gesamt_ist, gesamt_potenzial: d.gesamt_potenzial, axes: axes,
+               schaerfste: sorted[0], luecken: sorted.slice(0, 3), demo: false };
+    }
+
+    function render() {
+      // ─── SC-01: Intro + URL-Input ──────────────────────────────────────────
+      if (idx === 0) {
+        card.innerHTML =
+          '<h1 class="vlc-h">Sucht ein Auftraggeber gerade einen Interim-Manager wie dich — findet er dich? Und versteht er in 5 Sekunden, wofür du stehst?</h1>' +
+          '<p class="vlc-meta-quote">„Ein Auftraggeber sucht einen Interim-COO und fragt Google oder ChatGPT. Dieser Check zeigt dir, was die Maschine dann über dich findet — oder eben nicht."</p>' +
+          '<input class="vlc-in" id="vlc-url" type="url" inputmode="url" placeholder="deine-website.de oder LinkedIn-Profil-Link" autocomplete="url">' +
+          '<p class="vlc-err" id="vlc-url-err" style="display:none"></p>' +
+          '<button class="vlc-btn" id="vlc-start">Sichtbarkeit prüfen →</button>' +
+          '<p class="vlc-hint" style="margin-top:14px;text-align:center">Wir lesen nur, was ohnehin jeder öffentlich über dich sieht — keine Logins, keine Mandatsdaten. LinkedIn hinter dem Login können wir nicht sicher messen; das benennen wir ehrlich.</p>';
+        var inp = document.getElementById("vlc-url");
+        var err = document.getElementById("vlc-url-err");
+        function start() {
+          var u = inp.value.trim();
+          if (!validUrl(u)) { err.textContent = "Bitte gib eine gültige Web- oder Profil-Adresse ein (z. B. dein-name.de)."; err.style.display = "block"; return; }
+          state.website = u; go(2);
+        }
+        document.getElementById("vlc-start").onclick = start;
+        inp.onkeydown = function (e) { if (e.key === "Enter") start(); };
+        inp.focus();
+        return;
+      }
+
+      // ─── SC-08: DOI-Gate (Capture → Brevo „Warme Leads") ───────────────────
+      if (idx === 2) {
+        card.innerHTML =
+          '<div class="vlc-eyebrow">Dein Befund ist fertig</div>' +
+          '<div class="vlc-q">Wohin soll dein Sichtbarkeits-Befund?</div>' +
+          '<p class="vlc-sub" style="margin-bottom:18px">Du siehst ihn gleich direkt hier — und bekommst ihn zusätzlich per Mail zum Nachlesen.</p>' +
+          '<input class="vlc-in" id="g-vor" placeholder="Vorname" autocomplete="given-name">' +
+          '<input class="vlc-in" id="g-mail" type="email" placeholder="E-Mail" autocomplete="email">' +
+          '<label class="vlc-check"><input type="checkbox" id="g-ok"><span>Ich möchte meinen Sichtbarkeits-Befund per E-Mail erhalten und bin einverstanden, gelegentlich hilfreiche Impulse für Interim Manager zu bekommen (jederzeit abbestellbar). Es gilt die <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span></label>' +
+          '<p class="vlc-err" id="g-err" style="display:none"></p>' +
+          '<button class="vlc-btn" id="g-go">Befund ansehen →</button>' +
+          '<button class="vlc-back">← zurück</button>';
+        var errEl = document.getElementById("g-err");
+        function gerr(m) { errEl.textContent = m; errEl.style.display = "block"; }
+        document.getElementById("g-go").onclick = function () {
+          errEl.style.display = "none";
+          var v = document.getElementById("g-vor").value.trim();
+          var m = document.getElementById("g-mail").value.trim();
+          var ok = document.getElementById("g-ok").checked;
+          if (!v) return gerr("Bitte gib deinen Vornamen ein.");
+          if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)) return gerr("Bitte gib eine gültige E-Mail-Adresse ein.");
+          if (!ok) return gerr("Bitte setze kurz das Häkchen — dann kommt der Befund sofort.");
+          state.vorname = v; state.email = m;
+          var btn = this; btn.disabled = true; btn.textContent = "Wird gesendet …";
+          loadBefund(function (b) {
+            befund = b;
+            var payload = {
+              vorname: v, email: m, leadmagnet: "mandats-check",
+              website: normUrl(state.website),
+              tagessatz: state.tagessatz || null,
+              resultSummary: { scoreIst: b.gesamt_ist, scorePotenzial: b.gesamt_potenzial,
+                               schaerfste: b.schaerfste && b.schaerfste.name },
+            };
+            fetch(SIGNUP_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+              .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok && d.ok, d: d }; }); })
+              .then(function (res) {
+                if (res.ok) { go(3); }
+                else { gerr((res.d && res.d.error) || "Konnte gerade nicht senden. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Befund ansehen →"; }
+              })
+              .catch(function () { gerr("Verbindung fehlgeschlagen. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Befund ansehen →"; });
+          });
+        };
+        card.querySelector(".vlc-back").onclick = function () { go(0); };
+        return;
+      }
+
+      // ─── SC-06/07: Befund (Platzhalter — Detail folgt) ─────────────────────
+      if (idx === 3) {
+        var b = befund || demoBefund(normUrl(state.website));
+        var band = bandFor(b.gesamt_ist);
+        card.innerHTML =
+          '<div class="vlc-res-label">Dein Sichtbarkeits-Befund, ' + esc(state.vorname || "") + '</div>' +
+          '<div class="vlc-score-wrap"><div class="vlc-score-line"><span class="vlc-score-ist">' + b.gesamt_ist + '</span><span class="vlc-score-arrow">\u2192</span><span class="vlc-score-pot">' + b.gesamt_potenzial + '</span></div>' +
+          '<p class="vlc-score-cap">Sichtbarkeits-Score heute \u2192 erreichbares Potenzial</p>' +
+          '<div class="vlc-band">' + band.label + '</div><p class="vlc-lesart">' + band.lesart + '</p></div>' +
+          '<p class="vlc-sub">Der ausf\u00fchrliche Befund mit L\u00fccken und erstem Schritt folgt.</p>';
+        return;
+      }
+    }
+
+    render();
+  })();
+</script>
