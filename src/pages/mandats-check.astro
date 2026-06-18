@@ -118,6 +118,12 @@ const COPY = {
   ctaNotePost: ` Mein Risiko, nicht deins.`,
   // DOI was/warum (F-3)
   doiWhy: `Befund und Schließungs-Roadmap landen in deinem Postfach — in Ruhe abends nachlesbar. Du siehst gleich den vollständigen Befund hier auf der Seite.`,
+  // SC-12: „Erste Analyse"-Framing (Erstgespräch = vertiefte Schritte, nur mit Einwilligung).
+  erstAnalyseLabel: `Das ist deine erste Analyse`,
+  erstAnalysePre: `Dieser Befund ist eine erste, automatische Auswertung deiner öffentlichen Präsenz — ein Startpunkt, kein vollständiges Bild. Im kostenlosen Erstgespräch gehen wir — `,
+  erstAnalyseConsent: `nur mit deiner Einwilligung`,
+  erstAnalyseMid: ` — tiefer: weitere Analyseschritte an deinem Profil, deiner Provider-Tauglichkeit und deiner Markt-/Timing-Lage, die hier bewusst nicht automatisch laufen. Am Ende hast du nicht nur einen Score, sondern einen konkreten Fahrplan für dein nächstes Mandat — und damit den Weg, deine hier berechnete Lücke (`,
+  erstAnalysePost: `) tatsächlich zu schließen.`,
 };
 
 // sales-trainer [PFLICHT] §6 — „Ehrlich gefragt"-Einwandblock (4 Einwände).
@@ -279,6 +285,12 @@ const EINWAENDE = [
   .vlc-premium h4 { font-family: "Outfit", sans-serif; font-size: 15px; color: #fff; margin: 0 0 8px; }
   .vlc-premium .lock { font-size: 12px; color: #F5A623; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
   .vlc-premium p { color: #c7d2e0; font-size: 13.5px; line-height: 1.55; margin: 10px 0 0; }
+  /* SC-12: „Erste Analyse"-Framing */
+  .vlc-erstanalyse { background: #11233f; border: 1px solid #284069; border-left: 3px solid #F5A623; border-radius: 13px; padding: 16px 17px; margin: 18px 0 0; }
+  .vlc-erstanalyse .lbl { display: block; font-family: "Outfit", sans-serif; font-size: 14px; font-weight: 800; color: #fff; margin: 0 0 8px; }
+  .vlc-erstanalyse p { margin: 0; color: #dbe4f0; font-size: 14.5px; line-height: 1.6; }
+  .vlc-erstanalyse b { color: #F5A623; font-weight: 700; }
+
   .vlc-bridge { color: #c7d2e0; font-size: 14.5px; line-height: 1.55; margin: 18px 0 0; }
   .vlc-bridge b { color: #fff; }
   .vlc-cta-note { text-align: center; color: #94a3b8; font-size: 12.5px; line-height: 1.55; margin: 11px 0 0; }
@@ -562,6 +574,11 @@ const EINWAENDE = [
           '<p>' + esc(COPY.teaserDiffMutig) + '</p></div>';
 
         h += '<details class="vlc-more"><summary>Vollständigen Befund anzeigen</summary><div>' + more + '</div></details>';
+
+        // SC-12: „Erste Analyse"-Framing — zwischen freiem Befund und CTA/Brücke.
+        h += '<div class="vlc-erstanalyse"><span class="lbl">' + esc(COPY.erstAnalyseLabel) + '</span>' +
+          '<p>' + esc(COPY.erstAnalysePre) + '<b>' + esc(COPY.erstAnalyseConsent) + '</b>' + esc(COPY.erstAnalyseMid) +
+          bb.gesamt_ist + ' → ' + bb.gesamt_potenzial + esc(COPY.erstAnalysePost) + '</p></div>';
 
         h += '<p class="vlc-bridge">' + esc(COPY.bridge1) + '</p>' +
              '<p class="vlc-bridge">' + esc(COPY.bridge2) + '</p>';
