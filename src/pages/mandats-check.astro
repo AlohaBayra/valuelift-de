@@ -319,6 +319,7 @@ const EINWAENDE = [
     var card = document.getElementById("vlc-card");
     var sticky = document.getElementById("vlc-sticky");
     var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var DEMO = !VISIBILITY_URL; // kein Scan-Backend gesetzt = Demo (kein echter Versand)
 
     function go(n) {
       idx = n; render();
@@ -465,6 +466,7 @@ const EINWAENDE = [
           '<p class="vlc-hint" style="margin-top:-4px">' + esc(COPY.trustData) + '</p>' +
           '<p class="vlc-err" id="g-err" style="display:none"></p>' +
           '<button class="vlc-btn" id="g-go">Vollständigen Befund ansehen →</button>' +
+          (DEMO ? '<p class="vlc-tiny" style="margin-top:8px">(Demo: keine echte E-Mail, kein Versand)</p>' : '') +
           '<button class="vlc-back">← zurück</button>';
         var errEl = document.getElementById("g-err");
         function gerr(m) { errEl.textContent = m; errEl.style.display = "block"; }
@@ -484,6 +486,12 @@ const EINWAENDE = [
             website: normUrl(state.website), tagessatz: state.tagessatz || null,
             resultSummary: { scoreIst: b.gesamt_ist, scorePotenzial: b.gesamt_potenzial, schaerfste: b.schaerfste && b.schaerfste.name },
           };
+          // Demo-Weiche: ohne Scan-Backend KEIN echter Versand/Brevo-Lead — nur loggen, dann Voll-Befund.
+          if (DEMO) {
+            console.log("[mandats-check DEMO] kein Versand — payload:", payload);
+            setTimeout(function () { go(4); }, 300);
+            return;
+          }
           fetch(SIGNUP_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
             .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok && d.ok, d: d }; }); })
             .then(function (res) {
