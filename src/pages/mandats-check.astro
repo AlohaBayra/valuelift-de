@@ -364,16 +364,70 @@ const THEATER = [
         return;
       }
 
-      // ─── SC-06/07: Befund (Platzhalter — Detail folgt) ─────────────────────
+      // ─── SC-06 + SC-07: Befund (Free) + Premium-Gate + CTA ─────────────────
       if (idx === 3) {
         var b = befund || demoBefund(normUrl(state.website));
         var band = bandFor(b.gesamt_ist);
-        card.innerHTML =
-          '<div class="vlc-res-label">Dein Sichtbarkeits-Befund, ' + esc(state.vorname || "") + '</div>' +
-          '<div class="vlc-score-wrap"><div class="vlc-score-line"><span class="vlc-score-ist">' + b.gesamt_ist + '</span><span class="vlc-score-arrow">\u2192</span><span class="vlc-score-pot">' + b.gesamt_potenzial + '</span></div>' +
-          '<p class="vlc-score-cap">Sichtbarkeits-Score heute \u2192 erreichbares Potenzial</p>' +
-          '<div class="vlc-band">' + band.label + '</div><p class="vlc-lesart">' + band.lesart + '</p></div>' +
-          '<p class="vlc-sub">Der ausf\u00fchrliche Befund mit L\u00fccken und erstem Schritt folgt.</p>';
+        var bandClass = b.gesamt_ist <= 39 ? "low" : (b.gesamt_ist <= 70 ? "mid" : "high");
+        var sharpKey = b.schaerfste.key;
+
+        var h = '<div class="vlc-res-label">Dein Sichtbarkeits-Befund, ' + esc(state.vorname || "") + "</div>";
+
+        // Score — nie nackt: Ist→Potenzial + Band + Lesart + erster Schritt.
+        h += '<div class="vlc-score-wrap">' +
+          '<div class="vlc-score-line"><span class="vlc-score-ist">' + b.gesamt_ist + '</span>' +
+          '<span class="vlc-score-arrow">→</span><span class="vlc-score-pot">' + b.gesamt_potenzial + '</span></div>' +
+          '<p class="vlc-score-cap">Sichtbarkeits-Score heute → erreichbares Potenzial (0 = unsichtbar, 100 = optimal auffindbar)</p>' +
+          '<div class="vlc-band ' + bandClass + '">' + band.label + '</div>' +
+          '<p class="vlc-lesart">' + band.lesart + '</p></div>';
+
+        // Profil-Spiegel
+        h += '<div class="vlc-spiegel"><b>Profil-Spiegel</b><p>' + band.spiegel + '</p></div>';
+
+        // Vier Achsen — nur Namen (Free), schärfste hervorgehoben.
+        h += '<div class="vlc-axes">';
+        b.axes.forEach(function (a) {
+          h += '<span class="vlc-axis-chip' + (a.key === sharpKey ? ' sharp' : '') + '">' + esc(a.name) + '</span>';
+        });
+        h += '</div>';
+
+        // Schärfster Befund (ein Satz + erster Schritt).
+        var gc = GAP_COPY[sharpKey];
+        h += '<div class="vlc-sharp"><span class="lbl">Dein schärfster Hebel</span>' +
+          '<p><b>' + esc(b.schaerfste.name) + '.</b> ' + DIAGNOSE[sharpKey] +
+          ' Erster Schritt: ' + esc(gc.schritt) + ' Das allein bewegt deinen Score am stärksten.</p></div>';
+
+        // 3 konkrete Lücken (Klartext, aufklappbar; Technik nur im abgesetzten Block).
+        h += '<div class="vlc-gaps"><h4>Die 3 größten Lücken — und was sie dir bringen, wenn du sie schließt</h4>';
+        b.luecken.forEach(function (a) {
+          var g = GAP_COPY[a.key];
+          h += '<details class="vlc-gap"' + (a.key === sharpKey ? ' open' : '') + '><summary>' + esc(a.name) + '</summary>' +
+            '<div class="body">' +
+            '<span class="k">Was das bedeutet</span><p>' + esc(g.bedeutet) + '</p>' +
+            '<span class="k">Was es dir bringt</span><p>' + esc(g.bringt) + '</p>' +
+            '<span class="k">Erster Schritt</span><p>' + esc(g.schritt) + '</p>' +
+            (g.tech ? '<details class="vlc-tech"><summary>Optionaler Technik-Hintergrund</summary><p>' + esc(g.tech) + '</p></details>' : '') +
+            '</div></details>';
+        });
+        h += '</div>';
+
+        // Wert-Anker aus dem Micro-Commitment (Tagessatz).
+        if (state.tagessatz && state.tagessatz > 0) {
+          var kosten = (state.tagessatz * 20).toLocaleString("de-DE");
+          h += '<p class="vlc-sub" style="margin-top:18px">Bei deinem Tagessatz von ' + state.tagessatz.toLocaleString("de-DE") +
+            ' € kostet dich schon ein um vier Wochen verzögertes Anschlussmandat rund <b style="color:#fff">' + kosten +
+            ' €</b>. Sichtbarkeit ist der günstigste Hebel, der genau das verhindert.</p>';
+        }
+
+        // SC-09: verbindlicher Leitplanken-Block.
+        h += '<div class="vlc-guard">' +
+          '<p>Dieser Check liest nur, was ohnehin jeder öffentlich über dich sieht — keine Logins, kein Login-Scraping, keine Mandats- oder Dritt-Personendaten.</p>' +
+          '<p>Er zeigt deine <b style="color:#94a3b8">strukturelle Sichtbarkeit</b> — wie gut Suchmaschinen und KI dich finden und einordnen. Er misst nicht Reichweite, Mandate oder Umsatz.</p>' +
+          '<p>Der Score ist ein Frühindikator: steigt er, wirst du leichter gefunden. Er ist keine Mandatsgarantie.</p>' +
+          (b.demo ? '<p>Hinweis: vorab im Demo-Modus berechnet (Test). Der Live-Scan deiner echten Präsenz wird freigeschaltet, sobald die DSGVO-Voraussetzungen (EU-Region + AVV) erfüllt sind.</p>' : '') +
+          '</div>';
+
+        card.innerHTML = h;
         return;
       }
     }
