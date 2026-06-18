@@ -11,8 +11,9 @@ const SIGNUP_URL =
 // SC-01/02: Sichtbarkeits-Engine (Python-Sidecar). LEER = Demo-Modus (kein Scan-
 // Backend-Call). 🔴 Erst nach EU-Region (Railway) + AVV mit echten Profilen befüllen.
 const VISIBILITY_URL = "";
+const STEP_TOTAL = 4; // ehrlicher Schrittzähler (F-1): URL · Prüfen · Erster Befund · Freischalten
 
-// SC-06: vier Achsen — Free zeigt nur die NAMEN (keine Einzel-Scores).
+// SC-06: vier Achsen — Free zeigt Namen + grobe Ampel (F-4), Einzel-Scores gegated.
 const AXES = [
   { key: "a1", name: "Positionierungs-Schärfe", gewicht: 25 },
   { key: "a2", name: "Wirkungs-Belege", gewicht: 20 },
@@ -20,68 +21,137 @@ const AXES = [
   { key: "a4", name: "Auffindbarkeit", gewicht: 15 },
 ];
 
-// SC-06: Lücken-Klartext je Achse (Anrede „du", kein Tech-Jargon im Haupttext).
+// sales-trainer [PFLICHT]: 3 Lücken-Sätze (Beobachtung → Konsequenz), je Achse einer.
+const LUECKE_SATZ = {
+  a1: `Deine Headline sagt „erfahrener Operations-Manager“ — ein Auftraggeber erkennt darin nicht das eine Problem, das du löst, und damit sich selbst nicht wieder.`,
+  a2: `Deine Mandate stehen ohne Ergebnis-Zahlen da — die Erfolge sind real, aber ein Provider kann sie seinem Kunden so nicht weiterreichen.`,
+  a3: `Nirgends steht, ab wann du verfügbar bist — wer schnell jemanden braucht, filtert genau danach und übersieht dich.`,
+  a4: `Wer dich nicht beim Namen kennt, findet dich über dein Thema noch nicht — fragt jemand nach deiner Rolle, tauchst du kaum auf.`,
+};
+
+// SC-06: aufklappbarer Detail-Klartext je Achse (Anrede „du", kein Tech-Jargon im Haupttext).
 const GAP_COPY = {
   a1: {
-    bedeutet: "Wenn jemand 5 Sekunden auf dein Profil schaut, ist noch nicht sofort klar, welches EINE Problem du für WEN löst — es liest sich eher wie „erfahrener Manager, der vieles kann“.",
-    bringt: "Auftraggeber und Provider erkennen dich sofort wieder, wenn sie ihr konkretes Problem haben — statt dich als Allrounder zu überblättern.",
-    schritt: "Headline auf die Formel „Interim [Rolle] für [Problem] bei [Zielgruppe]“ bringen. (~15 Min)",
+    bedeutet: `Wenn jemand 5 Sekunden auf dein Profil schaut, ist noch nicht sofort klar, welches EINE Problem du für WEN löst — es liest sich eher wie „erfahrener Manager, der vieles kann“.`,
+    bringt: `Auftraggeber und Provider erkennen dich sofort wieder, wenn sie ihr konkretes Problem haben — statt dich als Allrounder zu überblättern.`,
+    schritt: `Headline auf die Formel „Interim [Rolle] für [Problem] bei [Zielgruppe]“ bringen. (~15 Min)`,
   },
   a2: {
-    bedeutet: "Deine Erfahrung ist da — aber sie steht noch nicht mit Zahlen da, wo ein Auftraggeber sie sieht. „Durchlaufzeit −30 %“ wirkt anders als „viel Erfahrung“.",
-    bringt: "Ein Provider hat sofort die Munition, dich seinem Kunden vorzuschlagen — anonymisiert, aber konkret.",
-    schritt: "Zwei stärkste Mandate als anonymisierte Mini-Cases mit je einer Ergebnis-Zahl. (~1 h)",
+    bedeutet: `Deine Erfahrung ist da — aber sie steht noch nicht mit Zahlen da, wo ein Auftraggeber sie sieht. „Durchlaufzeit −30 %“ wirkt anders als „viel Erfahrung“.`,
+    bringt: `Ein Provider hat sofort die Munition, dich seinem Kunden vorzuschlagen — anonymisiert, aber konkret.`,
+    schritt: `Zwei stärkste Mandate als anonymisierte Mini-Cases mit je einer Ergebnis-Zahl. (~1 h)`,
   },
   a3: {
-    bedeutet: "Rund die Hälfte der Interim-Mandate läuft über Provider. Ein Berater muss dich in Minuten einschätzen — findet aber noch nicht sofort Verfügbarkeit, Fokus und Modalitäten und nimmt dann lieber den Nächsten.",
-    bringt: "Der Provider findet alles für den Vorschlag auf einen Blick — du landest auf der Shortlist statt in der Nachfrage-Schleife.",
-    schritt: "Kompakter „Verfügbarkeit + Fokus + Region“-Block ganz oben. (~20 Min)",
+    bedeutet: `Rund die Hälfte der Interim-Mandate läuft über Provider. Ein Berater muss dich in Minuten einschätzen — findet aber noch nicht sofort Verfügbarkeit, Fokus und Modalitäten und nimmt dann lieber den Nächsten.`,
+    bringt: `Der Provider findet alles für den Vorschlag auf einen Blick — du landest auf der Shortlist statt in der Nachfrage-Schleife.`,
+    schritt: `Kompakter „Verfügbar ab / Fokus / Region“-Block ganz oben. (~20 Min)`,
   },
   a4: {
-    bedeutet: "Tippt ein Auftraggeber „Interim COO Maschinenbau“ bei Google oder fragt ChatGPT — tauchst du auf? Aktuell findet die Maschine dich vor allem, wenn man deinen Namen schon kennt.",
-    bringt: "Du wirst auch über dein Thema gefunden, nicht nur über deinen Namen — und korrekt als Interim-Manager eingeordnet.",
-    schritt: "Wichtigste Präsenz (meist LinkedIn) mit klarer Rollen-Headline + vollständigem „Über mich“. (~30 Min)",
-    tech: "Optional & technisch: strukturierte Daten (Person-Schema/JSON-LD), sameAs-Verknüpfung der Profile, knowsAbout-Themenfelder, GEO-Lesbarkeit für KI-Crawler.",
+    bedeutet: `Tippt ein Auftraggeber „Interim COO Maschinenbau“ bei Google oder fragt eine KI — tauchst du auf? Aktuell findet die Maschine dich vor allem, wenn man deinen Namen schon kennt.`,
+    bringt: `Du wirst auch über dein Thema gefunden, nicht nur über deinen Namen — und korrekt als Interim-Manager eingeordnet.`,
+    schritt: `Wichtigste Präsenz (meist LinkedIn) mit klarer Rollen-Headline + vollständigem „Über mich“. (~30 Min)`,
+    tech: `Optional & technisch: strukturierte Daten (Person-Schema/JSON-LD), sameAs-Verknüpfung der Profile, knowsAbout-Themenfelder, GEO-Lesbarkeit für KI-Crawler.`,
   },
 };
 
-// SC-06: Ein-Satz-Diagnose je Achse für den „schärfsten Befund".
+// SC-06: Ein-Satz-Diagnose je Achse (sales-trainer „Schärfster Befund"-Schablone).
 const DIAGNOSE = {
-  a1: "Auftraggeber erkennen noch nicht in 5 Sekunden, welches eine Problem du für wen löst.",
-  a2: "Deine Erfolge sind real, stehen aber noch nicht mit Zahlen dort, wo der Auftraggeber sie sieht.",
-  a3: "Ein Provider-Berater findet noch nicht sofort alles, was er für einen Vorschlag braucht.",
-  a4: "Aktuell findet die Maschine dich vor allem, wenn man deinen Namen schon kennt.",
+  a1: `Auftraggeber erkennen noch nicht in 5 Sekunden, welches eine Problem du für wen löst.`,
+  a2: `Deine Erfolge sind real, stehen aber noch nicht mit Zahlen dort, wo der Auftraggeber sie sieht.`,
+  a3: `Ein Provider-Berater müsste auf deinem Profil länger als 30 Sekunden suchen, um Verfügbarkeit, Fokus und Region zu finden — und nimmt dann eher den Nächsten.`,
+  a4: `Aktuell findet die Maschine dich vor allem, wenn man deinen Namen schon kennt.`,
 };
 
 // SC-06: Score-Lesehilfe (immer mit erstem Schritt; nie nackter Wert).
 const BANDS = [
-  { max: 39, label: "Großes Potenzial", lesart: "Die Maschine findet und versteht dich noch kaum — hier liegt der größte schnelle Hebel.",
+  { max: 39, klasse: "low", phrase: "noch kaum",
+    label: "Großes Potenzial", lesart: "Die Maschine findet und versteht dich noch kaum — hier liegt der größte schnelle Hebel.",
     spiegel: "Ein Provider, der dich heute aufruft, müsste fast alles erfragen — die meisten nehmen dann den Nächsten." },
-  { max: 70, label: "Solide Basis, klare Lücken", lesart: "Dein Fundament steht; einzelne Lücken kosten dich Sichtbarkeit bei Providern. Gezielt geschlossen kommst du über 70.",
+  { max: 70, klasse: "mid", phrase: "erst zur Hälfte",
+    label: "Solide Basis, klare Lücken", lesart: "Dein Fundament steht; einzelne Lücken kosten dich Sichtbarkeit bei Providern. Gezielt geschlossen kommst du über 70.",
     spiegel: "Ein Provider erkennt das Fundament — stolpert aber über ein, zwei fehlende Angaben und zögert." },
-  { max: 100, label: "Stark sichtbar", lesart: "Du bist provider- und maschinen-sichtbar. Jetzt geht es um Feinschliff und Vorsprung.",
+  { max: 100, klasse: "high", phrase: "schon gut",
+    label: "Stark sichtbar", lesart: "Du bist provider- und maschinen-sichtbar. Jetzt geht es um Feinschliff und Vorsprung.",
     spiegel: "Ein Provider kann dich fast ohne Rückfrage vorschlagen — du bist auf der Shortlist." },
 ];
 
-// SC-05: Crawl-Theater-Schritte in Nutzen-Sprache (kein Tech-Jargon).
+// SC-05: Crawl-Theater — Systemstatus in IM-Klartext (kein Tech-Jargon), ehrliche Tiefe.
 const THEATER = [
-  { at: 18, t: "Wir schauen, was ein Auftraggeber auf deiner Seite zuerst sieht …" },
-  { at: 40, t: "Wir prüfen, ob dein Profil EIN Problem für EINE Zielgruppe sichtbar löst …" },
-  { at: 60, t: "Wir prüfen, ob ein Provider Verfügbarkeit, Fokus und Belege sofort findet …" },
-  { at: 80, t: "Wir prüfen, ob Google und KI dich als Interim-Manager erkennen …" },
-  { at: 95, t: "Fast fertig — wir rechnen deinen Sichtbarkeits-Score zusammen …" },
+  { at: 8,  t: "Dein öffentliches Profil wird gelesen …" },
+  { at: 32, t: "Deine Positionierung wird eingeordnet …" },
+  { at: 58, t: "Provider-Sicht: Findet ein Auftraggeber oder Berater, was er braucht? …" },
+  { at: 82, t: "Auffindbarkeit bei Google & KI wird getestet …" },
+  { at: 96, t: "Dein Befund wird zusammengestellt …" },
 ];
+
+// sales-trainer [PFLICHT] — Verkaufstexte (1:1 übernommen).
+const COPY = {
+  // 1. Above-the-fold
+  h1a: `Ein Auftraggeber sucht gerade einen Interim-COO und fragt Google oder ChatGPT.`,
+  h1b: `Was findet die Maschine über dich — oder eben nicht?`,
+  sub: `Kostenlos: dein Sichtbarkeits-Befund für Provider und KI-Suche. Kein Login, kein Pitch — von einem, der selbst im Mandat steht.`,
+  // F-4: Beziehungs-/Timing-Erweiterung schon above-the-fold andeuten (kein Bait-and-Switch).
+  aboveFoldBridge: `Der Check ist der Anfang, nicht das Ziel: dein nächstes Mandat kommt über Provider-Beziehung und Timing — dabei helfe ich dir.`,
+  ctaStart: `Sichtbarkeits-Check starten →`,
+  trust: `Wir lesen nur dein öffentliches Profil. Keine Logins, keine Kundendaten. Kein Newsletter-Abo durch die Hintertür.`,
+  // F-5 (angepasst, rechtssicher/demo-wahr): nur zusagen, was real stimmt.
+  trustData: `Selbst-Check deines eigenen öffentlichen Profils. Im Demo-Modus wird nichts dauerhaft gespeichert.`,
+  // 2. Tagessatz-Micro-Commitment (jetzt NACH dem ersten Wert, F-2)
+  satzStopp: `Eine kurze Angabe macht deinen Befund konkret statt allgemein.`,
+  satzWarum: `Warum wir fragen: Ohne deinen Tagessatz bleibt der Befund eine Note. Mit ihm rechnen wir aus, was eine einzige vermiedene Auslastungslücke dich wert ist — und welche Lücke sich für dich zuerst zu schließen lohnt.`,
+  satzHint: `Grobe Schätzung reicht. Wir zeigen sie nirgends an und speichern keine Klarwerte.`,
+  satzSkip: `Überspringen — Befund trotzdem zeigen`,
+  // 3. Befund
+  scoreReframeTail: `Das Potenzial liegt höher — und der erste Schritt dahin steht direkt darunter. Kein Grund zur Sorge: Die Substanz hast du, sie ist nur noch nicht auf den Punkt sichtbar.`,
+  euroNote: `Diese Zahl ist keine Prognose und kein Versprechen — sie macht nur greifbar, worum es bei den nächsten Lücken geht: nicht um einen besseren Profil-Text, sondern um den Anlauf zum nächsten Mandat.`,
+  profilSpiegel: `So liest die Maschine dich heute: „Erfahrener Operations-Manager mit Industrie-Hintergrund, breit aufgestellt …“ Fachlich stark — aber austauschbar formuliert. Genau diese Lücke zwischen was du kannst und was sichtbar ist schließt dieser Befund.`,
+  // 4. Gating-Teaser
+  gatingTeaser: `Du siehst oben deine vier Achsen — aber noch nicht, wo genau du auf jeder stehst. Die Einzelwerte (z. B. Provider-Tauglichkeit: 34 → 81) zeigen dir, welche Achse dich am meisten kostet. Diese Werte gehen wir im Erstgespräch zusammen durch — an deinem echten Profil, nicht an einer Skala.`,
+  gatedFieldMicro: `Einzelwert — im Erstgespräch an deinem Profil`,
+  teaserDiffMutig: `Den ersten Schritt (Quick Win) hast du oben — komplett, zum sofort Umsetzen. Die zwei stärkeren Hebel wirken nur, wenn sie zu deiner Situation und deinem Timing passen. Deshalb stehen sie nicht als Liste hier, sondern werden im Gespräch auf dich zugeschnitten.`,
+  // 5. CTA + Brücke
+  bridge1: `Dieser Befund zeigt, ob die Maschine dich findet. Aber dein nächstes Mandat kommt nicht über Sichtbarkeit allein — rund die Hälfte der Interim-Mandate läuft über Provider-Beziehung und über das richtige Timing. Sichtbarkeit ist die Eintrittskarte, nicht das Mandat.`,
+  bridge2: `Genau hier setze ich an: Ich baue mit dir nicht nur ein provider-taugliches Profil, sondern das System dahinter — Beziehungen und Timing, damit der nächste Bedarf bei dir landet, nicht beim Nächsten in der Liste. Der Check ist der Anfang, nicht das Ziel.`,
+  ctaBook: `Kostenloses Erstgespräch buchen →`,
+  ctaNotePre: `Kein Pitch-Termin, kein Verkaufsdruck. Wir gehen deinen Befund durch und du siehst, ob das System zu dir passt. Und das Modell dahinter ist ehrlich asymmetrisch: `,
+  ctaNoteBold: `Ich verdiene erst, wenn dein nächstes Mandat steht.`,
+  ctaNotePost: ` Mein Risiko, nicht deins.`,
+  // DOI was/warum (F-3)
+  doiWhy: `Befund und Schließungs-Roadmap landen in deinem Postfach — in Ruhe abends nachlesbar. Du siehst gleich den vollständigen Befund hier auf der Seite.`,
+};
+
+// sales-trainer [PFLICHT] §6 — „Ehrlich gefragt"-Einwandblock (4 Einwände).
+const EINWAENDE = [
+  { f: `Bringt mir so ein Score überhaupt was?`,
+    a: `Der Score allein nichts — er ist ein Frühindikator, kein Mandat. Was bringt: der eine konkrete erste Schritt, heute in ~20 Min umsetzbar, ohne Gespräch. Der Score zeigt nur, wo du anfängst — keine Benotung.` },
+  { f: `Noch so ein KI-Tool …`,
+    a: `Keine KI-Magie, die Mandate verspricht. Die KI liest dein öffentliches Profil so, wie ein Provider-Berater es in 30 Sek. überfliegt. Die Arbeit danach macht ein Mensch, der selbst im Mandat steht.` },
+  { f: `Sichtbarkeit ist mir egal, ich habe mein Netzwerk.`,
+    a: `Richtige Haltung. Dein Netzwerk bringt Mandate, solange du Zeit hast, es zu pflegen — im Mandat hast du die nicht, danach ist der Anlauf zu spät. Der Check ergänzt dein Netzwerk, ersetzt es nicht.` },
+  { f: `Kostet mich das am Ende doch was?`,
+    a: `Check + Erstgespräch kosten nichts, kein Sternchen. Bei Zusammenarbeit: ich verdiene erst, wenn dein nächstes Mandat steht. Dein Risiko = null, das Risiko liegt bei mir.` },
+];
+
+// [A/B]-Varianten (nur dokumentiert, NICHT live — sales-trainer §Wichtigste A/B-Tests):
+//  (1) H1: Anlass/Maschine [live] vs. „Dein nächstes Mandat entscheidet sich, bevor das Telefon klingelt … Bestehst du diesen Blick?"
+//  (2) CTA-Start: „Sichtbarkeits-Check starten →" [live] vs. „Zeig mir meinen Befund →"
+//  (2b) CTA-Book: „Kostenloses Erstgespräch buchen →" [live] vs. „Lücke gemeinsam durchgehen — kostenlos →"
+//  (3) Score-Label-Form · (F-2) Tagessatz vor vs. nach erstem Befund-Teaser (live: nach).
 ---
 
 <Base
-  title="Sichtbarkeits-Check für Interim Manager — wie findet dich ein Provider? | Value Lift AI"
-  description="In 60 Sekunden: Findet ein Auftraggeber oder Provider dich über Google und KI — und versteht er sofort, wofür du stehst? Dein Sichtbarkeits-Score plus erster Schritt. Nur öffentliche Daten, kein Login."
+  title="Sichtbarkeits-Check für Interim Manager — wirst du von Providern & KI gefunden? | Value Lift AI"
+  description="Findet ein Auftraggeber oder Provider dich über Google und KI — und versteht er sofort, wofür du stehst? Dein Sichtbarkeits-Score plus erster Schritt, kostenlos. Selbst-Check deines öffentlichen Profils, kein Login."
   path="/mandats-check"
   hideNav={true}
 >
   <section class="vlc-wrap">
     <div class="vlc-shell">
-      <div class="vlc-card" id="vlc-card"></div>
+      <div class="vlc-card" id="vlc-card" tabindex="-1"></div>
+    </div>
+    <!-- F-6: Sticky-CTA (mobil) — wird im Voll-Befund eingeblendet -->
+    <div class="vlc-sticky-cta" id="vlc-sticky" hidden>
+      <a class="vlc-btn" href={TIDYCAL} target="_blank" rel="noopener">Kostenloses Erstgespräch buchen →</a>
     </div>
   </section>
 </Base>
@@ -92,39 +162,39 @@ const THEATER = [
     color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 18px 56px; }
   .vlc-shell { width: 100%; max-width: 560px; }
   .vlc-card { background: #10203b; border: 1px solid #20335a; border-radius: 20px; padding: 30px;
-    box-shadow: 0 24px 70px rgba(0,0,0,.45); }
-  @media (max-width: 480px) { .vlc-card { padding: 22px 18px; } }
+    box-shadow: 0 24px 70px rgba(0,0,0,.45); outline: none; }
+  @media (max-width: 480px) { .vlc-card { padding: 22px 18px; } .vlc-wrap { padding-bottom: 96px; } }
 
   .vlc-eyebrow { font-size: 12px; letter-spacing: .05em; color: #94a3b8; margin-bottom: 10px; }
-  .vlc-h { font-family: "Outfit", "Inter", sans-serif; font-size: 24px; font-weight: 800; line-height: 1.24; margin: 0 0 10px; letter-spacing: -.01em; }
-  .vlc-q { font-family: "Outfit", "Inter", sans-serif; font-size: 21px; font-weight: 800; line-height: 1.3; margin: 0 0 18px; letter-spacing: -.01em; }
-  .vlc-sub { color: #c7d2e0; font-size: 15px; line-height: 1.55; margin: 0 0 22px; }
-  .vlc-meta-quote { border-left: 3px solid #F5A623; padding: 2px 0 2px 14px; margin: 0 0 22px; color: #c7d2e0;
-    font-size: 14.5px; line-height: 1.55; font-style: italic; }
+  .vlc-h { font-family: "Outfit", "Inter", sans-serif; font-size: 23px; font-weight: 800; line-height: 1.26; margin: 0 0 12px; letter-spacing: -.01em; }
+  .vlc-q { font-family: "Outfit", "Inter", sans-serif; font-size: 21px; font-weight: 800; line-height: 1.3; margin: 0 0 16px; letter-spacing: -.01em; }
+  .vlc-sub { color: #c7d2e0; font-size: 15px; line-height: 1.55; margin: 0 0 18px; }
+  .vlc-abridge { color: #aeb9cc; font-size: 13.5px; line-height: 1.5; margin: 0 0 20px; padding-left: 12px; border-left: 2px solid #3a527e; }
 
   .vlc-in { width: 100%; background: #152743; border: 1px solid #284069; border-radius: 13px; padding: 14px 16px;
-    color: #fff; font-size: 16px; font-family: inherit; margin-bottom: 11px; outline: 0; }
+    color: #fff; font-size: 16px; font-family: inherit; margin-bottom: 8px; outline: 0; }
   .vlc-in:focus { border-color: #F5A623; }
   .vlc-in::placeholder { color: #4d6488; }
+  .vlc-label { display: block; font-size: 13px; color: #c7d2e0; margin: 0 0 6px; font-weight: 600; }
   .vlc-field { display: flex; align-items: center; gap: 12px; background: #152743; border: 1px solid #284069;
     border-radius: 13px; padding: 6px 6px 6px 16px; margin-bottom: 8px; }
   .vlc-field input { flex: 1; background: transparent; border: 0; outline: 0; color: #fff; font-size: 24px; font-weight: 700; font-family: inherit; width: 100%; }
   .vlc-field input::placeholder { color: #4d6488; }
   .vlc-unit { color: #94a3b8; font-size: 15px; font-weight: 600; padding-right: 8px; white-space: nowrap; }
-  .vlc-hint { color: #94a3b8; font-size: 13px; margin: 0 0 18px; }
+  .vlc-hint { color: #94a3b8; font-size: 13px; margin: 0 0 16px; line-height: 1.5; }
 
   .vlc-btn { display: block; width: 100%; text-align: center; background: #F5A623; color: #0B1528; border: 0;
     border-radius: 13px; padding: 15px 18px; font-size: 16px; font-weight: 800; cursor: pointer; font-family: inherit;
     text-decoration: none; transition: .15s; }
   .vlc-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
   .vlc-btn[disabled] { opacity: .6; cursor: default; transform: none; filter: none; }
-  .vlc-skip { display: block; width: 100%; text-align: center; background: none; border: 0; color: #94a3b8;
-    font-size: 13px; cursor: pointer; font-family: inherit; padding: 10px 4px 0; }
-  .vlc-skip:hover { color: #fff; }
+  .vlc-skip { display: block; width: 100%; text-align: center; background: none; border: 1px solid #284069; border-radius: 11px; color: #c7d2e0;
+    font-size: 14px; cursor: pointer; font-family: inherit; padding: 12px 4px; margin-top: 9px; }
+  .vlc-skip:hover { border-color: #94a3b8; color: #fff; }
   .vlc-back { display: block; margin: 14px auto 0; background: none; border: 0; color: #94a3b8; font-size: 13px; cursor: pointer; font-family: inherit; padding: 4px; }
   .vlc-back:hover { color: #fff; }
   .vlc-err { color: #fca5a5; font-size: 13.5px; font-weight: 600; margin: 0 0 12px; }
-  .vlc-check { display: flex; gap: 9px; align-items: flex-start; color: #94a3b8; font-size: 12.5px; line-height: 1.45; margin: 4px 0 18px; }
+  .vlc-check { display: flex; gap: 9px; align-items: flex-start; color: #94a3b8; font-size: 12.5px; line-height: 1.45; margin: 4px 0 14px; }
   .vlc-check input { margin-top: 2px; }
   .vlc-check a { color: #F5A623; }
 
@@ -136,35 +206,56 @@ const THEATER = [
 
   /* SC-06: Befund */
   .vlc-res-label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #94a3b8; margin-bottom: 14px; }
-  .vlc-score-wrap { text-align: center; background: #0d1c34; border: 1px solid #21345b; border-radius: 16px; padding: 22px 18px; margin: 0 0 18px; }
+  .vlc-score-wrap { text-align: center; background: #0d1c34; border: 1px solid #21345b; border-radius: 16px; padding: 22px 18px; margin: 0 0 16px; }
   .vlc-score-line { font-family: "Outfit", sans-serif; font-weight: 800; line-height: 1; }
-  .vlc-score-ist { font-size: 40px; color: #fff; }
+  .vlc-score-ist { font-size: 42px; color: #fff; }
   .vlc-score-arrow { font-size: 22px; color: #94a3b8; margin: 0 8px; }
-  .vlc-score-pot { font-size: 40px; color: #F5A623; }
+  .vlc-score-pot { font-size: 42px; color: #F5A623; }
   .vlc-score-cap { color: #94a3b8; font-size: 12.5px; margin: 10px 0 0; }
   .vlc-band { font-family: "Outfit", sans-serif; font-weight: 800; font-size: 16px; margin: 16px 0 6px; }
-  .vlc-band.low { color: #f6b84e; } .vlc-band.mid { color: #f6b84e; } .vlc-band.high { color: #5dcaa5; }
+  .vlc-band.low, .vlc-band.mid { color: #f6b84e; } .vlc-band.high { color: #5dcaa5; }
   .vlc-lesart { color: #dbe4f0; font-size: 14.5px; line-height: 1.5; margin: 0; }
+
+  /* erster Schritt — untrennbar unter dem Score */
+  .vlc-firststep { background: #1a1408; border: 1px solid #5a4a16; border-radius: 13px; padding: 14px 16px; margin: 0 0 18px; }
+  .vlc-firststep .lbl { font-size: 12px; letter-spacing: .04em; color: #F5A623; font-weight: 800; text-transform: uppercase; }
+  .vlc-firststep p { margin: 7px 0 0; font-size: 14.5px; line-height: 1.5; color: #f0e6cf; }
+
+  .vlc-luecke-pre { background: #11233f; border: 1px solid #284069; border-radius: 13px; padding: 14px 16px; margin: 0 0 18px; }
+  .vlc-luecke-pre .lbl { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: .04em; }
+  .vlc-luecke-pre p { margin: 7px 0 0; color: #dbe4f0; font-size: 14.5px; line-height: 1.5; }
+
+  .vlc-euro { color: #dbe4f0; font-size: 14.5px; line-height: 1.55; margin: 0 0 18px; }
+  .vlc-euro b { color: #fff; }
+  .vlc-euro .note { color: #94a3b8; font-size: 13px; display: block; margin-top: 6px; }
 
   .vlc-spiegel { background: #11233f; border: 1px solid #284069; border-radius: 13px; padding: 15px 16px; margin: 0 0 18px; }
   .vlc-spiegel b { color: #F5A623; }
-  .vlc-spiegel p { margin: 6px 0 0; color: #dbe4f0; font-size: 14.5px; line-height: 1.5; }
+  .vlc-spiegel p { margin: 6px 0 0; color: #dbe4f0; font-size: 14.5px; line-height: 1.55; }
 
-  .vlc-axes { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
-  .vlc-axis-chip { background: #152743; border: 1px solid #284069; border-radius: 999px; padding: 7px 13px; font-size: 13px; color: #c7d2e0; }
-  .vlc-axis-chip.sharp { border-color: #F5A623; color: #fff; }
+  /* F-4: Achsen mit grober Ampel (Frei-Wert) + gegateter Einzelwert */
+  .vlc-axes { margin: 0 0 8px; }
+  .vlc-axis-row { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: #152743; border: 1px solid #284069; border-radius: 11px; padding: 11px 13px; margin-bottom: 8px; }
+  .vlc-axis-row.sharp { border-color: #F5A623; }
+  .vlc-axis-name { font-size: 14px; color: #e7eef8; font-weight: 600; }
+  .vlc-axis-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .vlc-ampel { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #c7d2e0; }
+  .vlc-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .vlc-dot.rot { background: #e06a5b; } .vlc-dot.gelb { background: #f6b84e; } .vlc-dot.gruen { background: #5dcaa5; }
+  .vlc-gated { font-size: 11px; color: #6f83a6; border: 1px dashed #3a527e; border-radius: 7px; padding: 3px 7px; white-space: nowrap; }
 
-  .vlc-sharp { background: #1a1408; border: 1px solid #5a4a16; border-radius: 14px; padding: 16px 17px; margin: 0 0 20px; }
-  .vlc-sharp .lbl { font-size: 12px; letter-spacing: .04em; color: #F5A623; font-weight: 800; text-transform: uppercase; }
-  .vlc-sharp p { margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: #f0e6cf; }
+  .vlc-sharp { background: #101d18; border: 1px solid #1f4036; border-radius: 14px; padding: 16px 17px; margin: 0 0 18px; }
+  .vlc-sharp .lbl { font-size: 12px; letter-spacing: .04em; color: #5dcaa5; font-weight: 800; text-transform: uppercase; }
+  .vlc-sharp p { margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: #cfe7dd; }
 
   .vlc-gaps h4 { font-size: 14px; color: #fff; margin: 0 0 12px; font-family: "Outfit", sans-serif; }
   .vlc-gap { border: 1px solid #21345b; border-radius: 13px; margin: 0 0 10px; overflow: hidden; }
-  .vlc-gap > summary { list-style: none; cursor: pointer; padding: 14px 16px; font-size: 15px; font-weight: 700;
+  .vlc-gap > summary { list-style: none; cursor: pointer; padding: 14px 42px 14px 16px; font-size: 14.5px; line-height: 1.45;
     color: #fff; position: relative; user-select: none; background: #122036; }
   .vlc-gap > summary::-webkit-details-marker { display: none; }
-  .vlc-gap > summary:before { content: "+"; position: absolute; right: 16px; top: 13px; color: #F5A623; font-weight: 800; font-size: 18px; }
-  .vlc-gap[open] > summary:before { content: "–"; }
+  .vlc-gap > summary:before { content: "+"; position: absolute; right: 16px; top: 12px; color: #F5A623; font-weight: 800; font-size: 18px; }
+  .vlc-gap[open] > summary:before { content: "\2013"; }
   .vlc-gap .body { padding: 4px 16px 16px; }
   .vlc-gap .body p { margin: 10px 0 0; font-size: 14px; line-height: 1.5; color: #dbe4f0; }
   .vlc-gap .body .k { color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; display: block; margin-top: 12px; }
@@ -175,52 +266,89 @@ const THEATER = [
   .vlc-tech[open] > summary:before { content: "\25BE "; }
   .vlc-tech p { color: #8195b5; font-size: 12.5px; line-height: 1.5; margin: 8px 0 0; }
 
-  /* SC-07: Premium-Gate + Überleitung */
-  .vlc-premium { background: #0d1c34; border: 1px dashed #3a527e; border-radius: 16px; padding: 20px 18px; margin: 22px 0 8px; }
-  .vlc-premium h4 { font-family: "Outfit", sans-serif; font-size: 16px; color: #fff; margin: 0 0 8px; }
+  /* F-6: Progressive Disclosure (mobil) */
+  .vlc-more { border: 0; margin: 0 0 4px; }
+  .vlc-more > summary { list-style: none; cursor: pointer; color: #F5A623; font-size: 14px; font-weight: 700;
+    text-align: center; padding: 12px; border: 1px solid #3a527e; border-radius: 11px; user-select: none; }
+  .vlc-more > summary::-webkit-details-marker { display: none; }
+  .vlc-more[open] > summary { display: none; }
+  @media (min-width: 481px) { .vlc-more > summary { display: none; } }
+
+  /* SC-07: Premium-Gate, Brücke, Einwände */
+  .vlc-premium { background: #0d1c34; border: 1px dashed #3a527e; border-radius: 16px; padding: 18px; margin: 18px 0 8px; }
+  .vlc-premium h4 { font-family: "Outfit", sans-serif; font-size: 15px; color: #fff; margin: 0 0 8px; }
   .vlc-premium .lock { font-size: 12px; color: #F5A623; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
-  .vlc-premium ul { margin: 12px 0 0; padding: 0; list-style: none; }
-  .vlc-premium li { position: relative; padding: 0 0 10px 24px; font-size: 14px; line-height: 1.45; color: #dbe4f0; }
-  .vlc-premium li:before { content: "\2192"; position: absolute; left: 0; top: 0; color: #F5A623; font-weight: 800; }
+  .vlc-premium p { color: #c7d2e0; font-size: 13.5px; line-height: 1.55; margin: 10px 0 0; }
   .vlc-bridge { color: #c7d2e0; font-size: 14.5px; line-height: 1.55; margin: 18px 0 0; }
   .vlc-bridge b { color: #fff; }
-  .vlc-cta-note { text-align: center; color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 11px 0 0; }
-  .vlc-tiny { color: #5e7196; font-size: 12px; text-align: center; line-height: 1.5; margin: 20px 0 0; }
+  .vlc-cta-note { text-align: center; color: #94a3b8; font-size: 12.5px; line-height: 1.55; margin: 11px 0 0; }
+  .vlc-cta-note b { color: #cfe7dd; }
+  .vlc-tiny { color: #5e7196; font-size: 12px; text-align: center; line-height: 1.5; margin: 18px 0 0; }
+
+  .vlc-einw { margin: 18px 0 0; }
+  .vlc-einw > h4 { font-size: 13px; color: #94a3b8; margin: 0 0 10px; font-weight: 700; }
+  .vlc-einw details { border-top: 1px solid #21345b; }
+  .vlc-einw details summary { list-style: none; cursor: pointer; padding: 12px 24px 12px 0; font-size: 14px; font-weight: 600;
+    color: #e7eef8; position: relative; user-select: none; }
+  .vlc-einw details summary::-webkit-details-marker { display: none; }
+  .vlc-einw details summary:before { content: "+"; position: absolute; right: 4px; top: 11px; color: #F5A623; font-weight: 800; }
+  .vlc-einw details[open] summary:before { content: "\2013"; }
+  .vlc-einw details p { margin: 0 0 12px; font-size: 13.5px; line-height: 1.55; color: #c7d2e0; }
+
   .vlc-guard { border-top: 1px solid #21345b; margin-top: 22px; padding-top: 16px; }
   .vlc-guard p { color: #7d90b0; font-size: 12px; line-height: 1.5; margin: 0 0 8px; }
+
+  /* F-6: Sticky-CTA (mobil empfohlen) */
+  .vlc-sticky-cta { position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px;
+    background: linear-gradient(180deg, rgba(11,21,40,0), #0B1528 38%); display: none; z-index: 20; }
+  .vlc-sticky-cta .vlc-btn { max-width: 560px; margin: 0 auto; }
+  @media (max-width: 480px) { .vlc-sticky-cta.on { display: block; } }
+
+  /* A11y: Animation respektieren */
+  @media (prefers-reduced-motion: reduce) {
+    .vlc-progress > i { transition: none; }
+    .vlc-btn:hover { transform: none; }
+  }
 </style>
 
-<script is:inline define:vars={{ TIDYCAL, SIGNUP_URL, VISIBILITY_URL, AXES, GAP_COPY, DIAGNOSE, BANDS, THEATER }}>
+<script is:inline define:vars={{ TIDYCAL, SIGNUP_URL, VISIBILITY_URL, STEP_TOTAL, AXES, LUECKE_SATZ, GAP_COPY, DIAGNOSE, BANDS, THEATER, COPY, EINWAENDE }}>
   (function () {
-    var state = { website: "", tagessatz: 1400 };
-    var idx = 0; // 0 intro · 1 scan · 2 gate · 3 result
+    var state = { website: "", tagessatz: 0 };
+    var idx = 0; // 0 intro · 1 crawl · 2 teil-befund(frei) · 3 doi · 4 voll-befund
     var befund = null;
     var card = document.getElementById("vlc-card");
+    var sticky = document.getElementById("vlc-sticky");
+    var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    function go(n) { idx = n; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+    function go(n) {
+      idx = n; render();
+      if (sticky) { sticky.classList.toggle("on", idx === 4); sticky.hidden = idx !== 4; }
+      window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
+      // A11y (WCAG 2.4.3): Fokus auf die neue Card bei jedem Stepwechsel.
+      try { card.focus({ preventScroll: true }); } catch (e) { card.focus(); }
+    }
     function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-    function normUrl(u) {
-      u = (u || "").trim();
-      if (!u) return "";
-      if (!/^https?:\/\//i.test(u)) u = "https://" + u;
-      return u;
-    }
+    function eyebrow(n, t) { return '<div class="vlc-eyebrow">Schritt ' + n + ' von ' + STEP_TOTAL + ' · ' + t + '</div>'; }
+    function normUrl(u) { u = (u || "").trim(); if (!u) return ""; if (!/^https?:\/\//i.test(u)) u = "https://" + u; return u; }
     function validUrl(u) { return /^https?:\/\/[^\s.]+\.[^\s]{2,}/i.test(normUrl(u)); }
+    function fmt(n) { return Number(n).toLocaleString("de-DE"); }
 
-    function bandFor(score) {
-      for (var i = 0; i < BANDS.length; i++) if (score <= BANDS[i].max) return BANDS[i];
-      return BANDS[BANDS.length - 1];
+    function bandFor(score) { for (var i = 0; i < BANDS.length; i++) if (score <= BANDS[i].max) return BANDS[i]; return BANDS[BANDS.length - 1]; }
+    function ampelFor(ist) {
+      if (ist < 40) return { c: "rot", t: "großer Hebel" };
+      if (ist <= 70) return { c: "gelb", t: "solide, Lücken" };
+      return { c: "gruen", t: "stark" };
     }
 
     // SC-04 (Demo-Spiegel der Engine): deterministischer Befund aus der URL.
-    // Live ersetzt VISIBILITY_URL diesen Pfad durch den echten Scan.
     function demoBefund(url) {
       var h = 0; for (var i = 0; i < url.length; i++) h = (h * 31 + url.charCodeAt(i)) >>> 0;
       function pick(off, lo, hi) { return lo + ((h >>> off) % (hi - lo + 1)); }
       var ist = { a1: pick(0, 30, 70), a2: pick(3, 25, 65), a3: pick(6, 20, 55), a4: pick(9, 35, 75) };
       var axes = AXES.map(function (a) {
         return { key: a.key, name: a.name, gewicht: a.gewicht, ist: ist[a.key],
+                 potenzial: Math.max(ist[a.key], Math.min(88, ist[a.key] + 35)),
                  luecke: (100 - ist[a.key]) * a.gewicht / 100 };
       });
       var gesamt = Math.round(axes.reduce(function (s, a) { return s + a.gewicht * a.ist / 100; }, 0));
@@ -229,44 +357,43 @@ const THEATER = [
       return { gesamt_ist: gesamt, gesamt_potenzial: potenzial, axes: axes,
                schaerfste: sorted[0], luecken: sorted.slice(0, 3), demo: true };
     }
-
-    function loadBefund(cb) {
-      var url = normUrl(state.website);
-      if (!VISIBILITY_URL) { cb(demoBefund(url)); return; }
-      fetch(VISIBILITY_URL.replace(/\/$/, "") + "/api/scan_sync", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ website: url }),
-      }).then(function (r) { return r.json(); })
-        .then(function (d) { cb(normalizeServer(d, url)); })
-        .catch(function () { cb(demoBefund(url)); });
-    }
     function normalizeServer(d, url) {
-      // Erwartet build_sichtbarkeits_check-Form; fällt sonst auf Demo zurück.
       if (!d || !d.achsen) return demoBefund(url);
       var axes = d.achsen.map(function (a) {
         return { key: a.achse, name: a.name, gewicht: Math.round(a.gewicht * 100), ist: a.ist_score,
-                 luecke: (100 - a.ist_score) * a.gewicht };
+                 potenzial: a.potenzial_score, luecke: (100 - a.ist_score) * a.gewicht };
       });
       var sorted = axes.slice().sort(function (x, y) { return y.luecke - x.luecke; });
       return { gesamt_ist: d.gesamt_ist, gesamt_potenzial: d.gesamt_potenzial, axes: axes,
                schaerfste: sorted[0], luecken: sorted.slice(0, 3), demo: false };
     }
+    function loadBefund(cb) {
+      var url = normUrl(state.website);
+      if (!VISIBILITY_URL) { cb(demoBefund(url)); return; }
+      fetch(VISIBILITY_URL.replace(/\/$/, "") + "/api/scan_sync", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ website: url }),
+      }).then(function (r) { return r.json(); })
+        .then(function (d) { cb(normalizeServer(d, url)); })
+        .catch(function () { cb(demoBefund(url)); });
+    }
 
     function render() {
-      // ─── SC-01: Intro + URL-Input ──────────────────────────────────────────
+      // ─── SC-01: Intro + URL-Input (above-the-fold) ─────────────────────────
       if (idx === 0) {
         card.innerHTML =
-          '<h1 class="vlc-h">Sucht ein Auftraggeber gerade einen Interim-Manager wie dich — findet er dich? Und versteht er in 5 Sekunden, wofür du stehst?</h1>' +
-          '<p class="vlc-meta-quote">„Ein Auftraggeber sucht einen Interim-COO und fragt Google oder ChatGPT. Dieser Check zeigt dir, was die Maschine dann über dich findet — oder eben nicht."</p>' +
-          '<input class="vlc-in" id="vlc-url" type="url" inputmode="url" placeholder="deine-website.de oder LinkedIn-Profil-Link" autocomplete="url">' +
+          '<h1 class="vlc-h">' + esc(COPY.h1a) + ' ' + esc(COPY.h1b) + '</h1>' +
+          '<p class="vlc-sub">' + esc(COPY.sub) + '</p>' +
+          '<p class="vlc-abridge">' + esc(COPY.aboveFoldBridge) + '</p>' +
+          '<label class="vlc-label" for="vlc-url">Dein LinkedIn-Profil oder deine Website</label>' +
+          '<input class="vlc-in" id="vlc-url" type="url" inputmode="url" placeholder="linkedin.com/in/dein-profil" autocomplete="url">' +
           '<p class="vlc-err" id="vlc-url-err" style="display:none"></p>' +
-          '<button class="vlc-btn" id="vlc-start">Sichtbarkeit prüfen →</button>' +
-          '<p class="vlc-hint" style="margin-top:14px;text-align:center">Wir lesen nur, was ohnehin jeder öffentlich über dich sieht — keine Logins, keine Mandatsdaten. LinkedIn hinter dem Login können wir nicht sicher messen; das benennen wir ehrlich.</p>';
+          '<button class="vlc-btn" id="vlc-start">' + esc(COPY.ctaStart) + '</button>' +
+          '<p class="vlc-hint" style="margin-top:14px;text-align:center">' + esc(COPY.trust) + '<br>' + esc(COPY.trustData) + '</p>';
         var inp = document.getElementById("vlc-url");
         var err = document.getElementById("vlc-url-err");
         function start() {
           var u = inp.value.trim();
-          if (!validUrl(u)) { err.textContent = "Bitte gib eine gültige Web- oder Profil-Adresse ein (z. B. dein-name.de)."; err.style.display = "block"; return; }
+          if (!validUrl(u)) { err.textContent = "Bitte gib eine gültige Web- oder Profil-Adresse ein (z. B. linkedin.com/in/dein-profil)."; err.style.display = "block"; return; }
           state.website = u; go(1);
         }
         document.getElementById("vlc-start").onclick = start;
@@ -275,60 +402,69 @@ const THEATER = [
         return;
       }
 
-      // ─── SC-05: Crawl-Theater + Micro-Commitment-Gate (Tagessatz @95%) ──────
+      // ─── SC-05: Crawl-Theater (ehrlicher Status, kein Zeitversprechen) ──────
       if (idx === 1) {
         card.innerHTML =
-          '<div class="vlc-eyebrow">Sichtbarkeits-Check läuft</div>' +
-          '<div class="vlc-progress-pct" id="t-pct">0 %</div>' +
-          '<div class="vlc-progress"><i id="t-bar"></i></div>' +
-          '<p class="vlc-theater-line" id="t-line">Wir öffnen deine öffentliche Präsenz …</p>' +
-          '<div id="t-gate"></div>';
+          eyebrow(2, "Dein Profil wird geprüft") +
+          '<div class="vlc-progress-pct" id="t-pct" aria-hidden="true">0 %</div>' +
+          '<div class="vlc-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Fortschritt der Prüfung" id="t-prog"><i id="t-bar"></i></div>' +
+          '<p class="vlc-theater-line" id="t-line" aria-live="polite">' + esc(THEATER[0].t) + '</p>';
         var bar = document.getElementById("t-bar"), pct = document.getElementById("t-pct"),
-            line = document.getElementById("t-line"), gateBox = document.getElementById("t-gate");
-        var p = 0, paused = false;
+            line = document.getElementById("t-line"), prog = document.getElementById("t-prog");
+        var p = 0;
         function setLine(v) { for (var i = 0; i < THEATER.length; i++) if (v >= THEATER[i].at) line.textContent = THEATER[i].t; }
-        var timer = setInterval(function () {
-          if (paused) return;
-          p += 1;
-          if (p >= 95 && !paused && !state.committed) { p = 95; paused = true; microCommit(); }
-          bar.style.width = p + "%"; pct.textContent = p + " %"; setLine(p);
-          if (p >= 100) { clearInterval(timer); setTimeout(function () { go(2); }, 450); }
-        }, 28);
-
-        // Micro-Commitment: Tagessatz fragen, BEVOR der Score steht (Wert-Anker).
-        function microCommit() {
-          line.textContent = THEATER[THEATER.length - 1].t;
-          gateBox.innerHTML =
-            '<div style="margin-top:20px">' +
-            '<div class="vlc-q" style="font-size:18px">Eine Frage noch, dann steht dein Score:</div>' +
-            '<p class="vlc-sub" style="margin-bottom:14px">Was ist dein ungefährer Tagessatz im Mandat? So zeige ich dir gleich nicht nur einen Score — sondern was dich Unsichtbarkeit konkret kostet.</p>' +
-            '<div class="vlc-field"><input id="t-satz" type="number" inputmode="numeric" placeholder="1400" value="1400"><span class="vlc-unit">€/Tag</span></div>' +
-            '<p class="vlc-hint">Grobe Schätzung reicht — es geht ums Größenverhältnis.</p>' +
-            '<button class="vlc-btn" id="t-satz-go">Score anzeigen →</button>' +
-            '<button class="vlc-skip" id="t-satz-skip">Lieber nicht angeben — trotzdem weiter</button>' +
-            '</div>';
-          var si = document.getElementById("t-satz");
-          function commit(v) { state.tagessatz = v; state.committed = true; paused = false; gateBox.innerHTML = ""; }
-          document.getElementById("t-satz-go").onclick = function () {
-            var v = parseFloat(si.value); commit((isNaN(v) || v <= 0) ? 1400 : v);
-          };
-          document.getElementById("t-satz-skip").onclick = function () { state.satzSkipped = true; commit(0); };
-          si.focus();
-        }
+        function paint(v) { bar.style.width = v + "%"; pct.textContent = v + " %"; prog.setAttribute("aria-valuenow", v); setLine(v); }
+        function finish() { paint(100); loadBefund(function (b) { befund = b; setTimeout(function () { go(2); }, REDUCED ? 0 : 350); }); }
+        if (REDUCED) { setTimeout(finish, 400); return; }
+        var timer = setInterval(function () { p += 2; if (p >= 98) { clearInterval(timer); finish(); return; } paint(p); }, 32);
         return;
       }
 
-      // ─── SC-08: DOI-Gate (Capture → Brevo „Warme Leads") ───────────────────
+      // ─── F-2/F-3: Teil-Befund FREI (vor jedem Gate) + Tagessatz danach ──────
       if (idx === 2) {
+        var b = befund || (befund = demoBefund(normUrl(state.website)));
+        var band = bandFor(b.gesamt_ist);
+        var sharp = b.schaerfste, gcq = GAP_COPY[sharp.key];
         card.innerHTML =
-          '<div class="vlc-eyebrow">Dein Befund ist fertig</div>' +
-          '<div class="vlc-q">Wohin soll dein Sichtbarkeits-Befund?</div>' +
-          '<p class="vlc-sub" style="margin-bottom:18px">Du siehst ihn gleich direkt hier — und bekommst ihn zusätzlich per Mail zum Nachlesen.</p>' +
+          eyebrow(3, "Dein erster Befund — kostenlos") +
+          '<div class="vlc-score-wrap">' +
+            '<div class="vlc-score-line"><span class="vlc-score-ist">' + b.gesamt_ist + '</span>' +
+            '<span class="vlc-score-arrow">→</span><span class="vlc-score-pot">' + b.gesamt_potenzial + '</span></div>' +
+            '<p class="vlc-score-cap">Sichtbarkeits-Score heute → erreichbares Potenzial</p>' +
+            '<div class="vlc-band ' + band.klasse + '">' + band.label + '</div>' +
+            '<p class="vlc-lesart">Heute findet und versteht die Maschine dich ' + band.phrase + '. ' + esc(COPY.scoreReframeTail) + '</p>' +
+          '</div>' +
+          '<div class="vlc-firststep"><span class="lbl">Dein erster Schritt</span><p>' + esc(gcq.schritt) + '</p></div>' +
+          '<div class="vlc-luecke-pre"><span class="lbl">Die auffälligste Lücke</span><p>' + esc(LUECKE_SATZ[sharp.key]) + '</p></div>' +
+          '<div class="vlc-q" style="font-size:18px;margin-top:6px">Eine Angabe schärft deinen €-Hebel</div>' +
+          '<p class="vlc-sub" style="margin-bottom:6px">' + esc(COPY.satzStopp) + '</p>' +
+          '<label class="vlc-label" for="t-satz">Was ist dein Tagessatz im Mandat — grob?</label>' +
+          '<div class="vlc-field"><input id="t-satz" type="number" inputmode="numeric" placeholder="1400"><span class="vlc-unit">€/Tag</span></div>' +
+          '<p class="vlc-hint">' + esc(COPY.satzHint) + '</p>' +
+          '<details class="vlc-tech" style="margin:0 0 14px"><summary>Warum wir fragen</summary><p>' + esc(COPY.satzWarum) + '</p></details>' +
+          '<button class="vlc-btn" id="t-go">Vollständigen Befund freischalten →</button>' +
+          '<button class="vlc-skip" id="t-skip">' + esc(COPY.satzSkip) + '</button>';
+        var si = document.getElementById("t-satz");
+        document.getElementById("t-go").onclick = function () { var v = parseFloat(si.value); state.tagessatz = (isNaN(v) || v <= 0) ? 0 : v; go(3); };
+        document.getElementById("t-skip").onclick = function () { state.tagessatz = 0; go(3); };
+        si.focus();
+        return;
+      }
+
+      // ─── SC-08: DOI-Gate (E-Mail) — schaltet Voll-Befund frei ──────────────
+      if (idx === 3) {
+        card.innerHTML =
+          eyebrow(4, "Vollständigen Befund freischalten") +
+          '<div class="vlc-q">Wohin schicken wir deinen vollständigen Befund?</div>' +
+          '<p class="vlc-sub" style="margin-bottom:16px">' + esc(COPY.doiWhy) + '</p>' +
+          '<label class="vlc-label" for="g-vor">Vorname</label>' +
           '<input class="vlc-in" id="g-vor" placeholder="Vorname" autocomplete="given-name">' +
-          '<input class="vlc-in" id="g-mail" type="email" placeholder="E-Mail" autocomplete="email">' +
+          '<label class="vlc-label" for="g-mail" style="margin-top:8px">E-Mail</label>' +
+          '<input class="vlc-in" id="g-mail" type="email" placeholder="name@firma.de" autocomplete="email">' +
           '<label class="vlc-check"><input type="checkbox" id="g-ok"><span>Ich möchte meinen Sichtbarkeits-Befund per E-Mail erhalten und bin einverstanden, gelegentlich hilfreiche Impulse für Interim Manager zu bekommen (jederzeit abbestellbar). Es gilt die <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span></label>' +
+          '<p class="vlc-hint" style="margin-top:-4px">' + esc(COPY.trustData) + '</p>' +
           '<p class="vlc-err" id="g-err" style="display:none"></p>' +
-          '<button class="vlc-btn" id="g-go">Befund ansehen →</button>' +
+          '<button class="vlc-btn" id="g-go">Vollständigen Befund ansehen →</button>' +
           '<button class="vlc-back">← zurück</button>';
         var errEl = document.getElementById("g-err");
         function gerr(m) { errEl.textContent = m; errEl.style.display = "block"; }
@@ -341,107 +477,100 @@ const THEATER = [
           if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)) return gerr("Bitte gib eine gültige E-Mail-Adresse ein.");
           if (!ok) return gerr("Bitte setze kurz das Häkchen — dann kommt der Befund sofort.");
           state.vorname = v; state.email = m;
+          var b = befund || (befund = demoBefund(normUrl(state.website)));
           var btn = this; btn.disabled = true; btn.textContent = "Wird gesendet …";
-          loadBefund(function (b) {
-            befund = b;
-            var payload = {
-              vorname: v, email: m, leadmagnet: "mandats-check",
-              website: normUrl(state.website),
-              tagessatz: state.tagessatz || null,
-              resultSummary: { scoreIst: b.gesamt_ist, scorePotenzial: b.gesamt_potenzial,
-                               schaerfste: b.schaerfste && b.schaerfste.name },
-            };
-            fetch(SIGNUP_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
-              .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok && d.ok, d: d }; }); })
-              .then(function (res) {
-                if (res.ok) { go(3); }
-                else { gerr((res.d && res.d.error) || "Konnte gerade nicht senden. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Befund ansehen →"; }
-              })
-              .catch(function () { gerr("Verbindung fehlgeschlagen. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Befund ansehen →"; });
-          });
+          var payload = {
+            vorname: v, email: m, leadmagnet: "mandats-check",
+            website: normUrl(state.website), tagessatz: state.tagessatz || null,
+            resultSummary: { scoreIst: b.gesamt_ist, scorePotenzial: b.gesamt_potenzial, schaerfste: b.schaerfste && b.schaerfste.name },
+          };
+          fetch(SIGNUP_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+            .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok && d.ok, d: d }; }); })
+            .then(function (res) {
+              if (res.ok) { go(4); }
+              else { gerr((res.d && res.d.error) || "Konnte gerade nicht senden. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Vollständigen Befund ansehen →"; }
+            })
+            .catch(function () { gerr("Verbindung fehlgeschlagen. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Vollständigen Befund ansehen →"; });
         };
-        card.querySelector(".vlc-back").onclick = function () { go(0); };
+        card.querySelector(".vlc-back").onclick = function () { go(2); };
         return;
       }
 
-      // ─── SC-06 + SC-07: Befund (Free) + Premium-Gate + CTA ─────────────────
-      if (idx === 3) {
-        var b = befund || demoBefund(normUrl(state.website));
-        var band = bandFor(b.gesamt_ist);
-        var bandClass = b.gesamt_ist <= 39 ? "low" : (b.gesamt_ist <= 70 ? "mid" : "high");
-        var sharpKey = b.schaerfste.key;
+      // ─── SC-06 + SC-07: Voll-Befund (Free) + Premium-Gate + CTA ────────────
+      if (idx === 4) {
+        var bb = befund || demoBefund(normUrl(state.website));
+        var bd = bandFor(bb.gesamt_ist);
+        var sk = bb.schaerfste.key, gc = GAP_COPY[sk];
 
-        var h = '<div class="vlc-res-label">Dein Sichtbarkeits-Befund, ' + esc(state.vorname || "") + "</div>";
-
-        // Score — nie nackt: Ist→Potenzial + Band + Lesart + erster Schritt.
+        var h = '<div class="vlc-res-label">Dein vollständiger Sichtbarkeits-Befund, ' + esc(state.vorname || "") + "</div>";
         h += '<div class="vlc-score-wrap">' +
-          '<div class="vlc-score-line"><span class="vlc-score-ist">' + b.gesamt_ist + '</span>' +
-          '<span class="vlc-score-arrow">→</span><span class="vlc-score-pot">' + b.gesamt_potenzial + '</span></div>' +
+          '<div class="vlc-score-line"><span class="vlc-score-ist">' + bb.gesamt_ist + '</span>' +
+          '<span class="vlc-score-arrow">→</span><span class="vlc-score-pot">' + bb.gesamt_potenzial + '</span></div>' +
           '<p class="vlc-score-cap">Sichtbarkeits-Score heute → erreichbares Potenzial (0 = unsichtbar, 100 = optimal auffindbar)</p>' +
-          '<div class="vlc-band ' + bandClass + '">' + band.label + '</div>' +
-          '<p class="vlc-lesart">' + band.lesart + '</p></div>';
-
-        // Profil-Spiegel
-        h += '<div class="vlc-spiegel"><b>Profil-Spiegel</b><p>' + band.spiegel + '</p></div>';
-
-        // Vier Achsen — nur Namen (Free), schärfste hervorgehoben.
-        h += '<div class="vlc-axes">';
-        b.axes.forEach(function (a) {
-          h += '<span class="vlc-axis-chip' + (a.key === sharpKey ? ' sharp' : '') + '">' + esc(a.name) + '</span>';
-        });
-        h += '</div>';
-
-        // Schärfster Befund (ein Satz + erster Schritt).
-        var gc = GAP_COPY[sharpKey];
+          '<div class="vlc-band ' + bd.klasse + '">' + bd.label + '</div>' +
+          '<p class="vlc-lesart">Heute findet und versteht die Maschine dich ' + bd.phrase + '. ' + esc(COPY.scoreReframeTail) + '</p></div>';
+        h += '<div class="vlc-firststep"><span class="lbl">Dein erster Schritt</span><p>' + esc(gc.schritt) + '</p></div>';
         h += '<div class="vlc-sharp"><span class="lbl">Dein schärfster Hebel</span>' +
-          '<p><b>' + esc(b.schaerfste.name) + '.</b> ' + DIAGNOSE[sharpKey] +
-          ' Erster Schritt: ' + esc(gc.schritt) + ' Das allein bewegt deinen Score am stärksten.</p></div>';
+          '<p><b>' + esc(bb.schaerfste.name) + '.</b> ' + esc(DIAGNOSE[sk]) + ' Das allein bewegt deinen Score am stärksten.</p></div>';
 
-        // 3 konkrete Lücken (Klartext, aufklappbar; Technik nur im abgesetzten Block).
-        h += '<div class="vlc-gaps"><h4>Die 3 größten Lücken — und was sie dir bringen, wenn du sie schließt</h4>';
-        b.luecken.forEach(function (a) {
+        if (state.tagessatz && state.tagessatz > 0) {
+          var lo = fmt(state.tagessatz * 20), hi = fmt(state.tagessatz * 40);
+          h += '<p class="vlc-euro">Bei deinem Tagessatz ist eine einzige vermiedene Auslastungslücke rund <b>' + lo + '–' + hi + ' €</b> wert. ' +
+            '<span class="note">' + esc(COPY.euroNote) + '</span></p>';
+        }
+
+        // F-6: Block 3–6 mobil einklappbar
+        var more = '';
+        more += '<div class="vlc-axes"><h4 style="font-size:14px;color:#fff;margin:0 0 12px;font-family:Outfit,sans-serif">Deine vier Achsen</h4>';
+        bb.axes.forEach(function (a) {
+          var am = ampelFor(a.ist);
+          more += '<div class="vlc-axis-row' + (a.key === sk ? ' sharp' : '') + '">' +
+            '<span class="vlc-axis-name">' + esc(a.name) + '</span>' +
+            '<span class="vlc-axis-right">' +
+              '<span class="vlc-ampel"><span class="vlc-dot ' + am.c + '"></span>' + am.t + '</span>' +
+              '<span class="vlc-gated">' + esc(COPY.gatedFieldMicro) + '</span>' +
+            '</span></div>';
+        });
+        more += '</div>';
+
+        more += '<div class="vlc-gaps"><h4>Die 3 größten Lücken — und was sie dich kosten</h4>';
+        bb.luecken.forEach(function (a) {
           var g = GAP_COPY[a.key];
-          h += '<details class="vlc-gap"' + (a.key === sharpKey ? ' open' : '') + '><summary>' + esc(a.name) + '</summary>' +
+          more += '<details class="vlc-gap"' + (a.key === sk ? ' open' : '') + '><summary>' + esc(LUECKE_SATZ[a.key]) + '</summary>' +
             '<div class="body">' +
             '<span class="k">Was das bedeutet</span><p>' + esc(g.bedeutet) + '</p>' +
             '<span class="k">Was es dir bringt</span><p>' + esc(g.bringt) + '</p>' +
             '<span class="k">Erster Schritt</span><p>' + esc(g.schritt) + '</p>' +
-            (g.tech ? '<details class="vlc-tech"><summary>Optionaler Technik-Hintergrund</summary><p>' + esc(g.tech) + '</p></details>' : '') +
+            (g.tech ? '<details class="vlc-tech"><summary>Für Technik-Interessierte (optional)</summary><p>' + esc(g.tech) + '</p></details>' : '') +
             '</div></details>';
         });
+        more += '</div>';
+
+        more += '<div class="vlc-spiegel"><b>Profil-Spiegel</b><p>' + esc(COPY.profilSpiegel) + '</p></div>';
+
+        more += '<div class="vlc-premium"><span class="lock">🔒 Im Erstgespräch frei</span>' +
+          '<h4>Deine Einzel-Scores + Schließungs-Plan</h4>' +
+          '<p>' + esc(COPY.gatingTeaser) + '</p>' +
+          '<p>' + esc(COPY.teaserDiffMutig) + '</p></div>';
+
+        h += '<details class="vlc-more"><summary>Vollständigen Befund anzeigen</summary><div>' + more + '</div></details>';
+
+        h += '<p class="vlc-bridge">' + esc(COPY.bridge1) + '</p>' +
+             '<p class="vlc-bridge">' + esc(COPY.bridge2) + '</p>';
+        h += '<a class="vlc-btn" style="margin-top:16px" href="' + TIDYCAL + '" target="_blank" rel="noopener">' + esc(COPY.ctaBook) + '</a>' +
+          '<p class="vlc-cta-note">' + esc(COPY.ctaNotePre) + '<b>' + esc(COPY.ctaNoteBold) + '</b>' + esc(COPY.ctaNotePost) + '</p>';
+
+        h += '<div class="vlc-einw"><h4>Ehrlich gefragt</h4>';
+        EINWAENDE.forEach(function (e) { h += '<details><summary>' + esc(e.f) + '</summary><p>' + esc(e.a) + '</p></details>'; });
         h += '</div>';
-
-        // Wert-Anker aus dem Micro-Commitment (Tagessatz).
-        if (state.tagessatz && state.tagessatz > 0) {
-          var kosten = (state.tagessatz * 20).toLocaleString("de-DE");
-          h += '<p class="vlc-sub" style="margin-top:18px">Bei deinem Tagessatz von ' + state.tagessatz.toLocaleString("de-DE") +
-            ' € kostet dich schon ein um vier Wochen verzögertes Anschlussmandat rund <b style="color:#fff">' + kosten +
-            ' €</b>. Sichtbarkeit ist der günstigste Hebel, der genau das verhindert.</p>';
-        }
-
-        // SC-07: Premium hinter dem EINEN CTA (kein Preis).
-        h += '<div class="vlc-premium"><span class="lock">🔒 Im Erstgespräch frei</span>' +
-          '<h4>Dein vollständiger Befund + Schließungs-Plan</h4>' +
-          '<ul>' +
-          '<li>Dein Einzel-Score je Achse (heute → Potenzial) — wo genau die 40 % Provider-Tauglichkeit hängen</li>' +
-          '<li>Die vollständige Schließungs-Roadmap, nach Aufwand getaggt (Quick Win → differenzierend → mutig)</li>' +
-          '<li>Wie aus reiner Sichtbarkeit verlässliche Mandats-Anbahnung wird</li>' +
-          '</ul></div>';
-
-        // Überleitung: Scanner = Enabler, Kern = Beziehungs-/Timing-Story.
-        h += '<p class="vlc-bridge">Der Score ist nur der Einstieg. Sichtbarkeit sorgt dafür, dass man dich <b>findet</b> — ob daraus ein Mandat wird, entscheidet sich über <b>Beziehung und Timing</b>: dass du beim richtigen Provider präsent bist, wenn sein Kunde sucht. Genau dieses System bauen wir im Erstgespräch auf — der Check ist der erste Spiegel dafür.</p>';
-
-        h += '<a class="vlc-btn" style="margin-top:18px" href="' + TIDYCAL + '" target="_blank" rel="noopener">Kostenloses Erstgespräch buchen</a>' +
-          '<p class="vlc-cta-note">30 Min per Video, von einem, der selbst im Mandat steht. Du gehst mit deinem vollständigen Befund und einem konkreten ersten Schritt raus — kein Pitch, kein Druck.</p>';
 
         h += '<p class="vlc-tiny">Ich habe dir gerade eine Bestätigungsmail geschickt. Bestätige sie kurz — dann bekommst du den Befund per Mail zum Nachlesen.</p>';
 
-        // SC-09: verbindlicher Leitplanken-Block.
         h += '<div class="vlc-guard">' +
-          '<p>Dieser Check liest nur, was ohnehin jeder öffentlich über dich sieht — keine Logins, kein Login-Scraping, keine Mandats- oder Dritt-Personendaten.</p>' +
-          '<p>Er zeigt deine <b style="color:#94a3b8">strukturelle Sichtbarkeit</b> — wie gut Suchmaschinen und KI dich finden und einordnen. Er misst nicht Reichweite, Mandate oder Umsatz.</p>' +
+          '<p>Dieser Check liest nur dein eigenes, öffentlich sichtbares Profil — keine Logins, keine Mandats- oder Dritt-Personendaten.</p>' +
+          '<p>Er zeigt deine strukturelle Sichtbarkeit — wie gut Suchmaschinen und KI dich finden und einordnen. Er misst nicht Reichweite, Mandate oder Umsatz.</p>' +
           '<p>Der Score ist ein Frühindikator: steigt er, wirst du leichter gefunden. Er ist keine Mandatsgarantie.</p>' +
-          (b.demo ? '<p>Hinweis: vorab im Demo-Modus berechnet (Test). Der Live-Scan deiner echten Präsenz wird freigeschaltet, sobald die DSGVO-Voraussetzungen (EU-Region + AVV) erfüllt sind.</p>' : '') +
+          (bb.demo ? '<p>Hinweis: vorab im Demo-Modus berechnet (Test, nichts dauerhaft gespeichert). Der Live-Check deines echten Profils wird freigeschaltet, sobald die DSGVO-Voraussetzungen erfüllt sind.</p>' : '') +
           '</div>';
 
         card.innerHTML = h;
