@@ -1,6 +1,7 @@
 ---
 import LandingPage from "../layouts/LandingPage.astro";
 import FAQ from "../components/FAQ.astro";
+import NextWorkshop from "../components/NextWorkshop.astro";
 
 const includes = [
   "5 fertige LinkedIn-Posts, die zu dir passen",
@@ -51,7 +52,7 @@ const steps = [
       <!-- M13: Scarcity Banner -->
       <div class="mt-8 inline-flex items-center gap-2 rounded-full border border-brand-blue bg-brand-blue/10 px-5 py-2 text-sm font-semibold text-brand-blueLight">
         <span>📅</span>
-        <span>Nächster Termin: 24. Juni 2026 · Noch 11 von 15 Plätzen frei</span>
+        <NextWorkshop suffix=" · Plätze begrenzt" />
       </div>
       <div class="mt-4">
         <a

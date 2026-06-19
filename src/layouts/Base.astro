@@ -45,6 +45,56 @@ const personSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Google Consent Mode v2 + Tag Manager.
+         Standard: alles verweigert → GA4 sendet nur anonyme, cookielose Signale
+         (modellierte Reichweite), bis der Nutzer im Banner zustimmt.
+         GTM-ID unten EINMAL eintragen, dann läuft alles. -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+        functionality_storage: "granted",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "url_passthrough", true);
+      gtag("set", "ads_data_redaction", true);
+
+      // Frühere Einwilligung wiederherstellen, BEVOR GTM lädt
+      try {
+        if (localStorage.getItem("vl_cookie_consent") === "accepted") {
+          gtag("consent", "update", {
+            ad_storage: "granted",
+            ad_user_data: "granted",
+            ad_personalization: "granted",
+            analytics_storage: "granted",
+          });
+        }
+      } catch (e) {}
+
+      // Container-ID Value Lift AI:
+      var GTM_ID = "GTM-5MHHN4KS";
+      if (GTM_ID && GTM_ID !== "GTM-XXXXXXX") {
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != "dataLayer" ? "&l=" + l : "";
+          j.async = true;
+          j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+          f.parentNode.insertBefore(j, f);
+        })(window, document, "script", "dataLayer", GTM_ID);
+      }
+    </script>
+
     <!-- Primäre Meta-Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -83,65 +133,61 @@ const personSchema = {
   </head>
   <body class="bg-brand-white font-sans text-brand-dark antialiased">
 
-    <!-- Cookie-Banner -->
-    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999;
-      background:#0B1528; color:#fff; padding:1rem 1.5rem; box-shadow:0 -4px 20px rgba(0,0,0,0.3);">
-      <div style="max-width:64rem; margin:0 auto; display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;">
-        <p style="margin:0; font-size:0.875rem; line-height:1.5; flex:1; min-width:260px;">
-          Wir verwenden Cookies und Analysetools (Google Analytics, Microsoft Clarity), um unsere Website zu verbessern.
-          Mehr dazu in unserer <a href="/datenschutz" style="color:#F5A623; text-decoration:underline;">Datenschutzerklärung</a>.
+    <!-- Cookie-Consent: Schleier + Banner -->
+    <div id="cookie-scrim"></div>
+    <div id="cookie-banner" role="dialog" aria-label="Cookie-Einstellungen">
+      <div class="cookie-inner">
+        <p class="cookie-text">
+          Wir verwenden Cookies und Analysetools (Google Analytics, Microsoft Clarity),
+          um unsere Website zu verbessern. Mehr dazu in unserer
+          <a href="/datenschutz">Datenschutzerklärung</a>.
         </p>
-        <div style="display:flex; gap:0.75rem; flex-shrink:0;">
-          <button id="cookie-reject"
-            style="background:transparent; border:1px solid rgba(255,255,255,0.4); color:#fff;
-            padding:0.5rem 1rem; border-radius:0.375rem; font-size:0.875rem; cursor:pointer;">
-            Nur notwendige
-          </button>
-          <button id="cookie-accept"
-            style="background:#F5A623; border:none; color:#0B1528;
-            padding:0.5rem 1.25rem; border-radius:0.375rem; font-size:0.875rem; font-weight:700; cursor:pointer;">
-            Alle akzeptieren
-          </button>
+        <div class="cookie-actions">
+          <button id="cookie-reject" type="button">Nur notwendige</button>
+          <button id="cookie-accept" type="button">Alle akzeptieren</button>
         </div>
       </div>
     </div>
 
-    <script>
-      // GTM-ID hier eintragen, sobald eingerichtet:
-      const GTM_ID = 'GTM-XXXXXXX';
+    <style>
+      #cookie-scrim { position:fixed; inset:0; z-index:9998; background:rgba(0,0,0,.35);
+        opacity:0; visibility:hidden; pointer-events:none;
+        transition:opacity .3s ease, visibility .3s ease; }
+      #cookie-scrim.is-visible { opacity:1; visibility:visible; }
+      #cookie-banner { position:fixed; left:0; right:0; bottom:0; z-index:9999;
+        background:#0B1528; color:#fff; padding:1rem 1.5rem; box-shadow:0 -4px 24px rgba(0,0,0,.4);
+        transform:translateY(110%); opacity:0; visibility:hidden;
+        transition:transform .4s cubic-bezier(.16,1,.3,1), opacity .4s ease, visibility .4s ease; }
+      #cookie-banner.is-visible { transform:translateY(0); opacity:1; visibility:visible; }
+      .cookie-inner { max-width:64rem; margin:0 auto; display:flex; flex-wrap:wrap; gap:1rem;
+        align-items:center; justify-content:space-between; }
+      .cookie-text { margin:0; font-size:.875rem; line-height:1.5; flex:1; min-width:260px; }
+      .cookie-text a { color:#F5A623; text-decoration:underline; }
+      .cookie-actions { display:flex; gap:.75rem; flex-shrink:0; }
+      #cookie-reject { background:transparent; border:1px solid rgba(255,255,255,.4); color:#fff;
+        padding:.5rem 1rem; border-radius:.375rem; font-size:.875rem; cursor:pointer; }
+      #cookie-accept { background:#F5A623; border:none; color:#0B1528; padding:.5rem 1.25rem;
+        border-radius:.375rem; font-size:.875rem; font-weight:700; cursor:pointer; }
+      @media (prefers-reduced-motion: reduce) { #cookie-banner, #cookie-scrim { transition:none; } }
+    </style>
 
-      function loadGTM() {
-        if (!GTM_ID || GTM_ID === 'GTM-XXXXXXX') return;
-        (function(w,d,s,l,i){
-          w[l]=w[l]||[];
-          w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-          var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),
-              dl=l!='dataLayer'?'&l='+l:'';
-          j.async=true;
-          j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-          f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer',GTM_ID);
-      }
-
-      var consent = localStorage.getItem('vl_cookie_consent');
-
-      if (consent === 'accepted') {
-        loadGTM();
-      } else if (consent === null) {
-        document.getElementById('cookie-banner').style.display = 'block';
-      }
-
-      document.getElementById('cookie-accept').addEventListener('click', function() {
-        localStorage.setItem('vl_cookie_consent', 'accepted');
-        document.getElementById('cookie-banner').style.display = 'none';
-        loadGTM();
-      });
-
-      document.getElementById('cookie-reject').addEventListener('click', function() {
-        localStorage.setItem('vl_cookie_consent', 'rejected');
-        document.getElementById('cookie-banner').style.display = 'none';
-      });
+    <script is:inline>
+      (function () {
+        var banner = document.getElementById("cookie-banner");
+        var scrim = document.getElementById("cookie-scrim");
+        function show(){ banner.classList.add("is-visible"); scrim.classList.add("is-visible"); }
+        function hide(){ banner.classList.remove("is-visible"); scrim.classList.remove("is-visible"); }
+        function grant(){ if (window.gtag) window.gtag("consent","update",{
+          ad_storage:"granted", ad_user_data:"granted",
+          ad_personalization:"granted", analytics_storage:"granted" }); }
+        var c = null; try { c = localStorage.getItem("vl_cookie_consent"); } catch(e){}
+        if (c === null) show();
+        document.getElementById("cookie-accept").addEventListener("click", function(){
+          try { localStorage.setItem("vl_cookie_consent","accepted"); } catch(e){} grant(); hide(); });
+        document.getElementById("cookie-reject").addEventListener("click", function(){
+          try { localStorage.setItem("vl_cookie_consent","rejected"); } catch(e){} hide(); });
+        window.vlOpenCookieSettings = function(){ show(); };
+      })();
     </script>
 
     {!hideNav && <Header />}
