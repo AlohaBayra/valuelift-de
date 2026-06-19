@@ -71,9 +71,21 @@ const tidycalUrl = `https://tidycal.com/${tidycalPath}`;
         Termin wählen
       </p>
 
-      <!-- TidyCal Inline-Embed -->
-      <div class="tidycal-embed" data-path={tidycalPath} style="flex: 1;"></div>
-      <script src="https://asset-tidycal.b-cdn.net/js/embed.js" async></script>
+      <!-- TidyCal Inline-Embed (erst nach Zustimmung zu „Externe Medien") -->
+      <div class="js-consent-embed" data-category="medien" style="flex: 1;">
+        <template>
+          <div class="tidycal-embed" data-path={tidycalPath} style="flex: 1;"></div>
+          <script is:inline src="https://asset-tidycal.b-cdn.net/js/embed.js" async></script>
+        </template>
+        <div class="consent-placeholder" style="border:1px dashed #D1D5DB; border-radius:1rem; padding:2rem 1.5rem; text-align:center;">
+          <p style="margin:0 0 1rem; font-size:0.9rem; color:#374151;">
+            Zum Anzeigen des Buchungskalenders ist deine Zustimmung zu „Externe Medien" (TidyCal) nötig.
+          </p>
+          <button type="button" class="consent-load-btn" style="background:#F5A623; border:none; color:#0B1528; font-weight:700; padding:0.7rem 1.25rem; border-radius:0.5rem; cursor:pointer;">
+            Buchungskalender laden
+          </button>
+        </div>
+      </div>
 
       <p style="margin-top: 1.5rem; font-size: 0.75rem; color: #9CA3AF; text-align: center;">
         Kalender lädt nicht?{" "}

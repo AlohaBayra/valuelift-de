@@ -43,16 +43,26 @@ import Base from "../layouts/Base.astro";
         </p>
       </div>
 
-      <!-- TidyCal Embed -->
-      <div style="border-radius: 1rem; overflow: hidden; border: 1px solid #E5E7EB; background: #FFFFFF;">
-        <iframe
-          src="https://tidycal.com/marcuseichler/ki-kickstart-bootcamp"
-          width="100%"
-          height="700"
-          frameborder="0"
-          style="display: block;"
-          title="KI-Kickstart Bootcamp — Termin buchen"
-        ></iframe>
+      <!-- TidyCal Embed (erst nach Zustimmung zu „Externe Medien") -->
+      <div class="js-consent-embed" data-category="medien" style="border-radius: 1rem; overflow: hidden; border: 1px solid #E5E7EB; background: #FFFFFF;">
+        <template>
+          <iframe
+            src="https://tidycal.com/marcuseichler/ki-kickstart-bootcamp"
+            width="100%"
+            height="700"
+            frameborder="0"
+            style="display: block;"
+            title="KI-Kickstart Bootcamp — Termin buchen"
+          ></iframe>
+        </template>
+        <div class="consent-placeholder" style="padding: 2.5rem 1.5rem; text-align: center;">
+          <p style="margin: 0 0 1rem; font-size: 0.95rem; color: #374151;">
+            Zum Anzeigen des Buchungskalenders ist deine Zustimmung zu „Externe Medien" (TidyCal) nötig.
+          </p>
+          <button type="button" class="consent-load-btn" style="background:#F5A623; border:none; color:#0B1528; font-weight:700; padding:0.7rem 1.25rem; border-radius:0.5rem; cursor:pointer;">
+            Buchungskalender laden
+          </button>
+        </div>
       </div>
 
     </div>
