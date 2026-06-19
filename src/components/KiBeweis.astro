@@ -1,0 +1,288 @@
+---
+// ST24 — KI-Mehrwert-Beweis-Raster: „Ein Einzelner führt mit KI eine ganze Firma."
+// GEO-PFLICHT: Alle 16 Kacheln rendern fest im statischen HTML. Die 10 Zusatz-Kacheln
+// werden ausschließlich per nativem <details> / CSS ein-/ausgeblendet — NIE per JS injiziert/
+// nachgefetcht. „Nachladen" = einblenden, nicht laden. Sonst für LLM-/Such-Crawler unsichtbar.
+// Zahlenfrei (kein €/Prozent) — Entscheidung Marcus 2026-06-19.
+
+// 6 fest sichtbare Kacheln (2×3). `short` = bis md: sichtbar, `rest` = ab md: zusätzlich.
+const visible = [
+  {
+    title: "Content, der mitläuft",
+    short: "Mein LinkedIn-System recherchiert, schreibt in meiner Sprache und schlägt mir täglich einen Beitrag vor.",
+    rest: "Ich gebe frei — es lernt aus dem, was wirklich ankommt.",
+  },
+  {
+    title: "Software ohne Dev-Team",
+    short: "Eine komplette Web-App, eine native Mac-App, diese Website — alles selbst gebaut und live.",
+    rest: "Nicht durch Programmieren-Können, sondern durch Verstehen plus KI.",
+  },
+  {
+    title: "Das richtige Problem zuerst",
+    short: "Bevor ich baue, lasse ich KI den Markt durchleuchten und meine Hebel sortieren.",
+    rest: "So entstehen Entscheidungen aus Daten, nicht aus Bauchgefühl.",
+  },
+  {
+    title: "Eine Firma aus Agenten",
+    short: "Über ein Dutzend spezialisierter KI-Agenten arbeiten je Bereich — Content, Strategie, Verkauf, Compliance.",
+    rest: "Ein KI-Stabschef priorisiert morgens, ich entscheide.",
+  },
+  {
+    title: "Mensch auf der Brücke",
+    short: "Nichts geht ungeprüft nach außen.",
+    rest: "Die KI arbeitet im Maschinenraum, jede Veröffentlichung gibt ein Mensch frei. Überwachter Autopilot, kein Selbstläufer.",
+  },
+  {
+    title: "Es vergisst nichts",
+    short: "Mein System trägt sein Gedächtnis über jeden Tag hinweg.",
+    rest: "Kein Neustart bei null — es baut auf dem auf, was gestern entstand.",
+  },
+];
+
+// Stufe 1 — die 5 greifbarsten Zusatzfälle
+const stage1 = [
+  {
+    title: "Video, das sich schreibt",
+    short: "Reel- und Shorts-Skripte mit Hook, Teleprompter-Text und passender Caption entstehen in Minuten statt Stunden.",
+    rest: "",
+  },
+  {
+    title: "Angebote, die sitzen",
+    short: "KI zerlegt meine Angebote nach bewährten Mustern und schärft sie, bis das Versprechen klar und der Preis nachvollziehbar ist.",
+    rest: "",
+  },
+  {
+    title: "Werkzeuge statt Abos",
+    short: "Interaktive Rechner und Selbst-Checks samt Bewertungslogik habe ich selbst gebaut — maßgeschneidert, statt ein fertiges Tool zu mieten.",
+    rest: "",
+  },
+  {
+    title: "Programme aus dem Stand",
+    short: "Kurse, Curricula und Tagespakete entstehen mit KI didaktisch durchdacht — Inhalt, Pacing und Übungen aus einem Guss.",
+    rest: "",
+  },
+  {
+    title: "Klare Position",
+    short: "KI hilft mir, meine Positionierung und Zielgruppe scharf zu fassen, statt im Allgemeinen zu bleiben.",
+    rest: "",
+  },
+];
+
+// Stufe 2 — die 5 Tiefenbelege
+const stage2 = [
+  {
+    title: "Verkauf auf dem Prüfstand",
+    short: "Ein KI-Agent prüft meine Verkaufstexte, Funnel und Mails verkaufspsychologisch, bevor sie rausgehen.",
+    rest: "",
+  },
+  {
+    title: "Website auf dem Prüfstand",
+    short: "Ein zweiter Agent prüft meine Seite auf Verständlichkeit, Auffindbarkeit und Barrierefreiheit — auf Code-Ebene.",
+    rest: "",
+  },
+  {
+    title: "App auf dem Prüfstand",
+    short: "Ein dritter prüft meine App aus der Sicht des zeitarmen Nutzers, damit nichts hakt.",
+    rest: "",
+  },
+  {
+    title: "Sauber von Anfang an",
+    short: "Compliance- und Datenschutz-Entwürfe bereitet KI vor, damit das Rechtliche von Beginn an mitläuft.",
+    rest: "",
+  },
+  {
+    title: "Den Markt im Blick",
+    short: "Ein Recherche-Agent liefert mir Wettbewerb, Trends und O-Töne der Zielgruppe als entscheidungsreifes Briefing.",
+    rest: "",
+  },
+];
+---
+
+<section class="kib" style="background-color: #0B1528; padding: 4rem 1rem;">
+  <div style="max-width: 60rem; margin: 0 auto;">
+
+    <div style="text-align: center;">
+      <span style="display: inline-block; border-radius: 9999px; border: 1px solid #F5A623; background-color: rgba(245,166,35,0.12); color: #F5A623; padding: 0.25rem 1rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem;">
+        Lebender Beweis
+      </span>
+
+      <h2 style="font-size: 2rem; font-weight: 800; color: #FFFFFF; line-height: 1.25; margin: 0 auto 1rem; max-width: 48rem;">
+        Ich verkaufe keine KI-Theorie. Ich betreibe mein ganzes Business mit ihr.
+      </h2>
+
+      <p style="font-size: 1.0625rem; color: #D1D5DB; max-width: 44rem; margin: 0 auto; line-height: 1.65;">
+        Ein Einzelner, kein Dev-Team, kein Berufs-Programmierer — und trotzdem läuft
+        hier ein ganzes Unternehmen auf selbstgebauten KI-Agenten. Jeden Schritt davon
+        verstehe ich, jeden Schritt besitze ich. Genau das baue ich mit dir auf.
+      </p>
+    </div>
+
+    <!-- 6 fest sichtbare Kacheln -->
+    <div class="kib-grid" style="margin-top: 2.5rem;">
+      {
+        visible.map((t) => (
+          <article class="kib-tile">
+            <h3 class="kib-tile-title">{t.title}</h3>
+            <p class="kib-tile-text">
+              {t.short}
+              {t.rest && <span class="kib-tile-rest"> {t.rest}</span>}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Teaser (ehrliche Bestandszahl, kein Performance-Wert) -->
+    <p style="text-align: center; color: #9CA3AF; font-size: 0.9375rem; margin: 1.75rem auto 0;">
+      Sechs von über zwanzig KI-Systemen, die mein Geschäft tragen.
+    </p>
+
+    <!-- Stufe 1: +5 (nativer Aufklapper, Inhalt fest im HTML) -->
+    <details class="kib-details">
+      <summary>
+        <span class="kib-summary-btn">
+          <span class="kib-label-closed">5 weitere anzeigen</span>
+          <span class="kib-label-open">Weniger anzeigen</span>
+        </span>
+      </summary>
+
+      <div class="kib-grid" style="margin-top: 2rem;">
+        {
+          stage1.map((t) => (
+            <article class="kib-tile">
+              <h3 class="kib-tile-title">{t.title}</h3>
+              <p class="kib-tile-text">
+                {t.short}
+                {t.rest && <span class="kib-tile-rest"> {t.rest}</span>}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+
+      <!-- Stufe 2: +5 (verschachtelt, erst nach Stufe 1 sichtbar) -->
+      <details class="kib-details">
+        <summary>
+          <span class="kib-summary-btn">
+            <span class="kib-label-closed">Noch 5 weitere anzeigen</span>
+            <span class="kib-label-open">Weniger anzeigen</span>
+          </span>
+        </summary>
+
+        <div class="kib-grid" style="margin-top: 2rem;">
+          {
+            stage2.map((t) => (
+              <article class="kib-tile">
+                <h3 class="kib-tile-title">{t.title}</h3>
+                <p class="kib-tile-text">
+                  {t.short}
+                  {t.rest && <span class="kib-tile-rest"> {t.rest}</span>}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </details>
+    </details>
+
+    <!-- ST05 — zahlenfreie Marcus-Stimme (ersetzt das −90 %-Zitat, keine Statistik-Badges) -->
+    <figure style="margin: 2.75rem auto 0; max-width: 44rem; border-radius: 1rem; border: 1px solid rgba(245,166,35,0.4); background-color: rgba(245,166,35,0.07); padding: 2rem; text-align: left;">
+      <blockquote style="margin: 0; font-size: 1.0625rem; color: #D1D5DB; line-height: 1.7; font-style: italic;">
+        „Früher hat mich mein Content einen halben Arbeitstag pro Woche gekostet. Heute
+        lese ich morgens den Vorschlag meines Systems, schärfe ein paar Sätze und gebe
+        frei — der Rest läuft, während ich an dem arbeite, das wirklich zählt. Nicht weil
+        ich schneller tippe, sondern weil ich eine Maschine gebaut habe, die mitdenkt."
+      </blockquote>
+      <figcaption style="display: flex; align-items: center; gap: 1rem; margin-top: 1.25rem;">
+        <img src="/marcus.jpg" alt="Marcus Eichler" width="48" height="48" style="width: 48px; height: 48px; border-radius: 9999px; object-fit: cover; border: 2px solid #F5A623; flex-shrink: 0;" />
+        <span>
+          <span style="display: block; font-weight: 700; color: #FFFFFF;">Marcus Eichler</span>
+          <span style="display: block; font-size: 0.875rem; color: #9CA3AF;">Value Lift AI · KI-Architekt</span>
+        </span>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<style>
+  /* Kachel-Raster: mobil 1-spaltig, ab sm 2-spaltig, ab md 3-spaltig (2×3) */
+  .kib-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    text-align: left;
+  }
+  @media (min-width: 640px) {
+    .kib-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 768px) {
+    .kib-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .kib-tile {
+    border-radius: 1rem;
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    background-color: rgba(245, 166, 35, 0.06);
+    padding: 1.5rem;
+  }
+  .kib-tile-title {
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    font-size: 1.0625rem;
+  }
+  .kib-tile-text {
+    font-size: 0.9375rem;
+    color: #d1d5db;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* GEO: rest steckt fest im HTML, wird nur mobil per CSS ausgeblendet (kein JS) */
+  .kib-tile-rest { display: none; }
+  @media (min-width: 768px) {
+    .kib-tile-rest { display: inline; }
+  }
+
+  /* Nativer Aufklapper — kein JS, Inhalt bleibt im DOM/HTML */
+  .kib-details {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .kib-details > summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-block;
+  }
+  .kib-details > summary::-webkit-details-marker { display: none; }
+  .kib-details > summary::marker { content: ""; }
+
+  .kib-summary-btn {
+    display: inline-block;
+    border: 2px solid #F5A623;
+    color: #F5A623; /* Orange auf Navy ≈ 8:1 → WCAG AA erfüllt */
+    background: transparent;
+    padding: 0.75rem 1.75rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s ease;
+  }
+  .kib-details > summary:hover .kib-summary-btn {
+    background-color: rgba(245, 166, 35, 0.14);
+  }
+  /* Sichtbarer Fokus-Ring (nicht wegstylen) */
+  .kib-details > summary:focus-visible {
+    outline: none;
+  }
+  .kib-details > summary:focus-visible .kib-summary-btn {
+    outline: 3px solid #FAC03A;
+    outline-offset: 3px;
+  }
+
+  /* Label-Wechsel auf/zu — beide Labels bleiben im statischen HTML */
+  .kib-label-open { display: none; }
+  .kib-details[open] > summary .kib-label-closed { display: none; }
+  .kib-details[open] > summary .kib-label-open { display: inline; }
+</style>
