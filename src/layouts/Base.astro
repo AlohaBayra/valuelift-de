@@ -68,13 +68,19 @@ const personSchema = {
       gtag("set", "ads_data_redaction", true);
 
       // Einwilligung pro Kategorie (JSON). Version erhöhen, um alle erneut zu fragen.
+      // Ablauf abhängig von der Entscheidung:
+      //   mind. eine optionale Kategorie zugestimmt -> 6 Monate
+      //   alles abgelehnt -> 2 Wochen (eher wieder fragen)
       window.VL_CONSENT_VERSION = 2;
-      window.VL_CONSENT_MAXAGE = 15552000000; // 180 Tage (6 Monate) in ms
+      window.VL_CONSENT_MAXAGE_ACCEPT = 15552000000; // 180 Tage in ms
+      window.VL_CONSENT_MAXAGE_REJECT = 1209600000;  // 14 Tage in ms
       window.vlReadConsent = function () {
         try {
           var c = JSON.parse(localStorage.getItem("vl_cookie_consent"));
           if (!c || c.v !== window.VL_CONSENT_VERSION) return null;
-          if (!c.ts || Date.now() - c.ts > window.VL_CONSENT_MAXAGE) return null;
+          var granted = !!(c.statistik || c.medien);
+          var maxAge = granted ? window.VL_CONSENT_MAXAGE_ACCEPT : window.VL_CONSENT_MAXAGE_REJECT;
+          if (!c.ts || Date.now() - c.ts > maxAge) return null;
           return c;
         } catch (e) { return null; }
       };
