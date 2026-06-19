@@ -1,0 +1,70 @@
+---
+/**
+ * NextWorkshop.astro
+ * Zeigt den nächsten Workshop-Termin – automatisch berechnet aus einem Anker-
+ * Datum + festem Rhythmus. Kein manuelles Pflegen, kein Deploy nötig.
+ *
+ * Pflegestelle (NUR HIER ändern, falls sich Rhythmus/Anker ändern):
+ *   ANKER_JAHR / ANKER_MONAT (1-basiert!) / ANKER_TAG  und  RHYTHMUS_TAGE
+ *
+ * Der Termin wird zweimal berechnet:
+ *  - beim Build (Frontmatter) → korrektes Datum steht im statischen HTML (SEO / ohne JS)
+ *  - im Browser (Script unten) → bleibt zwischen zwei Deploys von selbst aktuell
+ */
+
+// --- Pflegestelle ----------------------------------------------------------
+const ANKER_JAHR = 2026;
+const ANKER_MONAT = 6;   // 1-basiert: 6 = Juni
+const ANKER_TAG = 23;    // 23. Juni 2026 (Dienstag)
+const RHYTHMUS_TAGE = 14; // alle zwei Wochen, dienstags
+// ---------------------------------------------------------------------------
+
+interface Props {
+  prefix?: string;
+  suffix?: string;
+}
+const { prefix = "Nächster Termin: ", suffix = " · Plätze begrenzt" } = Astro.props;
+
+function naechsterTermin(jahr: number, monat1: number, tag: number, rhythmus: number): Date {
+  const anker = new Date(jahr, monat1 - 1, tag);
+  anker.setHours(0, 0, 0, 0);
+  const heute = new Date();
+  heute.setHours(0, 0, 0, 0);
+  const d = new Date(anker);
+  while (d < heute) d.setDate(d.getDate() + rhythmus); // Kalendertage → DST-sicher
+  return d;
+}
+
+const buildDatum = naechsterTermin(ANKER_JAHR, ANKER_MONAT, ANKER_TAG, RHYTHMUS_TAGE)
+  .toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<span
+  class="js-next-workshop"
+  data-anker={`${ANKER_JAHR}-${ANKER_MONAT}-${ANKER_TAG}`}
+  data-rhythmus={RHYTHMUS_TAGE}
+  data-prefix={prefix}
+  data-suffix={suffix}>{prefix}{buildDatum}{suffix}</span>
+
+<script>
+  function naechsterTermin(jahr: number, monat1: number, tag: number, rhythmus: number): Date {
+    const anker = new Date(jahr, monat1 - 1, tag);
+    anker.setHours(0, 0, 0, 0);
+    const heute = new Date();
+    heute.setHours(0, 0, 0, 0);
+    const d = new Date(anker);
+    while (d < heute) d.setDate(d.getDate() + rhythmus);
+    return d;
+  }
+
+  document.querySelectorAll<HTMLElement>(".js-next-workshop").forEach((el) => {
+    const [j, m, t] = (el.dataset.anker || "2026-6-24").split("-").map(Number);
+    const rhythmus = Number(el.dataset.rhythmus) || 14;
+    const datum = naechsterTermin(j, m, t, rhythmus).toLocaleDateString("de-DE", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    el.textContent = `${el.dataset.prefix ?? ""}${datum}${el.dataset.suffix ?? ""}`;
+  });
+</script>
