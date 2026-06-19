@@ -135,11 +135,12 @@ const personSchema = {
 
     <!-- Cookie-Consent: Schleier + Banner -->
     <div id="cookie-scrim"></div>
-    <div id="cookie-banner" role="dialog" aria-label="Cookie-Einstellungen">
+    <div id="cookie-banner" role="dialog" aria-modal="true" aria-label="Cookie-Einstellungen">
       <div class="cookie-inner">
         <p class="cookie-text">
           Wir verwenden Cookies und Analysetools (Google Analytics, Microsoft Clarity),
-          um unsere Website zu verbessern. Mehr dazu in unserer
+          um unsere Website zu verbessern. Bitte triff eine Auswahl, um fortzufahren.
+          Mehr dazu in unserer
           <a href="/datenschutz">Datenschutzerklärung</a>.
         </p>
         <div class="cookie-actions">
@@ -150,24 +151,26 @@ const personSchema = {
     </div>
 
     <style>
-      #cookie-scrim { position:fixed; inset:0; z-index:9998; background:rgba(0,0,0,.35);
+      #cookie-scrim { position:fixed; inset:0; z-index:9998; background:rgba(0,0,0,.6);
         opacity:0; visibility:hidden; pointer-events:none;
         transition:opacity .3s ease, visibility .3s ease; }
-      #cookie-scrim.is-visible { opacity:1; visibility:visible; }
-      #cookie-banner { position:fixed; left:0; right:0; bottom:0; z-index:9999;
-        background:#0B1528; color:#fff; padding:1rem 1.5rem; box-shadow:0 -4px 24px rgba(0,0,0,.4);
-        transform:translateY(110%); opacity:0; visibility:hidden;
-        transition:transform .4s cubic-bezier(.16,1,.3,1), opacity .4s ease, visibility .4s ease; }
-      #cookie-banner.is-visible { transform:translateY(0); opacity:1; visibility:visible; }
-      .cookie-inner { max-width:64rem; margin:0 auto; display:flex; flex-wrap:wrap; gap:1rem;
-        align-items:center; justify-content:space-between; }
-      .cookie-text { margin:0; font-size:.875rem; line-height:1.5; flex:1; min-width:260px; }
+      #cookie-scrim.is-visible { opacity:1; visibility:visible; pointer-events:auto; }
+      #cookie-banner { position:fixed; left:50%; top:50%; z-index:9999;
+        width:min(32rem, calc(100% - 2rem));
+        background:#0B1528; color:#fff; padding:1.75rem; border-radius:1rem;
+        box-shadow:0 20px 60px rgba(0,0,0,.55);
+        opacity:0; visibility:hidden; transform:translate(-50%,-46%) scale(.96);
+        transition:transform .35s cubic-bezier(.16,1,.3,1), opacity .35s ease, visibility .35s ease; }
+      #cookie-banner.is-visible { opacity:1; visibility:visible; transform:translate(-50%,-50%) scale(1); }
+      .cookie-inner { display:flex; flex-direction:column; gap:1.25rem; }
+      .cookie-text { margin:0; font-size:.95rem; line-height:1.55; }
       .cookie-text a { color:#F5A623; text-decoration:underline; }
-      .cookie-actions { display:flex; gap:.75rem; flex-shrink:0; }
+      .cookie-actions { display:flex; gap:.75rem; flex-wrap:wrap; }
+      #cookie-reject, #cookie-accept { flex:1; min-width:140px; text-align:center; }
       #cookie-reject { background:transparent; border:1px solid rgba(255,255,255,.4); color:#fff;
-        padding:.5rem 1rem; border-radius:.375rem; font-size:.875rem; cursor:pointer; }
-      #cookie-accept { background:#F5A623; border:none; color:#0B1528; padding:.5rem 1.25rem;
-        border-radius:.375rem; font-size:.875rem; font-weight:700; cursor:pointer; }
+        padding:.7rem 1rem; border-radius:.5rem; font-size:.9rem; cursor:pointer; }
+      #cookie-accept { background:#F5A623; border:none; color:#0B1528; padding:.7rem 1.25rem;
+        border-radius:.5rem; font-size:.9rem; font-weight:700; cursor:pointer; }
       @media (prefers-reduced-motion: reduce) { #cookie-banner, #cookie-scrim { transition:none; } }
     </style>
 
@@ -175,8 +178,10 @@ const personSchema = {
       (function () {
         var banner = document.getElementById("cookie-banner");
         var scrim = document.getElementById("cookie-scrim");
-        function show(){ banner.classList.add("is-visible"); scrim.classList.add("is-visible"); }
-        function hide(){ banner.classList.remove("is-visible"); scrim.classList.remove("is-visible"); }
+        function lock(){ document.documentElement.style.overflow="hidden"; document.body.style.overflow="hidden"; }
+        function unlock(){ document.documentElement.style.overflow=""; document.body.style.overflow=""; }
+        function show(){ banner.classList.add("is-visible"); scrim.classList.add("is-visible"); lock(); }
+        function hide(){ banner.classList.remove("is-visible"); scrim.classList.remove("is-visible"); unlock(); }
         function grant(){ if (window.gtag) window.gtag("consent","update",{
           ad_storage:"granted", ad_user_data:"granted",
           ad_personalization:"granted", analytics_storage:"granted" }); }
