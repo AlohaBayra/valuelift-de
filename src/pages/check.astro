@@ -194,6 +194,10 @@ const PLAN = {
     var idx = 0;
     var card = document.getElementById("vlc-card");
 
+    function vlTrack(ev, params) {
+      try { window.dataLayer = window.dataLayer || []; window.dataLayer.push(Object.assign({ event: ev }, params || {})); } catch (e) {}
+    }
+
     function labelFor(key, val) {
       for (var i = 0; i < STEPS.length; i++) {
         if (STEPS[i].key === key && STEPS[i].opts) {
@@ -218,7 +222,7 @@ const PLAN = {
           '<h1 class="vlc-h">Im Mandat keine Zeit für Sichtbarkeit. Danach Funkstille. Rechne in 2 Minuten aus, was dich diese Lücke jedes Jahr kostet — und sieh deinen ersten Schritt raus.</h1>' +
           '<p class="vlc-sub">Kein Login, kein Pitch. Ehrliche Selbsteinschätzung — von einem, der selbst im Mandat steht. Kein Berater-Sprech.</p>' +
           '<button class="vlc-btn" id="vlc-start">Check starten →</button>';
-        document.getElementById("vlc-start").onclick = function () { go(1); };
+        document.getElementById("vlc-start").onclick = function () { vlTrack("check_start"); go(1); };
         return;
       }
 
@@ -231,6 +235,7 @@ const PLAN = {
           b.onclick = function () {
             state[s.key] = b.getAttribute("data-v");
             if (s.key === "aufgabe") state.faktor = FACTORS[state.aufgabe];
+            vlTrack("check_step_complete", { step_number: idx, step_key: s.key });
             go(idx + 1);
           };
         });
@@ -246,9 +251,9 @@ const PLAN = {
           '<button class="vlc-skip" id="vlc-skip">Weiß ich nicht — mit Schätzwert ' + s.ph + ' weiter</button>' +
           '<button class="vlc-back">← zurück</button>';
         var inp = document.getElementById("vlc-num");
-        function nxt() { var v = parseFloat(inp.value); state[s.key] = (isNaN(v) || v <= 0) ? parseFloat(s.ph) : v; go(idx + 1); }
+        function nxt() { var v = parseFloat(inp.value); state[s.key] = (isNaN(v) || v <= 0) ? parseFloat(s.ph) : v; vlTrack("check_step_complete", { step_number: idx, step_key: s.key }); go(idx + 1); }
         document.getElementById("vlc-next").onclick = nxt;
-        document.getElementById("vlc-skip").onclick = function () { state[s.key] = parseFloat(s.ph); go(idx + 1); };
+        document.getElementById("vlc-skip").onclick = function () { state[s.key] = parseFloat(s.ph); vlTrack("check_step_complete", { step_number: idx, step_key: s.key }); go(idx + 1); };
         inp.onkeydown = function (e) { if (e.key === "Enter") nxt(); };
         inp.focus();
         card.querySelector(".vlc-back").onclick = function () { go(idx - 1); };
@@ -301,7 +306,7 @@ const PLAN = {
           })
             .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok && d.ok, d: d }; }); })
             .then(function (res) {
-              if (res.ok) { go(idx + 1); }
+              if (res.ok) { vlTrack("generate_lead", { lead_source: "interim_check" }); go(idx + 1); }
               else { gerr((res.d && res.d.error) || "Konnte gerade nicht senden. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Ergebnis ansehen →"; }
             })
             .catch(function () { gerr("Verbindung fehlgeschlagen. Bitte versuche es erneut."); btn.disabled = false; btn.textContent = "Ergebnis ansehen →"; });
@@ -351,6 +356,7 @@ const PLAN = {
           "</div>";
 
         card.innerHTML = h;
+        vlTrack("check_result_view", { is_mac: IS_MAC });
 
         if (IS_MAC) {
           var holder = document.getElementById("vlc-demo-holder");

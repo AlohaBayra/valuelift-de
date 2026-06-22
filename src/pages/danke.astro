@@ -195,6 +195,7 @@ import Base from "../layouts/Base.astro";
             msg.style.color = '#16A34A';
             msg.textContent = '✓ Du bist eingetragen! Schau kurz ins Postfach — wir haben dir eine Bestätigungs-E-Mail geschickt.';
             form?.reset();
+            try { (window as any).dataLayer = (window as any).dataLayer || []; (window as any).dataLayer.push({ event: 'newsletter_signup', lead_source: 'danke_newsletter' }); } catch (e) {}
           } else if (data.status === 'already_exists') {
             msg.style.color = '#16A34A';
             msg.textContent = '✓ Du bist bereits in unserer Liste — wir melden uns!';
