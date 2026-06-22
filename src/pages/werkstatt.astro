@@ -1,0 +1,445 @@
+---
+import Base from "../layouts/Base.astro";
+
+// MW-05 — Landingpage „Werkstatt: Interims-Magnet"
+// Layout: Base.astro + hideNav (self-hosted Fonts + Consent/GTM intakt), eigener Mini-Header.
+// Leitplanken: KEIN Preis · EIN CTA = kostenloses Erstgespräch (/buchen) · Lauf-Garantie (Prozess, nie Mandat).
+
+// Mandatsstatus-Routing (Segmentierung statt Preis)
+const routing = [
+  {
+    status: "Zwischen Mandaten",
+    sub: "Du hast jetzt das, was im Mandat fehlt: Zeit.",
+    text: "Nutze die Leerlaufzeit, statt sie auszusitzen. Du baust dir dein Akquise-System selbst — und gehst ins nächste Mandat mit einem laufenden Magneten statt mit einem leeren Kalender.",
+    verdict: "Die Werkstatt ist dein Weg.",
+  },
+  {
+    status: "Mandat läuft aus",
+    sub: "Das Ende ist absehbar, das Honorar fließt noch.",
+    text: "Genau jetzt ist das Zeitfenster. Wer erst baut, wenn das Mandat schon weg ist, verliert die ersten Wochen mit Aufbauen statt mit Akquirieren. Wer die letzten Mandats-Wochen nutzt, geht nahtlos über.",
+    verdict: "Die Werkstatt ist dein Weg.",
+  },
+  {
+    status: "Mitten im stabilen Mandat",
+    sub: "Du hast Honorar, aber keine Zeit zum Selbstbauen.",
+    text: "Dann ist die Werkstatt vermutlich nicht dein Format — sondern das begleitete Erfolgsmodell, bei dem ich für dich baue. Was zu dir passt, klären wir ehrlich im Erstgespräch.",
+    verdict: "Lass uns kurz sprechen.",
+  },
+];
+
+// Was in 8 Wochen entsteht
+const saeulen = [
+  {
+    label: "Säule 1 · Herzstück",
+    title: "Wirkungs-Maschine",
+    text: "Verwandelt deine Mandatserfolge in Akquise-Munition. Aus „Ich habe XY geliefert“ wird ein Beweis, der für dich spricht — auf LinkedIn, im Provider-Profil, im Pitch. Damit dein nächster Auftraggeber sieht, was du bewegst, bevor ihr je gesprochen habt.",
+  },
+  {
+    label: "Säule 2 · Herzstück",
+    title: "Pipeline-Wärmer mit Mandatsend-Trigger",
+    text: "Hält deine relevanten Kontakte und Provider warm — automatisch, im Hintergrund. Der Mandatsend-Trigger schlägt 6 bis 8 Wochen vor Mandatsende an, damit das nächste Gespräch schon läuft, während das aktuelle noch endet.",
+  },
+  {
+    label: "Säule 3 · Differenzierer",
+    title: "Provider-Tauglichkeit",
+    text: "Rund jedes zweite Mandat kommt über Provider. Die meisten Sichtbarkeits-Tipps zielen nur auf LinkedIn-Reichweite — und lassen genau den Kanal links liegen, über den die Hälfte der Mandate vergeben wird. Die Werkstatt macht dich nicht nur sichtbar, sondern provider-tauglich: Provider-Profil, provider-gerechte Wirkungs-Belege, Provider-Pitch.",
+  },
+  {
+    label: "Bonus",
+    title: "Deine generischen KI-Rollen",
+    text: "Zusätzlich baust du dir wiederverwendbare KI-Rollen für den Alltag — Recherche, Vorbereitung, Schreibarbeit. Nützlich, aber bewusst nachgeordnet: Das Herz der Werkstatt sind deine zwei Akquise-Maschinen.",
+  },
+];
+
+// So läuft die Werkstatt (evergreen-async)
+const ablauf = [
+  {
+    title: "Jederzeit einsteigen, im eigenen Takt",
+    text: "Keine starre Kohorte, kein fixer Starttermin, auf den du warten musst. Die Werkstatt ist async aufgebaut: Du startest, wann es für dich passt, und arbeitest in deinem Tempo durch die 8 Wochen.",
+  },
+  {
+    title: "Monatlicher Sammel-Call",
+    text: "Einmal im Monat treffen wir uns live in der Gruppe — für Fragen, Feedback und den direkten Austausch mit anderen Interim Managern, die am selben bauen.",
+  },
+  {
+    title: "Mandats-Pause statt Abbruch",
+    text: "Bekommst du mitten in der Werkstatt ein Mandat — gut so, das ist das Ziel. Dann pausierst du ohne Gesichtsverlust und steigst nach dem Mandat genau dort wieder ein. Dein Job darf nicht warten, deine Werkstatt schon.",
+  },
+  {
+    title: "7-Tage-Onboarding-Termin",
+    text: "In deinen ersten sieben Tagen haben wir einen persönlichen Onboarding-Termin — damit du nicht im „fang an, wann du willst“ versandest, sondern sofort auf Kurs bist.",
+  },
+];
+
+// FAQ — eigene Werkstatt-Q&A (KEINE Preise, NICHT FAQ.astro importieren)
+const faqs = [
+  {
+    question: "Warum steht hier kein Preis?",
+    answer:
+      "Weil der richtige Weg für dich von deiner Lage abhängt, nicht von einer Zahl auf einer Seite. Im kostenlosen Erstgespräch klären wir zuerst, ob die Werkstatt überhaupt zu deinem Mandatsstatus passt — und dann, was sie für dich kostet. Kein Pitch, keine Verpflichtung.",
+  },
+  {
+    question: "Das Erfolgsmodell startet bei 0 Euro — warum dann die Werkstatt?",
+    answer:
+      "Weil beide für verschiedene Lebenslagen gemacht sind. Das 0-Euro-Erfolgsmodell setzt ein laufendes Mandat voraus: Du hast Honorar, aber keine Zeit, und ich baue für dich. Zwischen Mandaten ist es umgekehrt — du hast Zeit, aber kein laufendes Honorar. Dann kann ich dir kein mandatsgebundenes Erfolgshonorar abnehmen, das es gerade nicht gibt. Die Werkstatt ist nicht die teurere Variante, sondern die, die in deiner Lage überhaupt liefert. Und du besitzt das System danach zu 100 %.",
+  },
+  {
+    question: "Ich habe gerade ein Mandat — kann ich trotzdem mitmachen?",
+    answer:
+      "Kannst du, aber sei ehrlich zu dir: Im laufenden Mandat unterschätzt fast jeder die Bau-Zeit. Wenn du selbst Hand anlegen und verstehen willst, ist die Mandats-Pause dein Sicherheitsnetz. Wenn es einfach laufen soll, während du im Mandat bleibst, ist eher das Erfolgsmodell richtig. Was zu dir passt, finden wir im Gespräch heraus.",
+  },
+  {
+    question: "Was, wenn ich mitten in der Werkstatt ein Mandat bekomme?",
+    answer:
+      "Dann hat die Werkstatt ihren Zweck schon halb erfüllt. Du pausierst ohne Gesichtsverlust und steigst nach dem Mandat dort wieder ein, wo du aufgehört hast. Async und Mandats-Pause sind genau dafür gebaut.",
+  },
+  {
+    question: "Brauche ich KI- oder IT-Vorkenntnisse?",
+    answer:
+      "Nein. Die Werkstatt ist so aufgebaut, dass du ohne technischen Hintergrund mitbaust. Ziel ist, dass du dein System danach selbst bedienst, anpasst und erweiterst — Unabhängigkeit, nicht Abhängigkeit.",
+  },
+  {
+    question: "Wie viel Zeit muss ich pro Woche einplanen?",
+    answer:
+      "Du arbeitest im eigenen Takt. Die Werkstatt ist auf 8 Wochen ausgelegt, aber du bestimmst das Tempo — und pausierst, wenn ein Mandat dazwischenkommt.",
+  },
+  {
+    question: "Was genau ist am Ende „fertig“?",
+    answer:
+      "Deine zwei Herzstück-Maschinen laufen nachweisbar: die Wirkungs-Maschine und der Pipeline-Wärmer mit Mandatsend-Trigger. Darauf gilt die Lauf-Garantie. Was nicht garantiert ist: ein konkretes Mandat oder ein bestimmter Umsatz — das hängt von dir, deinem Markt und deinem Timing ab.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
+---
+
+<Base
+  title="Werkstatt: Interims-Magnet — KI-Akquise-System für Interim Manager | Value Lift AI"
+  description="In 8 Wochen baust du dir async dein eigenes Akquise-System: Wirkungs-Maschine + Pipeline-Wärmer mit Mandatsend-Trigger. Für solo Interim Manager zwischen Mandaten. Lauf-Garantie, Preis auf Anfrage."
+  path="/werkstatt"
+  hideNav={true}
+>
+  <!-- Mini-Logo-Header (da hideNav den globalen Header entfernt) -->
+  <header class="bg-brand-dark">
+    <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+      <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
+        <img src="/logo.png" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
+      </a>
+    </div>
+  </header>
+
+  <!-- 1 · Hero -->
+  <section class="bg-brand-dark text-brand-white">
+    <div class="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24">
+      <span
+        class="mb-6 inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blueLight"
+      >
+        Werkstatt: Interims-Magnet · 8 Wochen · für solo Interim Manager
+      </span>
+      <h1 class="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
+        Bau dir zwischen zwei Mandaten den Magneten, der dein nächstes Mandat holt.
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
+        Kein KI-Kurs. Die 8 Wochen, in denen du dir — async und im eigenen Takt —
+        dein eigenes Akquise-System baust: damit das nächste Mandat schon anläuft,
+        bevor das aktuelle endet. Du baust es. Du verstehst es. Du besitzt es.
+      </p>
+      <div class="mt-10">
+        <a
+          href="/buchen"
+          class="inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black shadow-lg hover:bg-brand-blueLight"
+        >
+          Kostenloses Erstgespräch buchen
+        </a>
+        <p class="mt-3 text-sm text-gray-400">
+          20 Minuten · kein Pitch · nur Klarheit, ob die Werkstatt zu deiner Lage passt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Das Akquise-Paradox -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 class="text-3xl font-extrabold">
+        Im Mandat hast du keine Zeit für Akquise. Zwischen Mandaten hast du nichts,
+        das für dich arbeitet.
+      </h2>
+      <p class="mt-6 text-lg text-brand-gray">
+        Das ist das Paradox jedes Interim Managers: Während ein Mandat läuft,
+        bleibt keine Stunde, um das nächste vorzubereiten. Und sobald es endet,
+        beginnt die Lücke — von vorn, aus dem Stand.
+      </p>
+      <p class="mt-4 text-lg text-brand-gray">
+        Diese Lücke ist nicht ärgerlich, sie ist teuer. Schon ein bis zwei Monate
+        ohne Anschlussmandat sind schnell <strong class="text-brand-dark">28.000 bis
+        56.000 Euro</strong> entgangenes Honorar. Nicht, weil du nicht gut genug
+        bist — sondern weil im entscheidenden Moment nichts für dich gearbeitet hat.
+      </p>
+      <p class="mt-6 text-xl font-bold text-brand-dark">
+        Die Werkstatt schließt genau diese Lücke — bevor sie entsteht.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 · Für wen / wann (Mandatsstatus-Routing) -->
+  <section class="bg-brand-lightBg py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-extrabold">
+          Die Werkstatt ist nicht für jeden. Sie ist für eine bestimmte Lage.
+        </h2>
+        <p class="mt-4 text-lg text-brand-gray">
+          Welcher Weg für dich richtig ist, entscheidet nicht dein Budget —
+          sondern wo du gerade im Mandatszyklus stehst.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          routing.map((r) => (
+            <article class="flex flex-col rounded-2xl border border-gray-200 bg-brand-white p-6">
+              <p class="text-sm font-bold uppercase tracking-wide text-brand-blue">
+                {r.status}
+              </p>
+              <p class="mt-2 font-semibold text-brand-dark">{r.sub}</p>
+              <p class="mt-2 flex-1 text-sm text-brand-gray">{r.text}</p>
+              <p class="mt-4 font-bold text-brand-dark">→ {r.verdict}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <blockquote
+        class="mx-auto mt-10 max-w-3xl rounded-r-lg border-l-4 border-brand-blue bg-brand-white p-6 text-lg italic text-brand-dark"
+      >
+        Das 0-Euro-Erfolgsmodell setzt ein laufendes Mandat voraus — denn dann hast
+        du Honorar, aber keine Zeit, und ich baue für dich. Zwischen Mandaten ist es
+        genau umgekehrt: Du hast die Zeit, aber das Honorar fließt nicht. Genau dann
+        ist die Werkstatt dein Weg — du nutzt die Leerlaufzeit, baust dir das System
+        selbst, und gehst ins nächste Mandat mit einem laufenden Magneten statt mit
+        einem leeren Kalender.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 4 · Was du in 8 Wochen baust -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-extrabold">Was am Ende läuft — und dir gehört.</h2>
+        <p class="mt-4 text-lg text-brand-gray">
+          Du baust nicht „irgendwas mit KI". Du baust zwei Maschinen, die zusammen
+          dein nächstes Mandat anziehen — plus die Säule, die fast niemand
+          adressiert. Alles async, im eigenen Takt, mit Begleitung.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {
+          saeulen.map((s) => (
+            <article class="rounded-2xl border border-gray-200 bg-brand-white p-6">
+              <p class="text-sm font-bold uppercase tracking-wide text-brand-blue">
+                {s.label}
+              </p>
+              <h3 class="mt-2 text-lg font-bold">{s.title}</h3>
+              <p class="mt-2 text-sm text-brand-gray">{s.text}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="mx-auto mt-10 max-w-3xl text-center text-xl font-bold text-brand-dark">
+        Kein Black Box, kein Vendor-Lock-in. Du baust es mit, du verstehst jeden
+        Schritt — und es gehört zu 100 % dir.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5 · So läuft die Werkstatt -->
+  <section class="bg-brand-dark py-16 text-brand-white sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">
+        So läuft die Werkstatt — gebaut für die Realität eines Interim Managers.
+      </h2>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {
+          ablauf.map((a) => (
+            <article class="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <h3 class="text-lg font-bold text-brand-white">{a.title}</h3>
+              <p class="mt-2 text-sm text-gray-300">{a.text}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <blockquote
+        class="mx-auto mt-10 max-w-3xl rounded-r-lg border-l-4 border-brand-blue bg-brand-blue/10 p-6 text-lg italic text-gray-100"
+      >
+        Ich nehme pro Monat nur wenige neue Teilnehmer in die Werkstatt auf — weil
+        ich jeden persönlich begleite. Das ist keine Marketing-Verknappung, sondern
+        eine echte Grenze meiner Zeit. Wenn die Werkstatt für deine Lage passt, lass
+        uns früh sprechen.
+      </blockquote>
+
+      <div class="mt-10 text-center">
+        <a
+          href="/buchen"
+          class="inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black shadow-lg hover:bg-brand-blueLight"
+        >
+          Kostenloses Erstgespräch buchen
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Lauf-Garantie -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">Die Lauf-Garantie.</h2>
+      <p class="mt-6 text-lg text-brand-gray">
+        Am Ende der Werkstatt laufen deine zwei Herzstück-Maschinen nachweisbar —
+        die Wirkungs-Maschine, die deine Mandatserfolge in Akquise-Munition
+        verwandelt, und der Pipeline-Wärmer mit Mandatsend-Trigger. Laufen sie nach
+        Abschluss nicht wie aufgebaut, arbeite ich kostenlos mit dir nach, bis sie
+        laufen.
+      </p>
+      <div class="mt-6 rounded-2xl border border-gray-200 bg-brand-lightBg p-6">
+        <p class="text-base text-brand-gray">
+          Was ich <strong class="text-brand-dark">nicht</strong> garantiere — und
+          dir niemand seriös garantieren kann: ein konkretes nächstes Mandat, einen
+          bestimmten Umsatz oder eine Reichweiten-Zahl. Akquise hängt von dir,
+          deinem Markt und deinem Timing ab.
+          <strong class="text-brand-dark"> Ich garantiere, dass das System läuft —
+          nicht, was der Markt daraus macht.</strong> Das ist eine Prozess-Garantie,
+          keine Erfolgs- oder Mandats-Garantie.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Differenzierer / First-Mover -->
+  <section class="bg-brand-dark py-16 text-brand-white sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 class="text-3xl font-extrabold">Warum es so etwas vorher nicht gab.</h2>
+      <p class="mt-6 text-lg text-gray-300">
+        Es gibt viele KI-Kurse, die dir ein „KI-Team" für alles und jeden
+        versprechen. Generisch, breit, auf Produktivität getrimmt. Für einen Interim
+        Manager zwischen Mandaten ist „Zeit sparen" aber das falsche Versprechen —
+        Zeit hast du gerade. Was dir fehlt, ist das nächste Mandat.
+      </p>
+      <p class="mt-4 text-lg text-gray-300">
+        Die Werkstatt ist deshalb nicht horizontal, sondern vertikal: gebaut für
+        einen einzigen Outcome — dass dein nächstes Mandat schneller kommt und die
+        teure Lücke gar nicht erst entsteht. In Operator-Sprache, entlang deines
+        Mandatszyklus, mit deinem Tagessatz im Blick.
+      </p>
+      <p class="mt-4 text-lg text-gray-300">
+        Nach allem, was wir am Markt finden, gibt es bisher kein vergleichbares
+        KI-Programm speziell für Interim Manager. Der „Wettbewerb" sind manuelle
+        Personal-Branding-Berater — kein begleitetes System, das du selbst baust und
+        besitzt. Das ist kein Marketing-Versprechen, sondern schlicht der Stand des
+        Marktes.
+      </p>
+    </div>
+  </section>
+
+  <!-- 8 · Über Marcus -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto flex max-w-3xl flex-col items-center gap-8 px-4 sm:px-6 md:flex-row md:items-start">
+      <img
+        src="/marcus.jpg"
+        alt="Marcus Eichler, KI-Architekt bei Value Lift AI"
+        width="128"
+        height="128"
+        class="h-32 w-32 flex-shrink-0 rounded-full object-cover"
+        style="border:3px solid #F5A623;"
+      />
+      <div>
+        <h2 class="text-3xl font-extrabold">Wer dich begleitet.</h2>
+        <p class="mt-4 text-lg text-brand-gray">
+          Marcus Eichler, KI-Architekt bei Value Lift AI. 29 Jahre
+          Führungserfahrung, CEO-Exit, Lean Six Sigma Master Black Belt, über 1
+          Milliarde Euro nachweisbarer Impact bei Telefónica. Seit 1996 mit KI
+          befasst — die Diplomarbeit bei DATEV war schon ein neuronales Netz.
+        </p>
+        <p class="mt-4 text-lg text-brand-gray">
+          Wichtiger für dich: Ich begleite die Werkstatt nicht aus der Theorie. Ich
+          baue dieselben Maschinen, die du baust, für mein eigenes Geschäft — und
+          sehe, was wirkt und was nicht. Du arbeitest mit jemandem auf Augenhöhe,
+          der das System selbst betreibt, nicht mit einem Kurs-Ersteller, der es nur
+          erklärt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · FAQ (eigene Q&A, ohne Preise) -->
+  <section class="bg-brand-lightBg py-16 sm:py-24" id="faq">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Häufige Fragen</h2>
+        <p class="mt-4 text-lg text-brand-gray">
+          Alles, was du vor dem Erstgespräch wissen solltest.
+        </p>
+      </div>
+
+      <div class="mt-12 space-y-4">
+        {
+          faqs.map((faq) => (
+            <details class="group rounded-xl border border-gray-200 bg-brand-white p-5 [&_summary]:list-none">
+              <summary class="flex cursor-pointer items-center justify-between gap-4 font-bold">
+                <span>{faq.question}</span>
+                <span
+                  class="text-2xl leading-none text-brand-blue transition-transform group-open:rotate-45"
+                  aria-hidden="true"
+                >
+                  +
+                </span>
+              </summary>
+              <p class="mt-3 text-brand-gray">{faq.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · Final-CTA -->
+  <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-3xl font-extrabold">
+        Lass uns kurz schauen, ob die Werkstatt zu deiner Lage passt.
+      </h2>
+      <p class="mt-4 text-lg text-gray-300">
+        20 Minuten, kostenlos, kein Pitch. Wir klären, wo du gerade im Mandatszyklus
+        stehst und welcher Weg für dich der richtige ist — Werkstatt oder nicht.
+      </p>
+      <a
+        href="/buchen"
+        class="mt-8 inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black hover:bg-brand-blueLight"
+      >
+        Kostenloses Erstgespräch buchen
+      </a>
+      <p class="mt-4 text-sm text-gray-400">
+        Du gehst keine Verpflichtung ein. Wenn die Werkstatt nicht passt, sage ich
+        dir das ehrlich.
+      </p>
+      <p class="mt-6 text-sm text-gray-400">
+        <a href="/" class="underline hover:text-brand-blueLight">← Zurück zur Startseite</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQPage JSON-LD (nur Werkstatt-Fragen, kein Preis) -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Base>
