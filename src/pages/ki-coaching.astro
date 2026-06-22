@@ -1,0 +1,212 @@
+---
+import Base from "../layouts/Base.astro";
+import FAQ from "../components/FAQ.astro";
+
+// UM-07 — Coaching-Insel. Eigenständige Marke für Coaches/Berater/Dienstleister.
+// „KI-Kickstart" (97€) + Stripe leben AUSSCHLIESSLICH hier (raus aus dem IM-Pfad).
+// Erreichbar nur über dezenten Footer-Link „Für Coaches & Berater →" (UM-08).
+// Coaching-Funnel-Unterseiten: /bootcamp, /workshop, /system, /check, /willkommen, /danke.
+
+const stripeUrl = "https://buy.stripe.com/00wfZggVEcLs3DVfhi8bS05";
+
+const offers = [
+  {
+    name: "KI-Kickstart",
+    price: "97€",
+    priceNote: "Festpreis",
+    format: "2h · Live · Gruppe (max. 15)",
+    contents: [
+      "5 fertige LinkedIn-Posts",
+      "Persönlicher KI-Baukasten",
+      "Fertige Vorlagen zum Sofort-Einsatz",
+      "Content-Kalender",
+      "Aufzeichnung",
+    ],
+    guarantee: "97€ zurück, wenn kein KI-Prozess läuft.",
+    ctaLabel: "Jetzt buchen — 97€",
+    ctaHref: stripeUrl,
+    style: "solid",
+    featured: true,
+  },
+  {
+    name: "KI-Sprint",
+    price: "Auf Anfrage",
+    priceNote: "Workshop-Tag",
+    format: "1 Tag · 1:1 mit Marcus",
+    contents: [
+      "1 vollständiger automatischer Ablauf, gemeinsam gebaut",
+      "Du verstehst danach jeden Schritt",
+      "Typisch: Angebotserstellung, Onboarding oder Recherche-Workflow",
+      "Im Erstgespräch klären wir deinen konkreten Prozess",
+    ],
+    guarantee: "Läuft nach dem Tag oder kostenlose Nacharbeit.",
+    ctaLabel: "Termin anfragen",
+    ctaHref: "/buchen",
+    style: "outline",
+    featured: false,
+  },
+  {
+    name: "KI-Komplettsystem",
+    price: "Auf Anfrage",
+    priceNote: "Done-for-you",
+    format: "~3 Wochen · Done-for-you",
+    contents: [
+      "3 selbst gewählte Prozesse",
+      "Gemeinsam definiert, was automatisch laufen soll",
+      "Ich baue es, du bekommst es übergeben",
+      "Inklusive Schulung und Support",
+    ],
+    guarantee: "Fertig wie besprochen oder 0€.",
+    ctaLabel: "Erstgespräch buchen",
+    ctaHref: "/buchen",
+    style: "outline",
+    featured: false,
+  },
+];
+---
+
+<Base
+  title="KI für Coaches & Berater — KI-Kickstart, Sprint & Komplettsystem | Value Lift AI"
+  description="KI-Schulung und KI-Automatisierung für Coaches, Berater und Dienstleister im DACH-Raum. Dein erster KI-Prozess läuft in 2 Stunden — garantiert. KI-Kickstart ab 97€."
+  path="/ki-coaching"
+  hideNav={true}
+>
+  <!-- Mini-Logo-Header -->
+  <header class="bg-brand-dark">
+    <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+      <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
+        <img src="/logo.png" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-brand-dark text-brand-white">
+    <div class="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24">
+      <span
+        class="mb-6 inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blueLight"
+      >
+        Für Coaches, Berater &amp; Dienstleister
+      </span>
+      <h1 class="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
+        Dein erster KI-Prozess läuft — nach 2 Stunden. Oder du zahlst nichts.
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
+        Die meisten scheitern nicht am Wissen, sondern daran, alleine zu starten. Im
+        KI-Kickstart baust du in 2 Stunden deinen ersten laufenden KI-Prozess — live,
+        mit mir. Kein Kurs, keine Agentur: dein KI-Architekt.
+      </p>
+      <div class="mt-10">
+        <a
+          href={stripeUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black shadow-lg hover:bg-brand-blueLight"
+        >
+          KI-Kickstart buchen — 97€
+        </a>
+        <p class="mt-3 text-sm text-gray-400">
+          Läuft nichts nach 2 Stunden → du zahlst nichts. Garantiert.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coaching-Value-Ladder (97€ / Sprint / System) -->
+  <section class="bg-brand-lightBg py-16 sm:py-24" id="angebote">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+          Drei Wege, mit KI durchzustarten
+        </h2>
+        <p class="mt-4 text-lg text-brand-gray">
+          Vom 2-Stunden-Einstieg bis zum vollständigen Komplettsystem — du wählst die
+          Tiefe, die zu dir passt.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-3">
+        {
+          offers.map((offer) => (
+            <article
+              class:list={[
+                "relative flex flex-col rounded-2xl border bg-brand-white p-8 shadow-sm transition-shadow hover:shadow-lg",
+                offer.featured ? "border-brand-blue ring-2 ring-brand-blue" : "border-gray-200",
+              ]}
+            >
+              {offer.featured && (
+                <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-blue px-3 py-1 text-xs font-bold text-brand-black">
+                  Beliebt
+                </span>
+              )}
+
+              <h3 class="text-2xl font-bold">{offer.name}</h3>
+
+              <div class="mt-3">
+                <span class="text-3xl font-extrabold text-brand-blue">{offer.price}</span>
+                <span class="ml-1 text-sm text-brand-gray">{offer.priceNote}</span>
+              </div>
+              <p class="mt-1 text-sm font-semibold text-brand-gray">{offer.format}</p>
+
+              <ul class="mt-6 flex-1 space-y-3 text-base">
+                {offer.contents.map((item) => (
+                  <li class="flex items-start gap-2">
+                    <span class="mt-0.5 font-bold text-brand-blue" aria-hidden="true">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <p class="mt-6 rounded-lg bg-brand-lightBg p-3 text-sm font-semibold text-brand-dark">
+                <span aria-hidden="true">🛡️</span> Garantie: {offer.guarantee}
+              </p>
+
+              <a
+                href={offer.ctaHref}
+                target={offer.style === "solid" ? "_blank" : undefined}
+                rel={offer.style === "solid" ? "noopener" : undefined}
+                class:list={[
+                  "mt-6 block rounded-lg px-4 py-3 text-center text-base font-bold transition-colors",
+                  offer.style === "solid"
+                    ? "bg-brand-blue text-brand-black hover:bg-brand-blueLight"
+                    : "border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-brand-black",
+                ]}
+              >
+                {offer.ctaLabel}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="mt-10 text-center text-sm text-brand-gray">
+        Noch unsicher? Mach den <a href="/check" class="font-semibold text-brand-blue underline">kostenlosen KI-Zeitspar-Check</a> oder
+        <a href="/buchen" class="font-semibold text-brand-blue underline">buche ein Erstgespräch</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Coaching-FAQ -->
+  <FAQ />
+
+  <!-- Final-CTA -->
+  <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-3xl font-extrabold">Starte deinen ersten KI-Prozess.</h2>
+      <p class="mt-4 text-lg text-gray-300">
+        97€, 2 Stunden, live — oder du zahlst nichts. Das Risiko trage ich.
+      </p>
+      <a
+        href={stripeUrl}
+        target="_blank"
+        rel="noopener"
+        class="mt-8 inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black hover:bg-brand-blueLight"
+      >
+        KI-Kickstart buchen — 97€
+      </a>
+      <p class="mt-6 text-sm text-gray-400">
+        <a href="/" class="underline hover:text-brand-blueLight">← Zur Interim-Manager-Startseite</a>
+      </p>
+    </div>
+  </section>
+</Base>

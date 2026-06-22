@@ -1,0 +1,230 @@
+---
+import Base from "../layouts/Base.astro";
+
+// UM-01 — Landingpage „Mandats-Kickstart" (IM-Pivot, Modell B)
+// Layout: Base.astro + hideNav (self-hosted Fonts + Consent/GTM intakt), eigener Mini-Header.
+// Leitplanken: KEIN Preis · EIN Versprechen · EIN CTA = kostenloses Erstgespräch (/buchen)
+//   · genau 1 Cross-Link → /werkstatt · Lauf-Garantie (Prozess/Lieferung, nie Mandat/Erfolg).
+// Garantie-/DSGVO-Wortlaut = Entwurf (🔴 UM-10, Marcus-Freigabe vor Live).
+
+// Anhang C — „Was du sofort erhältst" (Outcome-formuliert)
+const liefert = [
+  "Eine konkrete KI-Anwendung an deinem realen Mandats-Engpass — fertig nutzbar, nicht als Prototyp.",
+  "Automatisiertes Reporting-Set — Wochen-/Statusbericht in Minuten statt Stunden, bessere Optik.",
+  "Analyse-Vorlagen — Mandatsdaten schnell auswerten, ohne bei null zu starten.",
+  "Stakeholder-Map-Generator — in den ersten Tagen sofort sehen, wer wofür steht.",
+  "100-Tage-Briefing-Aufbereitung — Unterlagenberge → strukturiertes Einarbeitungs-Briefing.",
+  "KI-Wirkungs-Doku — Vorher/Nachher belegen → Argument für Verlängerung und Tagessatz.",
+  "Aufbau auf der eigenen Infrastruktur — nichts Sensibles verlässt das Kundensystem.",
+  "Übergabe so, dass du es ohne mich weiterführst — kein Abo, kein Vendor-Lock-in.",
+];
+
+// Anhang D — Mandatsphasen-Mehrwert-Karte (flexibler Einstieg, statisches Grid)
+const phasen = [
+  { phase: "0 · Vor Mandatsantritt", wo: "Mandat zugesagt, Start naht", wert: "Schnellstart-Set steht ab Tag 1." },
+  { phase: "1 · Onboarding (erste Tage)", wo: "gerade eingestiegen", wert: "Schnelleinarbeitung, Stakeholder-Map, Briefing-Aufbereitung." },
+  { phase: "2 · Erste 100 Tage", wo: "Wirkung zeigen unter Druck", wert: "Reporting-Automation + schnelle Analysen → früh sichtbare Ergebnisse." },
+  { phase: "3 · Laufendes Mandat", wo: "mitten in der Steuerung", wert: "Laufende Reports + Prozess-Automatisierung → Entlastung." },
+  { phase: "4 · Mandatsende / Übergabe", wo: "Abschluss & Übergabe", wert: "Wirkungs-Doku + Abschlussbericht → Tagessatz-Beleg fürs nächste Mandat." },
+];
+---
+
+<Base
+  title="Mandats-Kickstart — KI in deinem laufenden Mandat | Value Lift AI"
+  description="KI-Werkzeuge auf deiner eigenen Seite, fertig im laufenden Mandat: Reporting, Analyse, Stakeholder-Map, Wirkungs-Doku. Für solo Interim-Manager. Auf Anfrage, kostenloses Erstgespräch."
+  path="/kickstart"
+  hideNav={true}
+>
+  <!-- Mini-Logo-Header (hideNav entfernt den globalen Header) -->
+  <header class="bg-brand-dark">
+    <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+      <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
+        <img src="/logo.png" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
+      </a>
+    </div>
+  </header>
+
+  <!-- 1 · Hero (Anhang A, Var A — Outcome) -->
+  <section class="bg-brand-dark text-brand-white">
+    <div class="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-24">
+      <span
+        class="mb-6 inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blueLight"
+      >
+        Mandats-Kickstart · für solo Interim-Manager
+      </span>
+      <h1 class="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
+        KI, die deinen Tagessatz in diesem Mandat sichtbar trägt.
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
+        Fester Rahmen, in Tagen statt Monaten. Auf meiner Seite gebaut, nie in
+        deinem Kundensystem. Du lieferst — sichtbar.
+      </p>
+      <div class="mt-10">
+        <a
+          href="/buchen"
+          class="inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black shadow-lg hover:bg-brand-blueLight"
+        >
+          Kostenloses Erstgespräch buchen
+        </a>
+        <p class="mt-3 text-sm text-gray-400">
+          20 Minuten · kein Pitch · wir klären, was in deinem Mandat heute am meisten trägt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Schmerz / Avatar-Resonanz (Anhang A) -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 class="text-3xl font-extrabold">
+        Im laufenden Mandat zählt nicht, was du könntest — sondern was diese Woche auf dem Tisch liegt.
+      </h2>
+      <p class="mt-6 text-lg text-brand-gray">
+        KI selbst aufzusetzen kostet die Zeit, die du gerade nicht hast. Und jeder
+        Tag ohne sichtbares Ergebnis ist ein Tag, an dem dein Honorar stiller
+        hinterfragt wird.
+      </p>
+      <p class="mt-6 text-xl font-bold text-brand-dark">
+        Der Mandats-Kickstart setzt KI dort an, wo sie heute am meisten trägt — in Tagen, nicht Monaten.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 · Was du sofort erhältst (Anhang C) -->
+  <section class="bg-brand-lightBg py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">Was du sofort erhältst.</h2>
+      <p class="mt-4 text-center text-lg text-brand-gray">
+        KI-Werkzeuge auf deiner eigenen Seite — fertig nutzbar im laufenden Mandat.
+      </p>
+      <ul class="mx-auto mt-10 max-w-2xl space-y-4">
+        {
+          liefert.map((item) => (
+            <li class="flex items-start gap-3 rounded-xl border border-gray-200 bg-brand-white p-4">
+              <span class="mt-0.5 font-bold text-brand-blue" aria-hidden="true">✓</span>
+              <span class="text-base text-brand-dark">{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 · Mandatsphasen-Mehrwert-Karte (Anhang D, statisches Grid) -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-extrabold">Egal wo du im Mandat stehst.</h2>
+        <p class="mt-4 text-lg text-brand-gray">
+          Wir steigen an dem Punkt ein, der heute am meisten trägt — flexibel nach Mandatsphase.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          phasen.map((p) => (
+            <article class="flex flex-col rounded-2xl border border-gray-200 bg-brand-lightBg p-6">
+              <p class="text-sm font-bold uppercase tracking-wide text-brand-blue">{p.phase}</p>
+              <p class="mt-2 font-semibold text-brand-dark">{p.wo}</p>
+              <p class="mt-2 flex-1 text-sm text-brand-gray">{p.wert}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · DSGVO- / „eigene Seite"-Leitplanke (Entwurf — 🔴 UM-10) -->
+  <section class="bg-brand-dark py-16 text-brand-white sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 class="text-3xl font-extrabold">Gebaut auf meiner Seite — nie in deinem Kundensystem.</h2>
+      <p class="mt-6 text-lg text-gray-300">
+        Kein DSGVO-Thema beim Endkunden, keine IT-Freigabe-Schleife, kein Risiko an
+        deinem Auftrag. Die Werkzeuge entstehen auf meiner Infrastruktur und gehen
+        sauber an dich über — nichts Sensibles verlässt das Kundensystem.
+      </p>
+    </div>
+  </section>
+
+  <!-- 6 · Accountability-Differenzierer (Anhang A) -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <h2 class="text-3xl font-extrabold">Trainer, nicht Fitnessstudio.</h2>
+      <p class="mt-6 text-lg text-brand-gray">
+        Andere geben dir Tools und lassen dich allein — das Fitnessstudio. Ich bin
+        der Trainer: Ich bleibe dran, bis die Anwendung in deinem Mandat steht und
+        trägt.
+      </p>
+    </div>
+  </section>
+
+  <!-- 7 · Lauf-Garantie (Anhang E — Entwurf, 🔴 UM-10 Marcus-Freigabe vor Live) -->
+  <section class="bg-brand-lightBg py-16 sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">Die Lauf-Garantie.</h2>
+      <p class="mt-6 text-lg text-brand-gray">
+        Am Ende laufen deine im Mandat aufgebauten KI-Werkzeuge nachweisbar. Laufen
+        sie nach Abschluss nicht wie aufgebaut, arbeite ich kostenlos mit dir nach,
+        bis sie laufen.
+      </p>
+      <div class="mt-6 rounded-2xl border border-gray-200 bg-brand-white p-6">
+        <p class="text-base text-brand-gray">
+          Was ich <strong class="text-brand-dark">nicht</strong> garantiere — und dir
+          niemand seriös garantieren kann: ein konkretes nächstes Mandat, einen
+          bestimmten Umsatz oder eine Reichweiten-Zahl.
+          <strong class="text-brand-dark"> Ich garantiere, dass das System läuft —
+          nicht, was der Markt daraus macht.</strong> Das ist eine Prozess-Garantie,
+          keine Erfolgs- oder Mandats-Garantie.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · Über Marcus (Operator-Herkunft als Vertrauensanker) -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto flex max-w-3xl flex-col items-center gap-8 px-4 sm:px-6 md:flex-row md:items-start">
+      <img
+        src="/marcus.jpg"
+        alt="Marcus Eichler, KI-Architekt bei Value Lift AI"
+        width="128"
+        height="128"
+        class="h-32 w-32 flex-shrink-0 rounded-full object-cover"
+        style="border:3px solid #F5A623;"
+      />
+      <div>
+        <h2 class="text-3xl font-extrabold">Wer das baut.</h2>
+        <p class="mt-4 text-lg text-brand-gray">
+          Marcus Eichler, KI-Architekt bei Value Lift AI — und selbst Operator: 29
+          Jahre Führungserfahrung, CEO-Exit, über 1 Milliarde Euro nachweisbarer
+          Impact bei Telefónica, Lean Six Sigma Master Black Belt.
+        </p>
+        <p class="mt-4 text-lg text-brand-gray">
+          Ich kenne den Druck im Mandat aus eigener Erfahrung — und baue dir die
+          KI-Werkzeuge, die genau dort liefern. Auf Augenhöhe, mit jemandem, der den
+          Stuhl selbst besetzt hat.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · Final-CTA (genau 1 CTA → /buchen) -->
+  <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-3xl font-extrabold">Lass uns auf dein Mandat schauen.</h2>
+      <p class="mt-4 text-lg text-gray-300">
+        20 Minuten, kostenlos, kein Pitch. Wir klären, welche KI-Anwendung in deinem
+        Mandat heute den größten Hebel hat.
+      </p>
+      <a
+        href="/buchen"
+        class="mt-8 inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black hover:bg-brand-blueLight"
+      >
+        Kostenloses Erstgespräch buchen
+      </a>
+      <!-- 10 · genau 1 Cross-Link → /werkstatt (dezent) -->
+      <p class="mt-6 text-sm text-gray-400">
+        Mandat läuft bald aus und du willst dir selbst einen Akquise-Magneten bauen?
+        <a href="/werkstatt" class="underline hover:text-brand-blueLight">→ Zur Werkstatt</a>
+      </p>
+    </div>
+  </section>
+</Base>

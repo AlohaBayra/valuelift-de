@@ -5,8 +5,8 @@ export interface Props {
 }
 
 const {
-  headline = "Dein erster KI-Prozess läuft — nach 2 Stunden. Oder du zahlst nichts.",
-  subtext = "Die meisten scheitern nicht am Wissen. Sie scheitern daran, alleine durch das Chaos zu navigieren. Im KI-Kickstart baust du in 2 Stunden deinen ersten laufenden KI-Prozess — live, mit mir.",
+  headline = "Dein nächstes Mandat läuft schon an — bevor das aktuelle endet.",
+  subtext = "Im Mandat fehlt die Zeit für Akquise — danach fehlt das Mandat. Ich baue dir als KI-Architekt und Ex-Operator das System, das dich sichtbar liefern lässt und die Pipeline warmhält, während du im Einsatz bist.",
 } = Astro.props;
 ---
 
@@ -18,7 +18,7 @@ const {
       style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" />
     <!-- Gradient: links stark abgedunkelt für Lesbarkeit, rechts Foto sichtbar -->
     <div style="position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(11,21,40,0.97) 0%, rgba(11,21,40,0.92) 40%, rgba(11,21,40,0.55) 70%, rgba(11,21,40,0.2) 100%);"></div>
+      background: linear-gradient(to right, rgba(11,21,40,0.96) 0%, rgba(11,21,40,0.92) 40%, rgba(11,21,40,0.55) 70%, rgba(11,21,40,0.2) 100%);"></div>
   </div>
 
   <!-- Text: linksbündig, max. halbe Breite -->
@@ -27,7 +27,7 @@ const {
 
       <!-- Badge -->
       <span style="display: inline-block; border: 1px solid rgba(245,166,35,0.5); background: rgba(245,166,35,0.08); color: #F5A623; font-size: 0.8125rem; font-weight: 600; padding: 0.3rem 0.875rem; border-radius: 9999px; margin-bottom: 1.25rem;">
-        KI-Beratung &amp; KI-Automatisierung für Berater und Coaches
+        Das KI-System für solo Interim-Manager — Operations &amp; COO
       </span>
 
       <!-- H1 -->
@@ -43,7 +43,7 @@ const {
         <span style="color: #4B5563; font-size: 0.8125rem;">·</span>
         <span style="font-size: 0.8125rem; color: #9CA3AF;">Ex-CEO mit Unternehmensverkauf</span>
         <span style="color: #4B5563; font-size: 0.8125rem;">·</span>
-        <span style="font-size: 0.8125rem; color: #9CA3AF;">&gt;1 Mrd. € Impact bei Telefónica</span>
+        <span style="font-size: 0.8125rem; color: #9CA3AF;">&gt;1 Mrd. Euro Impact bei Telefónica</span>
       </div>
 
       <!-- Subtext -->
@@ -51,31 +51,17 @@ const {
         {subtext}
       </p>
 
-      <!-- CTAs -->
+      <!-- CTA (genau 1 → /buchen) -->
       <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.625rem;">
         <a
-          href="https://buy.stripe.com/00wfZggVEcLs3DVfhi8bS05"
-          target="_blank"
-          rel="noopener"
+          href="/buchen"
           style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 0.5rem; text-decoration: none;"
         >
-          KI-Kickstart buchen — 97€
+          Erstgespräch vereinbaren
         </a>
-
-        <!-- Microcopy: Garantie als Fakt -->
         <p style="font-size: 0.75rem; color: #6B7280; margin: 0;">
-          Läuft nichts nach 2 Stunden → du zahlst nichts. Garantiert.
+          20 Minuten, kostenlos, ohne Pitch. Wir schauen auf deine Pipeline — du entscheidest danach.
         </p>
-
-        <!-- Sekundärer CTA -->
-        <a
-          href="/buchen"
-          style="font-size: 0.875rem; color: #9CA3AF; text-decoration: none; margin-top: 0.25rem;"
-          onmouseover="this.style.color='#F5A623'"
-          onmouseout="this.style.color='#9CA3AF'"
-        >
-          Lieber erst sprechen? 20 Minuten, kostenlos, ohne Pitch →
-        </a>
       </div>
 
     </div>

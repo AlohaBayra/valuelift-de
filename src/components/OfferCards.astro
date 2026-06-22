@@ -1,52 +1,50 @@
 ---
+// UM-04 — IM-Value-Ladder (Modell B). Segmentierung nach Mandatsphase, KEIN öffentlicher Preis,
+// kein Stripe, kein Euro-Betrag im DOM (QA-Grep). Drei Stufen → /kickstart · /werkstatt · /buchen.
 const offers = [
   {
-    name: "KI-Kickstart",
-    price: "97€",
-    priceNote: "Festpreis",
-    format: "2h · Live · Gruppe (max. 15)",
+    name: "Mandats-Kickstart",
+    fuer: "Im oder vor dem laufenden Mandat",
+    format: "Fester Lieferrahmen · in Tagen",
     contents: [
-      "5 fertige LinkedIn-Posts",
-      "Persönlicher KI-Baukasten",
-      "Fertige Vorlagen zum Sofort-Einsatz",
-      "Content-Kalender",
-      "Aufzeichnung",
+      "KI-Werkzeuge auf deiner eigenen Seite — im Mandat sofort einsatzbereit",
+      "Reporting-Automation, Analyse-Vorlagen, Stakeholder-Map, Wirkungs-Doku",
+      "Gebaut auf meiner Seite, nie in deinem Kundensystem",
+      "Du besitzt es danach — kein Abo, kein Vendor-Lock-in",
     ],
-    guarantee: "97€ zurück, wenn kein KI-Prozess läuft.",
-    ctaLabel: "Jetzt buchen — 97€",
-    ctaHref: "https://buy.stripe.com/00wfZggVEcLs3DVfhi8bS05",
+    guarantee: "Lauf-Garantie: läuft es nicht wie aufgebaut, arbeite ich kostenlos nach.",
+    ctaLabel: "Mandats-Kickstart ansehen",
+    ctaHref: "/kickstart",
     style: "solid",
     featured: true,
   },
   {
-    name: "KI-Sprint",
-    price: "Auf Anfrage",
-    priceNote: "Workshop-Tag",
-    format: "1 Tag · 1:1 mit Marcus",
+    name: "Werkstatt: Interim-Magnet",
+    fuer: "Zwischen Mandaten / Mandat läuft aus",
+    format: "8 Wochen · async · begleitet",
     contents: [
-      "1 vollständiger automatischer Ablauf, gemeinsam gebaut",
-      "Du verstehst danach jeden Schritt",
-      "Typisch: Angebotserstellung, Onboarding oder Recherche-Workflow",
-      "Im Erstgespräch klären wir deinen konkreten Prozess",
+      "Du baust dir deinen Akquise-Magneten selbst — begleitet",
+      "Wirkungs-Maschine + Pipeline-Wärmer mit Mandatsend-Trigger",
+      "Im eigenen Takt, Mandats-Pause jederzeit möglich",
+      "Damit das nächste Mandat anläuft, bevor das aktuelle endet",
     ],
-    guarantee: "Läuft nach dem Tag oder kostenlose Nacharbeit.",
-    ctaLabel: "Termin anfragen",
-    ctaHref: "/buchen",
+    guarantee: "Lauf-Garantie auf deine zwei Herzstück-Maschinen.",
+    ctaLabel: "Zur Werkstatt",
+    ctaHref: "/werkstatt",
     style: "outline",
     featured: false,
   },
   {
-    name: "KI-Komplettsystem",
-    price: "Auf Anfrage",
-    priceNote: "Done-for-you",
-    format: "~3 Wochen · Done-for-you",
+    name: "Done-for-you (Erfolgshonorar)",
+    fuer: "Stabiles Mandat, denkst ans nächste",
+    format: "Ich baue · zahlbar bei Anschlussmandat",
     contents: [
-      "3 selbst gewählte Prozesse",
-      "Gemeinsam definiert, was automatisch laufen soll",
-      "Ich baue es, du bekommst es übergeben",
-      "Inklusive Schulung und Support",
+      "Ich baue dein KI-System done-for-you auf deiner Seite",
+      "Kein Einstiegspreis — zahlbar erst beim Anschlussmandat",
+      "Begleitete Nutzung — Trainer, nicht Fitnessstudio",
+      "Im Erstgespräch klären wir Umfang und Passung",
     ],
-    guarantee: "Fertig wie besprochen oder 0€.",
+    guarantee: "Fertig wie besprochen — sonst keine Zahlung.",
     ctaLabel: "Erstgespräch buchen",
     ctaHref: "/buchen",
     style: "outline",
@@ -59,11 +57,11 @@ const offers = [
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-        Drei Wege, mit KI durchzustarten
+        Drei Wege — je nach Mandatsphase
       </h2>
       <p class="mt-4 text-lg text-brand-gray">
-        Vom 2-Stunden-Einstieg bis zum vollständigen Komplettsystem — du wählst
-        die Tiefe, die zu dir passt.
+        Welcher Weg zu dir passt, hängt davon ab, wo du gerade im Mandatszyklus
+        stehst — nie vom Budget. Den Rahmen klären wir im Erstgespräch.
       </p>
     </div>
 
@@ -78,35 +76,30 @@ const offers = [
           >
             {offer.featured && (
               <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-blue px-3 py-1 text-xs font-bold text-brand-black">
-                Beliebt
+                Im Mandat
               </span>
             )}
 
             <h3 class="text-2xl font-bold">{offer.name}</h3>
 
-            <div class="mt-3">
-              <span class="text-3xl font-extrabold text-brand-blue">{offer.price}</span>
-              <span class="ml-1 text-sm text-brand-gray">{offer.priceNote}</span>
-            </div>
+            <p class="mt-3 text-sm font-semibold text-brand-blue">{offer.fuer}</p>
             <p class="mt-1 text-sm font-semibold text-brand-gray">{offer.format}</p>
 
             <ul class="mt-6 flex-1 space-y-3 text-base">
               {offer.contents.map((item) => (
                 <li class="flex items-start gap-2">
-                  <span class="mt-0.5 font-bold text-brand-blue">✓</span>
+                  <span class="mt-0.5 font-bold text-brand-blue" aria-hidden="true">✓</span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
 
             <p class="mt-6 rounded-lg bg-brand-lightBg p-3 text-sm font-semibold text-brand-dark">
-              🛡️ Garantie: {offer.guarantee}
+              <span aria-hidden="true">🛡️</span> Garantie: {offer.guarantee}
             </p>
 
             <a
               href={offer.ctaHref}
-              target={offer.style === "solid" ? "_blank" : undefined}
-              rel={offer.style === "solid" ? "noopener" : undefined}
               class:list={[
                 "mt-6 block rounded-lg px-4 py-3 text-center text-base font-bold transition-colors",
                 offer.style === "solid"

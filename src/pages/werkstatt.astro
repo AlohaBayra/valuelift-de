@@ -20,10 +20,11 @@ const routing = [
     verdict: "Die Werkstatt ist dein Weg.",
   },
   {
-    status: "Mitten im stabilen Mandat",
-    sub: "Du hast Honorar, aber keine Zeit zum Selbstbauen.",
-    text: "Dann ist die Werkstatt vermutlich nicht dein Format — sondern das begleitete Erfolgsmodell, bei dem ich für dich baue. Was zu dir passt, klären wir ehrlich im Erstgespräch.",
-    verdict: "Lass uns kurz sprechen.",
+    status: "Mitten im laufenden Mandat",
+    sub: "Du hast Honorar, aber keine Hand frei zum Selbstbauen.",
+    text: "Hier ist die Werkstatt nicht dein Format. Du brauchst keine Bauanleitung für irgendwann, sondern eine KI-Antwort in dieses Mandat — die deinen Tagessatz sichtbar trägt. Dafür gibt es den Mandats-Kickstart: ein fester Lieferrahmen, auf meiner Seite gebaut, nie in deinem Kundensystem. Wenn dein Mandat dagegen stabil läuft und du an das nächste denkst, ist das begleitete Erfolgsmodell der ruhigere Weg.",
+    primary: { label: "Mandats-Kickstart ansehen →", href: "/kickstart" },
+    secondary: { label: "Mandat läuft stabil? Erfolgsmodell kennenlernen", href: "/buchen" },
   },
 ];
 
@@ -212,7 +213,25 @@ const faqSchema = {
               </p>
               <p class="mt-2 font-semibold text-brand-dark">{r.sub}</p>
               <p class="mt-2 flex-1 text-sm text-brand-gray">{r.text}</p>
-              <p class="mt-4 font-bold text-brand-dark">→ {r.verdict}</p>
+              {r.primary ? (
+                <div class="mt-4">
+                  <a
+                    href={r.primary.href}
+                    class="inline-block rounded-lg bg-brand-blue px-4 py-2 text-sm font-bold text-brand-black hover:bg-brand-blueLight"
+                  >
+                    {r.primary.label}
+                  </a>
+                  {r.secondary && (
+                    <p class="mt-3 text-xs text-brand-gray">
+                      <a href={r.secondary.href} class="underline hover:text-brand-dark">
+                        {r.secondary.label}
+                      </a>
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p class="mt-4 font-bold text-brand-dark">→ {r.verdict}</p>
+              )}
             </article>
           ))
         }
