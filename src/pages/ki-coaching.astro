@@ -12,6 +12,7 @@ const stripeUrl = "https://buy.stripe.com/00wfZggVEcLs3DVfhi8bS05";
 const offers = [
   {
     name: "KI-Kickstart",
+    detailHref: "/bootcamp",
     price: "97€",
     priceNote: "Festpreis",
     format: "2h · Live · Gruppe (max. 15)",
@@ -30,6 +31,7 @@ const offers = [
   },
   {
     name: "KI-Sprint",
+    detailHref: "/workshop",
     price: "Auf Anfrage",
     priceNote: "Workshop-Tag",
     format: "1 Tag · 1:1 mit Marcus",
@@ -47,6 +49,7 @@ const offers = [
   },
   {
     name: "KI-Komplettsystem",
+    detailHref: "/system",
     price: "Auf Anfrage",
     priceNote: "Done-for-you",
     format: "~3 Wochen · Done-for-you",
@@ -173,6 +176,13 @@ const offers = [
                 ]}
               >
                 {offer.ctaLabel}
+              </a>
+
+              <a
+                href={offer.detailHref}
+                class="mt-3 block text-center text-sm font-semibold text-brand-gray underline underline-offset-2 hover:text-brand-dark"
+              >
+                Alle Details ansehen →
               </a>
             </article>
           ))

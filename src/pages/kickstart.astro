@@ -5,7 +5,7 @@ import Base from "../layouts/Base.astro";
 // Layout: Base.astro + hideNav (self-hosted Fonts + Consent/GTM intakt), eigener Mini-Header.
 // Leitplanken: KEIN Preis · EIN Versprechen · EIN CTA = kostenloses Erstgespräch (/buchen)
 //   · genau 1 Cross-Link → /werkstatt · Lauf-Garantie (Prozess/Lieferung, nie Mandat/Erfolg).
-// Garantie-/DSGVO-Wortlaut = Entwurf (🔴 UM-10, Marcus-Freigabe vor Live).
+// Garantie-/DSGVO-Wortlaut = FREIGEGEBEN (UM-10, Anhang E, Marcus 2026-06-22).
 
 // Anhang C — „Was du sofort erhältst" (Outcome-formuliert)
 const liefert = [
@@ -133,14 +133,15 @@ const phasen = [
     </div>
   </section>
 
-  <!-- 5 · DSGVO- / „eigene Seite"-Leitplanke (Entwurf — 🔴 UM-10) -->
+  <!-- 5 · DSGVO-Leitplanke (UM-10, Anhang E final) -->
   <section class="bg-brand-dark py-16 text-brand-white sm:py-20">
     <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
-      <h2 class="text-3xl font-extrabold">Gebaut auf meiner Seite — nie in deinem Kundensystem.</h2>
+      <h2 class="text-3xl font-extrabold">Gebaut ohne Zugriff auf das System deines Auftraggebers.</h2>
       <p class="mt-6 text-lg text-gray-300">
-        Kein DSGVO-Thema beim Endkunden, keine IT-Freigabe-Schleife, kein Risiko an
-        deinem Auftrag. Die Werkzeuge entstehen auf meiner Infrastruktur und gehen
-        sauber an dich über — nichts Sensibles verlässt das Kundensystem.
+        Die Werkzeuge werden auf deiner eigenen Infrastruktur aufgebaut, ohne Zugriff
+        auf die Systeme deines Auftraggebers. Für die datenschutzrechtliche Bewertung
+        deines konkreten Einsatzes bleibst du verantwortlich — ich unterstütze dich
+        dabei, sie sauber aufzusetzen.
       </p>
     </div>
   </section>
@@ -157,25 +158,21 @@ const phasen = [
     </div>
   </section>
 
-  <!-- 7 · Lauf-Garantie (Anhang E — Entwurf, 🔴 UM-10 Marcus-Freigabe vor Live) -->
+  <!-- 7 · Lauf-Garantie (Anhang E final, UM-10 freigegeben) -->
   <section class="bg-brand-lightBg py-16 sm:py-20">
     <div class="mx-auto max-w-2xl px-4 sm:px-6">
       <h2 class="text-center text-3xl font-extrabold">Die Lauf-Garantie.</h2>
       <p class="mt-6 text-lg text-brand-gray">
-        Am Ende laufen deine im Mandat aufgebauten KI-Werkzeuge nachweisbar. Laufen
-        sie nach Abschluss nicht wie aufgebaut, arbeite ich kostenlos mit dir nach,
-        bis sie laufen.
+        Wenn die im Mandats-Kickstart aufgebauten KI-Werkzeuge bei Übergabe nicht wie
+        vereinbart funktionieren, arbeite ich
+        <strong class="text-brand-dark">innerhalb von 4 Wochen nach Übergabe</strong>
+        kostenlos nach, bis sie die
+        <strong class="text-brand-dark">vorab gemeinsam definierten Funktionskriterien</strong>
+        erfüllen. Voraussetzung ist deine <strong class="text-brand-dark">Mitwirkung</strong>
+        (Zugang zu den vereinbarten Eingaben und Daten). Das ist eine Prozess-Garantie
+        auf die Funktion der Werkzeuge — keine Zusage auf ein konkretes Mandat, einen
+        bestimmten Umsatz oder eine Reichweite.
       </p>
-      <div class="mt-6 rounded-2xl border border-gray-200 bg-brand-white p-6">
-        <p class="text-base text-brand-gray">
-          Was ich <strong class="text-brand-dark">nicht</strong> garantiere — und dir
-          niemand seriös garantieren kann: ein konkretes nächstes Mandat, einen
-          bestimmten Umsatz oder eine Reichweiten-Zahl.
-          <strong class="text-brand-dark"> Ich garantiere, dass das System läuft —
-          nicht, was der Markt daraus macht.</strong> Das ist eine Prozess-Garantie,
-          keine Erfolgs- oder Mandats-Garantie.
-        </p>
-      </div>
     </div>
   </section>
 
