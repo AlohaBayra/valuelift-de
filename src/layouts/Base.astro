@@ -151,7 +151,9 @@ const personSchema = {
     <div id="cookie-scrim"></div>
     <div id="cookie-banner" role="dialog" aria-modal="true" aria-label="Datenschutzeinstellungen">
       <div class="cookie-inner">
-        <h2 class="cookie-title">Datenschutzeinstellungen</h2>
+        <!-- WP-10: bewusst kein Heading-Element — der Dialog trägt bereits aria-label; so
+             beginnt die Content-Hierarchie der Seite sauber mit der Hero-Headline. -->
+        <p class="cookie-title">Datenschutzeinstellungen</p>
         <p class="cookie-text">
           Wir verwenden Cookies und Technologien auf unserer Website. Einige sind
           essenziell, andere helfen uns, die Seite und deine Erfahrung zu verbessern.
