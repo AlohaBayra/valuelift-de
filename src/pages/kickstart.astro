@@ -1,10 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
+import { GARANTIE_KERN } from "../lib/garantie";
 
-// UM-01 — Landingpage „Mandats-Kickstart" (IM-Pivot, Modell B)
+// UM-01 — Landingpage „KI-Kickstart" (IM-Pivot, Modell B)
 // Layout: Base.astro + hideNav (self-hosted Fonts + Consent/GTM intakt), eigener Mini-Header.
 // Leitplanken: KEIN Preis · EIN Versprechen · EIN CTA = kostenloses Erstgespräch (/buchen)
-//   · genau 1 Cross-Link → /werkstatt · Lauf-Garantie (Prozess/Lieferung, nie Mandat/Erfolg).
+//   · genau 1 Cross-Link → /werkstatt · Umsetzungs-Garantie (Prozess/Lieferung, nie Mandat/Erfolg).
 // Garantie-/DSGVO-Wortlaut = FREIGEGEBEN (UM-10, Anhang E, Marcus 2026-06-22).
 
 // Anhang C — „Was du sofort erhältst" (Outcome-formuliert)
@@ -27,10 +28,44 @@ const phasen = [
   { phase: "3 · Laufendes Mandat", wo: "mitten in der Steuerung", wert: "Laufende Reports + Prozess-Automatisierung → Entlastung." },
   { phase: "4 · Mandatsende / Übergabe", wo: "Abschluss & Übergabe", wert: "Wirkungs-Doku + Abschlussbericht → Tagessatz-Beleg fürs nächste Mandat." },
 ];
+
+// WP-09 — FAQPage (GEO/SEO). Sichtbare Q&A + JSON-LD müssen übereinstimmen (Google-Vorgabe).
+const faqs = [
+  {
+    question: "Wie lange dauert der KI-Kickstart?",
+    answer:
+      "In Tagen statt Monaten. Der KI-Kickstart hat einen festen Lieferrahmen und setzt KI dort an, wo sie in deinem Mandat heute am meisten trägt.",
+  },
+  {
+    question: "Wie viel Zeit muss ich selbst investieren?",
+    answer:
+      "Dein Zeiteinsatz bleibt schlank: rechne mit rund 2–3 Stunden Mitwirkung, über die Liefertage verteilt.",
+  },
+  {
+    question: "Bleiben meine vertraulichen Mandatsdaten sicher?",
+    answer:
+      "Die Werkzeuge werden auf deiner eigenen Infrastruktur aufgebaut, ohne Zugriff auf die Systeme deines Auftraggebers. Nichts Sensibles verlässt dein Mandat.",
+  },
+  {
+    question: "Was, wenn die Werkzeuge nicht laufen?",
+    answer:
+      "Es gilt die Umsetzungs-Garantie: Wir arbeiten so lange mit dir weiter, bis dein erster KI-Prozess läuft. Bedingung ist deine Mitarbeit an den vereinbarten Schritten. Keine Zusage auf ein bestimmtes Mandat, einen Umsatz oder ein Ergebnis.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
 ---
 
 <Base
-  title="Mandats-Kickstart — KI in deinem laufenden Mandat | Value Lift AI"
+  title="KI-Kickstart — KI in deinem laufenden Mandat | Value Lift AI"
   description="KI-Werkzeuge auf deiner eigenen Seite, fertig im laufenden Mandat: Reporting, Analyse, Stakeholder-Map, Wirkungs-Doku. Für solo Interim-Manager. Auf Anfrage, kostenloses Erstgespräch."
   path="/kickstart"
   hideNav={true}
@@ -39,7 +74,7 @@ const phasen = [
   <header class="bg-brand-dark">
     <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
       <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
-        <img src="/logo.png" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
+        <img src="/logo.svg" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
       </a>
     </div>
   </header>
@@ -50,14 +85,15 @@ const phasen = [
       <span
         class="mb-6 inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blueLight"
       >
-        Mandats-Kickstart · für solo Interim-Manager
+        KI-Kickstart · für solo Interim-Manager
       </span>
       <h1 class="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
         KI, die deinen Tagessatz in diesem Mandat sichtbar trägt.
       </h1>
       <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
-        Fester Rahmen, in Tagen statt Monaten. Auf meiner Seite gebaut, nie in
-        deinem Kundensystem. Du lieferst — sichtbar.
+        Fester Rahmen, in Tagen statt Monaten. Angeleitet auf deiner eigenen Seite gebaut,
+        nie in deinem Kundensystem. Du lieferst — sichtbar. Dein Zeiteinsatz bleibt schlank:
+        rechne mit rund 2–3 Stunden Mitwirkung, über die Liefertage verteilt.
       </p>
       <div class="mt-10">
         <a
@@ -85,7 +121,7 @@ const phasen = [
         hinterfragt wird.
       </p>
       <p class="mt-6 text-xl font-bold text-brand-dark">
-        Der Mandats-Kickstart setzt KI dort an, wo sie heute am meisten trägt — in Tagen, nicht Monaten.
+        Der KI-Kickstart setzt KI dort an, wo sie heute am meisten trägt — in Tagen, nicht Monaten.
       </p>
     </div>
   </section>
@@ -158,21 +194,11 @@ const phasen = [
     </div>
   </section>
 
-  <!-- 7 · Lauf-Garantie (Anhang E final, UM-10 freigegeben) -->
+  <!-- 7 · Umsetzungs-Garantie (Anhang E final, UM-10 freigegeben) -->
   <section class="bg-brand-lightBg py-16 sm:py-20">
     <div class="mx-auto max-w-2xl px-4 sm:px-6">
-      <h2 class="text-center text-3xl font-extrabold">Die Lauf-Garantie.</h2>
-      <p class="mt-6 text-lg text-brand-gray">
-        Wenn die im Mandats-Kickstart aufgebauten KI-Werkzeuge bei Übergabe nicht wie
-        vereinbart funktionieren, arbeite ich
-        <strong class="text-brand-dark">innerhalb von 4 Wochen nach Übergabe</strong>
-        kostenlos nach, bis sie die
-        <strong class="text-brand-dark">vorab gemeinsam definierten Funktionskriterien</strong>
-        erfüllen. Voraussetzung ist deine <strong class="text-brand-dark">Mitwirkung</strong>
-        (Zugang zu den vereinbarten Eingaben und Daten). Das ist eine Prozess-Garantie
-        auf die Funktion der Werkzeuge — keine Zusage auf ein konkretes Mandat, einen
-        bestimmten Umsatz oder eine Reichweite.
-      </p>
+      <h2 class="text-center text-3xl font-extrabold">Die Umsetzungs-Garantie.</h2>
+      <p class="mt-6 text-lg text-brand-gray">{GARANTIE_KERN}</p>
     </div>
   </section>
 
@@ -195,10 +221,27 @@ const phasen = [
           Impact bei Telefónica, Lean Six Sigma Master Black Belt.
         </p>
         <p class="mt-4 text-lg text-brand-gray">
-          Ich kenne den Druck im Mandat aus eigener Erfahrung — und baue dir die
-          KI-Werkzeuge, die genau dort liefern. Auf Augenhöhe, mit jemandem, der den
+          Ich kenne den Druck im Mandat aus eigener Erfahrung — und zeige dir, wie du dir die
+          KI-Werkzeuge, die genau dort liefern, selbst baust. Auf Augenhöhe, mit jemandem, der den
           Stuhl selbst besetzt hat.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8b · FAQ (WP-09) — sichtbare Q&A passend zum FAQPage-JSON-LD -->
+  <section class="bg-brand-lightBg py-16 sm:py-20" id="faq">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">Häufige Fragen</h2>
+      <div class="mt-10 space-y-4">
+        {
+          faqs.map((faq) => (
+            <details class="rounded-xl border border-gray-200 bg-brand-white p-5 [&_summary]:list-none">
+              <summary class="cursor-pointer font-bold text-brand-dark">{faq.question}</summary>
+              <p class="mt-3 text-brand-gray">{faq.answer}</p>
+            </details>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -224,4 +267,7 @@ const phasen = [
       </p>
     </div>
   </section>
+
+  <!-- FAQPage JSON-LD (nur Kickstart-Fragen, kein Preis) -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </Base>

@@ -1,9 +1,10 @@
 ---
 import Base from "../layouts/Base.astro";
+import { GARANTIE_KERN } from "../lib/garantie";
 
 // MW-05 — Landingpage „Werkstatt: Interims-Magnet"
 // Layout: Base.astro + hideNav (self-hosted Fonts + Consent/GTM intakt), eigener Mini-Header.
-// Leitplanken: KEIN Preis · EIN CTA = kostenloses Erstgespräch (/buchen) · Lauf-Garantie (Prozess, nie Mandat).
+// Leitplanken: KEIN Preis · EIN CTA = kostenloses Erstgespräch (/buchen) · Umsetzungs-Garantie (Prozess, nie Mandat).
 
 // Mandatsstatus-Routing (Segmentierung statt Preis)
 const routing = [
@@ -22,9 +23,9 @@ const routing = [
   {
     status: "Mitten im laufenden Mandat",
     sub: "Du hast Honorar, aber keine Hand frei zum Selbstbauen.",
-    text: "Hier ist die Werkstatt nicht dein Format. Du brauchst keine Bauanleitung für irgendwann, sondern eine KI-Antwort in dieses Mandat — die deinen Tagessatz sichtbar trägt. Dafür gibt es den Mandats-Kickstart: ein fester Lieferrahmen, auf meiner Seite gebaut, nie in deinem Kundensystem. Wenn dein Mandat dagegen stabil läuft und du an das nächste denkst, ist das begleitete Erfolgsmodell der ruhigere Weg.",
-    primary: { label: "Mandats-Kickstart ansehen →", href: "/kickstart" },
-    secondary: { label: "Mandat läuft stabil? Erfolgsmodell kennenlernen", href: "/buchen" },
+    text: "Hier ist die Werkstatt nicht dein Format. Du brauchst keine Bauanleitung für irgendwann, sondern eine KI-Antwort in dieses Mandat — die deinen Tagessatz sichtbar trägt. Dafür gibt es den KI-Kickstart: ein fester Lieferrahmen, begleitet auf deiner eigenen Seite gebaut, nie in deinem Kundensystem. Wenn es schnell gehen muss und du keine Hand frei hast, baue ich es dir auf Anfrage als Premium.",
+    primary: { label: "KI-Kickstart ansehen →", href: "/kickstart" },
+    secondary: { label: "Keine Zeit zum Selbstbauen? Premium-Option (auf Anfrage)", href: "/buchen" },
   },
 ];
 
@@ -80,14 +81,14 @@ const faqs = [
       "Weil der richtige Weg für dich von deiner Lage abhängt, nicht von einer Zahl auf einer Seite. Im kostenlosen Erstgespräch klären wir zuerst, ob die Werkstatt überhaupt zu deinem Mandatsstatus passt — und dann, was sie für dich kostet. Kein Pitch, keine Verpflichtung.",
   },
   {
-    question: "Das Erfolgsmodell startet bei 0 Euro — warum dann die Werkstatt?",
+    question: "Selbst bauen oder bauen lassen — was ist der Unterschied?",
     answer:
-      "Weil beide für verschiedene Lebenslagen gemacht sind. Das 0-Euro-Erfolgsmodell setzt ein laufendes Mandat voraus: Du hast Honorar, aber keine Zeit, und ich baue für dich. Zwischen Mandaten ist es umgekehrt — du hast Zeit, aber kein laufendes Honorar. Dann kann ich dir kein mandatsgebundenes Erfolgshonorar abnehmen, das es gerade nicht gibt. Die Werkstatt ist nicht die teurere Variante, sondern die, die in deiner Lage überhaupt liefert. Und du besitzt das System danach zu 100 %.",
+      "Die Werkstatt ist ein begleiteter Kurs: Du baust dir dein Akquise-System selbst, verstehst jeden Schritt und bist danach unabhängig. Wenn du dagegen mitten im Mandat steckst und keine Hand frei hast, baue ich es dir auf Anfrage als Premium — die schnelle, done-for-you-Variante. Beide führen zum selben System; der Unterschied ist nur, wie viel du selbst in die Hand nimmst. Und in beiden Fällen besitzt du das System danach zu 100 %.",
   },
   {
     question: "Ich habe gerade ein Mandat — kann ich trotzdem mitmachen?",
     answer:
-      "Kannst du, aber sei ehrlich zu dir: Im laufenden Mandat unterschätzt fast jeder die Bau-Zeit. Wenn du selbst Hand anlegen und verstehen willst, ist die Mandats-Pause dein Sicherheitsnetz. Wenn es einfach laufen soll, während du im Mandat bleibst, ist eher das Erfolgsmodell richtig. Was zu dir passt, finden wir im Gespräch heraus.",
+      "Kannst du, aber sei ehrlich zu dir: Im laufenden Mandat unterschätzt fast jeder die Bau-Zeit. Wenn du selbst Hand anlegen und verstehen willst, ist die Mandats-Pause dein Sicherheitsnetz. Wenn es einfach laufen soll, während du im Mandat bleibst, ist eher die Premium-Option (auf Anfrage) richtig. Was zu dir passt, finden wir im Gespräch heraus.",
   },
   {
     question: "Was, wenn ich mitten in der Werkstatt ein Mandat bekomme?",
@@ -102,12 +103,12 @@ const faqs = [
   {
     question: "Wie viel Zeit muss ich pro Woche einplanen?",
     answer:
-      "Du arbeitest im eigenen Takt. Die Werkstatt ist auf 8 Wochen ausgelegt, aber du bestimmst das Tempo — und pausierst, wenn ein Mandat dazwischenkommt.",
+      "Rechne mit rund 3–4 Stunden pro Woche in deinem eigenen Takt, plus einem monatlichen Gruppen-Call. Die Werkstatt ist auf 8 Wochen ausgelegt, aber du bestimmst das Tempo — und pausierst, wenn ein Mandat dazwischenkommt.",
   },
   {
     question: "Was genau ist am Ende „fertig“?",
     answer:
-      "Deine zwei Herzstück-Maschinen laufen nachweisbar: die Wirkungs-Maschine und der Pipeline-Wärmer mit Mandatsend-Trigger. Darauf gilt die Lauf-Garantie. Was nicht garantiert ist: ein konkretes Mandat oder ein bestimmter Umsatz — das hängt von dir, deinem Markt und deinem Timing ab.",
+      "Deine zwei Herzstück-Maschinen laufen nachweisbar: die Wirkungs-Maschine und der Pipeline-Wärmer mit Mandatsend-Trigger. Darauf gilt die Umsetzungs-Garantie. Was nicht garantiert ist: ein konkretes Mandat oder ein bestimmter Umsatz — das hängt von dir, deinem Markt und deinem Timing ab.",
   },
 ];
 
@@ -123,8 +124,8 @@ const faqSchema = {
 ---
 
 <Base
-  title="Werkstatt: Interims-Magnet — KI-Akquise-System für Interim Manager | Value Lift AI"
-  description="In 8 Wochen baust du dir async dein eigenes Akquise-System: Wirkungs-Maschine + Pipeline-Wärmer mit Mandatsend-Trigger. Für solo Interim Manager zwischen Mandaten. Lauf-Garantie, Preis auf Anfrage."
+  title="KI-Sprint (Werkstatt: Interims-Magnet) — KI-Akquise-System für Interim Manager | Value Lift AI"
+  description="In 8 Wochen baust du dir async dein eigenes Akquise-System: Wirkungs-Maschine + Pipeline-Wärmer mit Mandatsend-Trigger. Für solo Interim Manager zwischen Mandaten. Umsetzungs-Garantie, Preis auf Anfrage."
   path="/werkstatt"
   hideNav={true}
 >
@@ -132,7 +133,7 @@ const faqSchema = {
   <header class="bg-brand-dark">
     <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
       <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
-        <img src="/logo.png" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
+        <img src="/logo.svg" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
       </a>
     </div>
   </header>
@@ -143,7 +144,7 @@ const faqSchema = {
       <span
         class="mb-6 inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blueLight"
       >
-        Werkstatt: Interims-Magnet · 8 Wochen · für solo Interim Manager
+        KI-Sprint · Werkstatt: Interims-Magnet · 8 Wochen · für solo Interim Manager
       </span>
       <h1 class="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
         Bau dir zwischen zwei Mandaten den Magneten, der dein nächstes Mandat holt.
@@ -163,6 +164,27 @@ const faqSchema = {
         <p class="mt-3 text-sm text-gray-400">
           20 Minuten · kein Pitch · nur Klarheit, ob die Werkstatt zu deiner Lage passt.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1b · Auf einen Blick — Zeitaufwand + Wert-Anker (WP-07)
+       [ENTSCHEIDUNG MARCUS]: Zeitaufwand-Zahlen (ca. 3–4 h/Woche) bitte bestätigen. Preis bleibt bewusst weg. -->
+  <section class="bg-brand-lightBg py-10">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="rounded-xl border border-gray-200 bg-brand-white p-5 text-center">
+          <p class="text-2xl font-extrabold text-brand-dark">8 Wochen</p>
+          <p class="mt-1 text-sm text-brand-gray">async, im eigenen Takt · Mandats-Pause jederzeit</p>
+        </div>
+        <div class="rounded-xl border border-gray-200 bg-brand-white p-5 text-center">
+          <p class="text-2xl font-extrabold text-brand-dark">ca. 3–4 h<span class="text-base font-bold">/Woche</span></p>
+          <p class="mt-1 text-sm text-brand-gray">plus ein monatlicher Gruppen-Call</p>
+        </div>
+        <div class="rounded-xl border border-gray-200 bg-brand-white p-5 text-center">
+          <p class="text-2xl font-extrabold text-brand-dark">28.000–56.000 €</p>
+          <p class="mt-1 text-sm text-brand-gray">entgangenes Honorar bei 1–2 Monaten ohne Anschlussmandat</p>
+        </div>
       </div>
     </div>
   </section>
@@ -240,12 +262,11 @@ const faqSchema = {
       <blockquote
         class="mx-auto mt-10 max-w-3xl rounded-r-lg border-l-4 border-brand-blue bg-brand-white p-6 text-lg italic text-brand-dark"
       >
-        Das 0-Euro-Erfolgsmodell setzt ein laufendes Mandat voraus — denn dann hast
-        du Honorar, aber keine Zeit, und ich baue für dich. Zwischen Mandaten ist es
-        genau umgekehrt: Du hast die Zeit, aber das Honorar fließt nicht. Genau dann
-        ist die Werkstatt dein Weg — du nutzt die Leerlaufzeit, baust dir das System
-        selbst, und gehst ins nächste Mandat mit einem laufenden Magneten statt mit
-        einem leeren Kalender.
+        Steckst du mitten im Mandat und hast keine Hand frei, baue ich dir das System
+        auf Anfrage als Premium — done-for-you. Zwischen Mandaten ist es genau umgekehrt:
+        Du hast die Zeit, aber das Honorar fließt nicht. Genau dann ist die Werkstatt dein
+        Weg — du nutzt die Leerlaufzeit, baust dir das System selbst, und gehst ins nächste
+        Mandat mit einem laufenden Magneten statt mit einem leeren Kalender.
       </blockquote>
     </div>
   </section>
@@ -321,30 +342,11 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 6 · Lauf-Garantie -->
+  <!-- 6 · Umsetzungs-Garantie -->
   <section class="bg-brand-white py-16 sm:py-20">
     <div class="mx-auto max-w-2xl px-4 sm:px-6">
-      <h2 class="text-center text-3xl font-extrabold">Die Lauf-Garantie.</h2>
-      <p class="mt-6 text-lg text-brand-gray">
-        Wenn deine zwei Herzstück-Maschinen — die Wirkungs-Maschine und der
-        Pipeline-Wärmer mit Mandatsend-Trigger — bei Abschluss nicht wie vereinbart
-        funktionieren, arbeite ich <strong class="text-brand-dark">innerhalb von 4
-        Wochen nach Abschluss</strong> kostenlos mit dir nach, bis sie die
-        <strong class="text-brand-dark">vorab gemeinsam definierten Funktionskriterien</strong>
-        erfüllen. Voraussetzung ist deine <strong class="text-brand-dark">Mitwirkung</strong>
-        (Zugang zu den vereinbarten Eingaben und Daten).
-      </p>
-      <div class="mt-6 rounded-2xl border border-gray-200 bg-brand-lightBg p-6">
-        <p class="text-base text-brand-gray">
-          Was ich <strong class="text-brand-dark">nicht</strong> garantiere — und
-          dir niemand seriös garantieren kann: ein konkretes nächstes Mandat, einen
-          bestimmten Umsatz oder eine Reichweiten-Zahl. Akquise hängt von dir,
-          deinem Markt und deinem Timing ab.
-          <strong class="text-brand-dark"> Ich garantiere, dass das System läuft —
-          nicht, was der Markt daraus macht.</strong> Das ist eine Prozess-Garantie,
-          keine Erfolgs- oder Mandats-Garantie.
-        </p>
-      </div>
+      <h2 class="text-center text-3xl font-extrabold">Die Umsetzungs-Garantie.</h2>
+      <p class="mt-6 text-lg text-brand-gray">{GARANTIE_KERN}</p>
     </div>
   </section>
 
