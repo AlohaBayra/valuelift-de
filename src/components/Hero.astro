@@ -5,8 +5,8 @@ export interface Props {
 }
 
 const {
-  headline = "Deine KI unterstützt dich im Mandat zu wenig — und für ein echtes System fehlt die Zeit?",
-  subtext = "Ich befähige Interim-Manager, ihr eigenes KI-System zu bauen — eines, das im Mandat liefert und das nächste anbahnt. Von einem Ex-COO, der genau das für sein eigenes Geschäft getan hat.",
+  headline = "Möchtest du ein KI-System, das wirklich funktioniert und dich unterstützt?",
+  subtext = "Lerne aus über 20 Jahren Operational Excellence und der Power von KI, dein eigenes System zu bauen. Eines, das dich im Mandat entlastet und dein nächstes anbahnt.",
 } = Astro.props;
 ---
 
@@ -55,16 +55,20 @@ const {
         {subtext}
       </p>
 
-      <!-- CTA (genau 1 → /buchen) -->
-      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.625rem;">
+      <!-- CTA (primär → /kickstart · sekundär → /buchen) -->
+      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem;">
         <a
-          href="/buchen"
+          href="/kickstart"
           style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 0.5rem; text-decoration: none;"
         >
-          Kostenloses Erstgespräch buchen
+          Ja, ich bin bereit für mein KI-System
         </a>
+        <p style="font-size: 0.875rem; color: #9CA3AF; margin: 0;">
+          Lieber erst unverbindlich sprechen?
+          <a href="/buchen" style="color: #F5A623; font-weight: 600; text-decoration: underline; text-underline-offset: 3px;">Kostenloses Erstgespräch buchen</a>
+        </p>
         <p style="font-size: 0.75rem; color: #6B7280; margin: 0;">
-          20 Minuten, kostenlos. Wir schauen auf deine Pipeline — du entscheidest danach.
+          20 Minuten, kostenlos. Wir schauen auf deine Pipeline, du entscheidest danach.
         </p>
       </div>
 
