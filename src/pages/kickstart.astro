@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import { GARANTIE_KERN } from "../lib/garantie";
 
 // UM-01 — Landingpage „Mandats-Kickstart" (IM-Pivot, Modell B)
 // Layout: Base.astro + hideNav (self-hosted Fonts + Consent/GTM intakt), eigener Mini-Header.
@@ -161,18 +162,8 @@ const phasen = [
   <!-- 7 · Lauf-Garantie (Anhang E final, UM-10 freigegeben) -->
   <section class="bg-brand-lightBg py-16 sm:py-20">
     <div class="mx-auto max-w-2xl px-4 sm:px-6">
-      <h2 class="text-center text-3xl font-extrabold">Die Lauf-Garantie.</h2>
-      <p class="mt-6 text-lg text-brand-gray">
-        Wenn die im Mandats-Kickstart aufgebauten KI-Werkzeuge bei Übergabe nicht wie
-        vereinbart funktionieren, arbeite ich
-        <strong class="text-brand-dark">innerhalb von 4 Wochen nach Übergabe</strong>
-        kostenlos nach, bis sie die
-        <strong class="text-brand-dark">vorab gemeinsam definierten Funktionskriterien</strong>
-        erfüllen. Voraussetzung ist deine <strong class="text-brand-dark">Mitwirkung</strong>
-        (Zugang zu den vereinbarten Eingaben und Daten). Das ist eine Prozess-Garantie
-        auf die Funktion der Werkzeuge — keine Zusage auf ein konkretes Mandat, einen
-        bestimmten Umsatz oder eine Reichweite.
-      </p>
+      <h2 class="text-center text-3xl font-extrabold">Die Umsetzungs-Garantie.</h2>
+      <p class="mt-6 text-lg text-brand-gray">{GARANTIE_KERN}</p>
     </div>
   </section>
 

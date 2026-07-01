@@ -1,6 +1,7 @@
 ---
 // UM-04 — IM-Value-Ladder (Modell B). Segmentierung nach Mandatsphase, KEIN öffentlicher Preis,
 // kein Stripe, kein Euro-Betrag im DOM (QA-Grep). Drei Stufen → /kickstart · /werkstatt · /buchen.
+import { GARANTIE_KURZ } from "../lib/garantie";
 const offers = [
   {
     name: "Mandats-Kickstart",
@@ -12,7 +13,7 @@ const offers = [
       "Gebaut auf meiner Seite, nie in deinem Kundensystem",
       "Du besitzt es danach — kein Abo, kein Vendor-Lock-in",
     ],
-    guarantee: "Lauf-Garantie: läuft es nicht wie aufgebaut, arbeite ich kostenlos nach.",
+    guarantee: GARANTIE_KURZ,
     ctaLabel: "Mandats-Kickstart ansehen",
     ctaHref: "/kickstart",
     style: "solid",
@@ -28,7 +29,7 @@ const offers = [
       "Im eigenen Takt, Mandats-Pause jederzeit möglich",
       "Damit das nächste Mandat anläuft, bevor das aktuelle endet",
     ],
-    guarantee: "Lauf-Garantie auf deine zwei Herzstück-Maschinen.",
+    guarantee: GARANTIE_KURZ,
     ctaLabel: "Zur Werkstatt",
     ctaHref: "/werkstatt",
     style: "outline",
@@ -43,7 +44,7 @@ const offers = [
       "Erste 6 Monate zum Kurs inklusive, danach monatliches Abo.",
       "Kein Standalone-Done-for-you — ein Add-on, das deinen laufenden Betrieb trägt.",
     ],
-    guarantee: "Lauf-Garantie: läuft es nicht wie aufgebaut, arbeite ich kostenlos nach.",
+    guarantee: GARANTIE_KURZ,
     note: "Keine Zeit? Auf Anfrage baue ich es dir als Premium.",
     ctaLabel: "Erstgespräch buchen",
     ctaHref: "/buchen",
