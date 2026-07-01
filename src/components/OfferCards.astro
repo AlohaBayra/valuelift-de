@@ -1,7 +1,9 @@
 ---
-// UM-04 — IM-Value-Ladder (Modell B). Segmentierung nach Mandatsphase, KEIN öffentlicher Preis,
-// kein Stripe, kein Euro-Betrag im DOM (QA-Grep). Drei Stufen → /kickstart · /werkstatt · /buchen.
-import { GARANTIE_KURZ } from "../lib/garantie";
+// UM-04 / WP-06 — IM-Value-Ladder (Modell B). Segmentierung nach Mandatsphase, KEIN öffentlicher
+// Preis, kein Stripe, kein Euro-Betrag im DOM (QA-Grep). Zwei Wege → /kickstart · /werkstatt.
+// Die App ist KEIN dritter Weg, sondern ein Ergebnis-Add-on (eigener Abschnitt auf der Startseite).
+// Garantie in der Karte nur als kurzes Label; Detail-Wortlaut steht in der Garantie-Sektion.
+import { GARANTIE_NAME } from "../lib/garantie";
 const offers = [
   {
     name: "Mandats-Kickstart",
@@ -13,7 +15,7 @@ const offers = [
       "Gebaut auf meiner Seite, nie in deinem Kundensystem",
       "Du besitzt es danach — kein Abo, kein Vendor-Lock-in",
     ],
-    guarantee: GARANTIE_KURZ,
+    guarantee: GARANTIE_NAME,
     ctaLabel: "Mandats-Kickstart ansehen",
     ctaHref: "/kickstart",
     style: "solid",
@@ -29,25 +31,9 @@ const offers = [
       "Im eigenen Takt, Mandats-Pause jederzeit möglich",
       "Damit das nächste Mandat anläuft, bevor das aktuelle endet",
     ],
-    guarantee: GARANTIE_KURZ,
+    guarantee: GARANTIE_NAME,
     ctaLabel: "Zur Werkstatt",
     ctaHref: "/werkstatt",
-    style: "outline",
-    featured: false,
-  },
-  {
-    name: "Interims-Magnet App (zum Kurs)",
-    fuer: "Für Kickstart- & Werkstatt-Teilnehmer",
-    format: "Zugabe zum Kurs · 6 Monate inklusive, danach monatlich",
-    contents: [
-      "Deine Sichtbarkeits- & Pipeline-Maschine läuft weiter — die App unterstützt dich beim Betrieb deines selbst gebauten Systems.",
-      "Erste 6 Monate zum Kurs inklusive, danach monatliches Abo.",
-      "Kein Standalone-Done-for-you — ein Add-on, das deinen laufenden Betrieb trägt.",
-    ],
-    guarantee: GARANTIE_KURZ,
-    note: "Keine Zeit? Auf Anfrage baue ich es dir als Premium.",
-    ctaLabel: "Erstgespräch buchen",
-    ctaHref: "/buchen",
     style: "outline",
     featured: false,
   },
@@ -58,15 +44,16 @@ const offers = [
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-        Drei Wege — je nach Mandatsphase
+        Zwei Wege — je nach Mandatsphase
       </h2>
       <p class="mt-4 text-lg text-brand-gray">
-        Welcher Weg zu dir passt, hängt davon ab, wo du gerade im Mandatszyklus
-        stehst — nie vom Budget. Den Rahmen klären wir im Erstgespräch.
+        Es gibt genau zwei Entscheidungen: im Mandat schnell liefern oder zwischen
+        Mandaten selbst bauen. Welcher Weg zu dir passt, hängt davon ab, wo du gerade
+        im Mandatszyklus stehst — nie vom Budget. Den Rahmen klären wir im Erstgespräch.
       </p>
     </div>
 
-    <div class="mt-12 grid gap-8 md:grid-cols-3">
+    <div class="mt-12 grid gap-8 md:grid-cols-2 md:max-w-3xl md:mx-auto">
       {
         offers.map((offer) => (
           <article
@@ -95,8 +82,8 @@ const offers = [
               ))}
             </ul>
 
-            <p class="mt-6 rounded-lg bg-brand-lightBg p-3 text-sm font-semibold text-brand-dark">
-              <span aria-hidden="true">🛡️</span> Garantie: {offer.guarantee}
+            <p class="mt-6 inline-flex items-center gap-1.5 self-start rounded-full bg-brand-lightBg px-3 py-1 text-xs font-bold text-brand-dark">
+              <span aria-hidden="true">🛡️</span> {offer.guarantee}
             </p>
 
             <a
@@ -110,10 +97,6 @@ const offers = [
             >
               {offer.ctaLabel}
             </a>
-
-            {offer.note && (
-              <p class="mt-3 text-center text-xs italic text-brand-gray">{offer.note}</p>
-            )}
           </article>
         ))
       }
