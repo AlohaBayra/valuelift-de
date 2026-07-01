@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
 import OfferCards from "../components/OfferCards.astro";
 import KiBeweis from "../components/KiBeweis.astro";
+import { GARANTIE_KERN } from "../lib/garantie";
 
 // IM-Pivot (Modell B): Startseite für solo Operations-/COO-Interim-Manager.
 // Leitplanken: kein oeffentlicher Preis, kein Stripe, kein Coaching-Jargon; ein Hero-Versprechen; alle CTAs → /buchen.
@@ -267,25 +268,17 @@ const weiche = [
       <div style="background: #0B1528; flex: 1; min-width: 220px; padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center;">
         <div style="font-size: 2.5rem; margin-bottom: 1rem;" aria-hidden="true">🛡️</div>
         <h2 style="font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.75rem; line-height: 1.3;">
-          Meine Lauf-Garantie
+          Meine Umsetzungs-Garantie
         </h2>
         <p style="font-size: 0.9375rem; color: #9CA3AF; line-height: 1.6; margin: 0;">
-          Das Risiko liegt bei mir.<br />
-          Du bekommst ein System, das läuft —<br />nicht bloß Versuche.
+          Wir bleiben dran,<br />
+          bis dein erster KI-Prozess<br />wirklich läuft.
         </p>
       </div>
 
       <div style="flex: 1.4; min-width: 260px; padding: 2.5rem 2rem; background: #FFFFFF; border: 1px solid #E5E7EB; border-left: none;">
         <p style="font-size: 0.9375rem; color: #374151; line-height: 1.7; margin: 0;">
-          Wenn die im Mandats-Kickstart aufgebauten KI-Werkzeuge bei Übergabe nicht wie
-          vereinbart funktionieren, arbeite ich
-          <strong style="color: #0B1528;">innerhalb von 4 Wochen nach Übergabe</strong>
-          kostenlos nach, bis sie die
-          <strong style="color: #0B1528;">vorab gemeinsam definierten Funktionskriterien</strong>
-          erfüllen. Voraussetzung ist deine <strong style="color: #0B1528;">Mitwirkung</strong>
-          (Zugang zu den vereinbarten Eingaben und Daten). Das ist eine Prozess-Garantie
-          auf die Funktion der Werkzeuge — keine Zusage auf ein konkretes Mandat, einen
-          bestimmten Umsatz oder eine Reichweite.
+          {GARANTIE_KERN}
         </p>
       </div>
     </div>
