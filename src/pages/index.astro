@@ -3,32 +3,53 @@ import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
 import OfferCards from "../components/OfferCards.astro";
 import KiBeweis from "../components/KiBeweis.astro";
+import { GARANTIE_KERN } from "../lib/garantie";
 
 // IM-Pivot (Modell B): Startseite für solo Operations-/COO-Interim-Manager.
 // Leitplanken: kein oeffentlicher Preis, kein Stripe, kein Coaching-Jargon; ein Hero-Versprechen; alle CTAs → /buchen.
-// Segmentierung nach Mandatsphase, nie nach Preis. Garantie = Prozess-/Lauf-Garantie (🔴 Wortlaut UM-10).
+// Segmentierung nach Mandatsphase, nie nach Preis. Garantie = Umsetzungs-Garantie (🔴 Wortlaut UM-10).
 
-// UM-05 — Segmentierungs-Weiche nach Mandatsstatus (Muster: routing-Grid der Werkstatt)
+// WP-04 — Kompakter Mandatsphasen-Anker-Router (ersetzt die frühere doppelte Sektion).
+// Zwei Haupt-Wege (Werkstatt/Kickstart) + Premium-auf-Anfrage als Ausnahme.
 const weiche = [
+  { status: "Zwischen Mandaten", cta: "Zur Werkstatt →", href: "/werkstatt" },
+  { status: "Im oder vor dem Mandat", cta: "Zum Mandats-Kickstart →", href: "/kickstart" },
+  { status: "Stabil, aber keine Hand frei", cta: "Premium auf Anfrage →", href: "/buchen" },
+];
+
+// WP-09 — FAQPage (GEO/SEO). Sichtbare Q&A + JSON-LD müssen übereinstimmen (Google-Vorgabe).
+const faqs = [
   {
-    status: "Zwischen Mandaten",
-    text: "Die Pipeline ist leer, aber du hast Zeit. Du baust dir — begleitet — deinen eigenen Akquise-Magneten, damit das nächste Mandat von selbst anläuft.",
-    cta: "Zur Werkstatt →",
-    href: "/werkstatt",
+    question: "Für wen ist Value Lift AI?",
+    answer:
+      "Für solo Interim-Manager im Operations-/COO-Umfeld im DACH-Raum, die KI im Mandat sichtbar nutzen und ihre Pipeline warmhalten wollen — ohne dafür Programmierer zu werden.",
   },
   {
-    status: "Im oder vor dem Mandat",
-    text: "Akuter KI- und Tagessatz-Druck. Ich baue dir KI-Werkzeuge auf deiner eigenen Seite, die in deinem laufenden Mandat sofort liefern.",
-    cta: "Zum Mandats-Kickstart →",
-    href: "/kickstart",
+    question: "Baust du das System für mich oder baue ich es selbst?",
+    answer:
+      "Du baust es selbst — von mir angeleitet. So verstehst du jeden Schritt und bist danach unabhängig. Nur in Ausnahmen baue ich es dir auf Anfrage als Premium; die Unabhängigkeit aus dem Selberbauen ist der eigentliche Wert.",
   },
   {
-    status: "Stabiles Mandat, denkst ans nächste",
-    text: "Du hast Honorar, aber keine Hand frei. Ich baue dein System done-for-you — zahlbar erst beim Anschlussmandat.",
-    cta: "Erstgespräch →",
-    href: "/buchen",
+    question: "Was kostet das?",
+    answer:
+      "Es gibt bewusst keinen öffentlichen Preis. Der richtige Weg hängt von deiner Mandatsphase ab, nicht vom Budget — den Rahmen klären wir im kostenlosen Erstgespräch.",
+  },
+  {
+    question: "Welche Garantie gibt es?",
+    answer:
+      "Eine Umsetzungs-Garantie: Wir arbeiten so lange mit dir weiter, bis dein erster KI-Prozess läuft. Bedingung ist deine Mitarbeit an den vereinbarten Schritten. Keine Zusage auf ein bestimmtes Mandat, einen Umsatz oder ein Ergebnis.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
 ---
 
 <Base
@@ -48,10 +69,10 @@ const weiche = [
       </p>
       <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; margin-bottom: 2.75rem;">
         <h2 style="flex: 1; min-width: 300px; font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; color: #0B1528; line-height: 1.15; margin: 0;">
-          An diesen Herausforderungen scheitern <span style="color: #F5A623;">Bastler</span>
+          Woran <span style="color: #F5A623;">„KI nebenbei"</span> im Mandat scheitert
         </h2>
         <p style="flex: 1; min-width: 280px; font-size: 1rem; color: #6B7280; line-height: 1.7; margin: 0;">
-          Du probierst ChatGPT zwischen zwei Terminen. Mal klappt's, meist nicht — und für ein sauberes System fehlt im Mandat die Zeit. So bleibt KI ein Bastel-Tool statt ein Hebel, der deinen Tagessatz rechtfertigt.
+          Du probierst ChatGPT zwischen zwei Terminen. Mal klappt's, meist nicht — und für ein sauberes System fehlt im Mandat die Zeit. So bleibt KI eine Nebensache statt ein Hebel, der deinen Tagessatz rechtfertigt.
         </p>
       </div>
 
@@ -103,21 +124,6 @@ const weiche = [
     </div>
   </section>
 
-  <!-- 2c. CTA-Übergangs-Band (beckerniklas-Struktur) -->
-  <section style="background-color: #0B1528; padding: 4rem 1rem; text-align: center;">
-    <div style="max-width: 42rem; margin: 0 auto;">
-      <h2 style="font-size: clamp(1.625rem, 3.2vw, 2.25rem); font-weight: 800; color: #FFFFFF; line-height: 1.2; margin: 0 0 1rem;">
-        Du willst raus aus der <span style="color: #F5A623;">Prompt-Schleife</span>?
-      </h2>
-      <p style="font-size: 1.0625rem; color: #D1D5DB; line-height: 1.7; margin: 0 0 2rem;">
-        In einem kostenlosen Erstgespräch bauen wir deinen Fahrplan — von dem, womit du heute herumdokterst, bis zum System, das im Mandat liefert.
-      </p>
-      <a href="/buchen" style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; font-size: 1rem; padding: 0.9rem 2rem; border-radius: 0.5rem; text-decoration: none;">
-        Erstgespräch vereinbaren
-      </a>
-    </div>
-  </section>
-
   <!-- 3. Über Marcus — Operator-Herkunft als Vertrauensanker (UM-06) -->
   <section style="background-color: #F9F7F7; padding: 4rem 1rem;">
     <div style="max-width: 56rem; margin: 0 auto;">
@@ -140,9 +146,9 @@ const weiche = [
             Kein Kurs, kein Video-Paket. Keine Agentur, die dich von einer Black Box
             abhängig macht. Ich bin <strong style="color: #0B1528;">KI-Architekt und selbst
             Operator</strong>: 29 Jahre Führung, ein CEO-Exit, über 1 Mrd. Euro Impact bei
-            Telefónica. Ich kenne den Druck im Mandat aus eigener Erfahrung — und baue
-            dir die KI-Werkzeuge, die genau dort liefern. Du verstehst jeden Schritt und
-            führst das System nach dem Mandat ohne mich weiter.
+            Telefónica. Ich kenne den Druck im Mandat aus eigener Erfahrung — und befähige
+            dich, dir die KI-Werkzeuge, die genau dort liefern, selbst zu bauen. Du verstehst
+            jeden Schritt und führst das System nach dem Mandat ohne mich weiter.
           </p>
           <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
             <span style="background-color: rgba(11,21,40,0.07); color: #374151; padding: 0.15rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">29 Jahre Führungserfahrung</span>
@@ -178,9 +184,9 @@ const weiche = [
 
         <div style="position: relative; padding-left: 1rem;">
           <div style="width: 2.5rem; height: 2.5rem; background-color: #F5A623; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #000; margin-bottom: 1rem;">2</div>
-          <h3 style="font-weight: 700; color: #0B1528; margin-bottom: 0.5rem;">Ich baue in dein Mandat</h3>
+          <h3 style="font-weight: 700; color: #0B1528; margin-bottom: 0.5rem;">KI, die in dein Mandat passt</h3>
           <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.5;">
-            In Tagen statt Monaten — auf meiner Seite, nie in deinem Kundensystem. Nichts Sensibles verlässt deinen Auftrag.
+            In Tagen statt Monaten — angeleitet baust du sie dir selbst auf deiner eigenen Seite, nie in deinem Kundensystem. Nichts Sensibles verlässt deinen Auftrag.
           </p>
         </div>
 
@@ -196,36 +202,60 @@ const weiche = [
     </div>
   </section>
 
-  <!-- 5. Value-Ladder (UM-04) -->
-  <OfferCards />
-
-  <!-- 6. Segmentierungs-Weiche nach Mandatsstatus (UM-05) -->
-  <section style="background-color: #FFFFFF; padding: 4rem 1rem;">
-    <div style="max-width: 64rem; margin: 0 auto;">
-      <div style="max-width: 42rem; margin: 0 auto 2.5rem; text-align: center;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #0B1528; margin-bottom: 0.75rem;">
-          Wo stehst du gerade?
-        </h2>
-        <p style="font-size: 1.0625rem; color: #6B7280; line-height: 1.6;">
-          Der richtige Weg hängt von deiner Mandatsphase ab — nie vom Budget.
-        </p>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+  <!-- 4b. Kompakter Anker-Router (WP-04: ersetzt die frühere doppelte Mandatsphasen-Sektion) -->
+  <section style="background-color: #FFFFFF; padding: 3.5rem 1rem 0;">
+    <div style="max-width: 56rem; margin: 0 auto; text-align: center;">
+      <p style="font-size: 0.8125rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.9rem;">
+        Wo stehst du gerade? Der Weg hängt von deiner Mandatsphase ab — nie vom Budget.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.5rem;">
         {
           weiche.map((w) => (
-            <article style="display: flex; flex-direction: column; border-radius: 1rem; border: 1px solid #E5E7EB; background-color: #F9F7F7; padding: 1.5rem;">
-              <p style="font-size: 0.8125rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.5rem;">
-                {w.status}
-              </p>
-              <p style="font-size: 0.9375rem; color: #374151; line-height: 1.6; flex: 1; margin: 0 0 1rem;">
-                {w.text}
-              </p>
-              <a href={w.href} style="font-size: 0.9375rem; font-weight: 700; color: #0B1528; text-decoration: underline; text-underline-offset: 3px;">
-                {w.cta}
-              </a>
-            </article>
+            <a href={w.href} style="font-size: 1rem; text-decoration: none;">
+              <strong style="color: #0B1528;">{w.status}</strong>
+              <span style="color: #9CA3AF;"> → </span>
+              <span style="color: #F5A623; font-weight: 700;">{w.cta}</span>
+            </a>
           ))
         }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Value-Ladder (UM-04) — zwei Wege (Kickstart vs. Werkstatt); App = Add-on (5b) -->
+  <OfferCards />
+
+  <!-- 5b. App als Zugabe zum Kurs (MP-05) — kein Preis-Tier, Add-on, CTA = Erstgespräch -->
+  <section style="background-color: #F9F7F7; padding: 4rem 1rem;">
+    <div style="max-width: 56rem; margin: 0 auto;">
+      <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center;">
+        <div style="flex: 1; min-width: 260px;">
+          <p style="font-size: 0.8125rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.5rem;">
+            Zugabe zum Kurs
+          </p>
+          <h2 style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: #0B1528; line-height: 1.2; margin: 0 0 1rem;">
+            Die Interims-Magnet App hält dein System am Laufen.
+          </h2>
+          <p style="font-size: 1rem; color: #374151; line-height: 1.7; margin: 0 0 1rem;">
+            Kein Standalone-Produkt, kein Done-for-you: Die App ist eine Zugabe zu deinem
+            Kurs. Sie unterstützt dich beim Betrieb des Systems, das du dir selbst gebaut
+            hast — deine Sichtbarkeits- und Pipeline-Maschine läuft weiter, auch wenn das
+            nächste Mandat dich schon einspannt.
+          </p>
+          <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.6; margin: 0 0 1rem;">
+            Die ersten <strong style="color: #0B1528;">6 Monate sind zum Kurs inklusive</strong>,
+            danach läuft nur die App als monatliches, jederzeit kündbares Abo weiter. Dein
+            Kickstart- bzw. Werkstatt-Ergebnis <strong style="color: #0B1528;">gehört dir ohne Abo</strong> —
+            die App hält es nur bequem am Laufen.
+          </p>
+          <p style="font-size: 0.875rem; color: #6B7280; line-height: 1.6; margin: 0 0 1.5rem; font-style: italic;">
+            Und die „für-dich-gebaut"-Premium-Variante? Nur in Ausnahmen — beim Selberbauen
+            entsteht die Unabhängigkeit, die den eigentlichen Wert ausmacht.
+          </p>
+          <a href="/buchen" style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; font-size: 1rem; padding: 0.85rem 1.9rem; border-radius: 0.5rem; text-decoration: none;">
+            Kostenloses Erstgespräch buchen
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -233,33 +263,48 @@ const weiche = [
   <!-- 7. Lebender Beweis (UM-06 Rahmung in KiBeweis.astro) -->
   <KiBeweis />
 
-  <!-- 8. Garantie — IM-Prozess-/Lauf-Garantie (UM-06; 🔴 Wortlaut UM-10) -->
+  <!-- 8. Garantie — IM-Umsetzungs-Garantie (UM-06; 🔴 Wortlaut UM-10) -->
   <section style="background: #FFFFFF; overflow: hidden;">
     <div style="max-width: 56rem; margin: 0 auto; display: flex; flex-wrap: wrap; min-height: 220px;">
 
       <div style="background: #0B1528; flex: 1; min-width: 220px; padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center;">
         <div style="font-size: 2.5rem; margin-bottom: 1rem;" aria-hidden="true">🛡️</div>
         <h2 style="font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.75rem; line-height: 1.3;">
-          Meine Lauf-Garantie
+          Meine Umsetzungs-Garantie
         </h2>
         <p style="font-size: 0.9375rem; color: #9CA3AF; line-height: 1.6; margin: 0;">
-          Das Risiko liegt bei mir.<br />
-          Du bekommst ein System, das läuft —<br />nicht bloß Versuche.
+          Wir bleiben dran,<br />
+          bis dein erster KI-Prozess<br />wirklich läuft.
         </p>
       </div>
 
       <div style="flex: 1.4; min-width: 260px; padding: 2.5rem 2rem; background: #FFFFFF; border: 1px solid #E5E7EB; border-left: none;">
         <p style="font-size: 0.9375rem; color: #374151; line-height: 1.7; margin: 0;">
-          Wenn die im Mandats-Kickstart aufgebauten KI-Werkzeuge bei Übergabe nicht wie
-          vereinbart funktionieren, arbeite ich
-          <strong style="color: #0B1528;">innerhalb von 4 Wochen nach Übergabe</strong>
-          kostenlos nach, bis sie die
-          <strong style="color: #0B1528;">vorab gemeinsam definierten Funktionskriterien</strong>
-          erfüllen. Voraussetzung ist deine <strong style="color: #0B1528;">Mitwirkung</strong>
-          (Zugang zu den vereinbarten Eingaben und Daten). Das ist eine Prozess-Garantie
-          auf die Funktion der Werkzeuge — keine Zusage auf ein konkretes Mandat, einen
-          bestimmten Umsatz oder eine Reichweite.
+          {GARANTIE_KERN}
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8b. FAQ (WP-09) — sichtbare Q&A passend zum FAQPage-JSON-LD -->
+  <section style="background-color: #F9F7F7; padding: 4rem 1rem;" id="faq">
+    <div style="max-width: 42rem; margin: 0 auto;">
+      <h2 style="font-size: 1.875rem; font-weight: 800; color: #0B1528; text-align: center; margin: 0 0 2rem;">
+        Häufige Fragen
+      </h2>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        {
+          faqs.map((faq) => (
+            <details style="border-radius: 0.75rem; border: 1px solid #E5E7EB; background: #FFFFFF; padding: 1.25rem;">
+              <summary style="cursor: pointer; font-weight: 700; color: #0B1528; list-style: none;">
+                {faq.question}
+              </summary>
+              <p style="margin: 0.75rem 0 0; color: #374151; line-height: 1.7; font-size: 0.9375rem;">
+                {faq.answer}
+              </p>
+            </details>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -277,12 +322,15 @@ const weiche = [
         href="/buchen"
         style="display: inline-block; background-color: #F5A623; color: #000000; font-weight: 700; padding: 1rem 2.5rem; border-radius: 0.5rem; text-decoration: none; font-size: 1.0625rem;"
       >
-        Erstgespräch vereinbaren
+        Kostenloses Erstgespräch buchen
       </a>
       <p style="margin-top: 1rem; font-size: 0.875rem; color: #9CA3AF;">
         Kostenlos · unverbindlich
       </p>
     </div>
   </section>
+
+  <!-- FAQPage JSON-LD (nur Startseiten-Fragen, kein Preis) -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 </Base>
