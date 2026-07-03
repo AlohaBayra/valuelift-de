@@ -1,5 +1,5 @@
 // MP-04 / WP-01 — Einheitlicher Garantie-Kern (Modell-Pivot 2026-07-01, Politur 2026-07-01).
-// [ENTWURF – Jura prüfen] · NICHT auf main-Live bis Jura-Sign-off.
+// Wortlaut von Marcus freigegeben 2026-07-03 (Rechts-Gate PR #2 aufgehoben).
 // Zentral gehalten, damit der Wortlaut („Umsetzungs-Garantie") auf allen IM-Seiten
 // byte-identisch ist. Mitwirkungspflicht fair (Mitarbeit an den Schritten), keine
 // Ausschluss-Hintertür.
