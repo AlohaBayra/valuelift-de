@@ -1,41 +1,41 @@
 ---
 // ST24 / WP-05 — KI-Mehrwert-Beweis-Raster: „Ein Einzelner führt mit KI eine ganze Firma."
 // GEO-PFLICHT: Alle 6 Kacheln rendern fest im statischen HTML (kein JS-Nachladen), damit
-// LLM-/Such-Crawler sie sehen. Auf die 6 stärksten Belege gekürzt (WP-05 Entschlacken);
-// die weiteren Werkzeuge werden nur angeteasert, nicht mehr einzeln gelistet.
+// LLM-/Such-Crawler sie sehen. Struktur je Kachel: Vorteil (Kundennutzen, orange) →
+// Domänen-Überschrift → 2–3 konkrete Beispiele als kompakte Liste.
 // Zahlenfrei (kein Preis/Prozent) — Entscheidung Marcus 2026-06-19.
 
-// 6 fest sichtbare Kacheln (2×3). `short` = bis md: sichtbar, `rest` = ab md: zusätzlich.
-const visible = [
+// 6 Domänen-Kacheln (2×3): benefit = Vorteil-Zeile, title = Kategorie, examples = Beispiele.
+const domains = [
   {
-    title: "Content, der mitläuft",
-    short: "Mein LinkedIn-System recherchiert, schreibt in meiner Sprache und schlägt mir täglich einen Beitrag vor.",
-    rest: "Ich gebe frei — es lernt aus dem, was wirklich ankommt.",
+    benefit: "Du bleibst sichtbar und im Kopf deiner nächsten Auftraggeber, während du gerade lieferst.",
+    title: "Content & Marketing",
+    examples: ["LinkedIn-Content-System", "Reel- & Shorts-Skripte", "Wettbewerbs- & Reel-Analyse"],
   },
   {
+    benefit: "Du bekommst Werkzeuge, die genau zu deinen individuellen Bedürfnissen passen, statt teurer Abo-Tools.",
     title: "Software ohne Dev-Team",
-    short: "Eine komplette Web-App, eine native Mac-App, diese Website — alles selbst gebaut und live.",
-    rest: "Nicht durch Programmieren-Können, sondern durch Verstehen plus KI.",
+    examples: ["komplette Web-App (live)", "native Mac-App", "interaktive Rechner & Lead-Tools"],
   },
   {
-    title: "Das richtige Problem zuerst",
-    short: "Bevor ich baue, lasse ich KI den Markt durchleuchten und meine Hebel sortieren.",
-    rest: "So entstehen Entscheidungen aus Daten, nicht aus Bauchgefühl.",
+    benefit: "Du entscheidest aus Daten statt Bauchgefühl und gehst das richtige Thema zuerst an.",
+    title: "Strategie & Analyse",
+    examples: ["Marktrecherche & Wettbewerb", "Hebel-Analyse", "Positionierung & Zielkunden-Avatar"],
   },
   {
-    title: "Eine Firma aus Agenten",
-    short: "Über ein Dutzend spezialisierter KI-Agenten arbeiten je Bereich — Content, Strategie, Verkauf, Compliance.",
-    rest: "Ein KI-Stabschef priorisiert morgens, ich entscheide.",
+    benefit: "Dein Angebot und dein Auftritt überzeugen schon vor dem Gespräch, damit aus Anfragen Aufträge werden.",
+    title: "Verkauf & Conversion",
+    examples: ["Sales-Audit (Verkaufspsychologie)", "Website-Audit (CRO/SEO)", "UX-Audit aus Nutzersicht"],
   },
   {
-    title: "Mensch auf der Brücke",
-    short: "Nichts geht ungeprüft nach außen.",
-    rest: "Die KI arbeitet im Maschinenraum, jede Veröffentlichung gibt ein Mensch frei. Überwachter Autopilot, kein Selbstläufer.",
+    benefit: "Du bleibst vertraulich und rechtssicher, damit du beim Auftraggeber geschützt bleibst.",
+    title: "Wissen & Compliance",
+    examples: ["Kurs- & Curriculum-Design", "AVV- & Datenschutz-Entwürfe", "SOPs & Prompt-Bibliotheken"],
   },
   {
-    title: "Es vergisst nichts",
-    short: "Mein System trägt sein Gedächtnis über jeden Tag hinweg.",
-    rest: "Kein Neustart bei null — es baut auf dem auf, was gestern entstand.",
+    benefit: "Du hast ein ganzes KI-Team, das im Hintergrund arbeitet, während du nur entscheidest.",
+    title: "Betrieb & Orchestrierung",
+    examples: ["Team aus 12+ KI-Agenten", "KI-Stabschef priorisiert täglich", "persistentes Gedächtnis (kein Neustart bei null)"],
   },
 ];
 
@@ -50,29 +50,31 @@ const visible = [
       </span>
 
       <h2 style="font-size: 2rem; font-weight: 800; color: #FFFFFF; line-height: 1.25; margin: 0 auto 1rem; max-width: 48rem;">
-        Ich rede nicht über KI im Mandat. Ich führe mein eigenes Geschäft damit.
+        Ich rede nicht über ein KI-System. Ich führe mein eigenes Geschäft damit.
       </h2>
 
       <p style="font-size: 1.0625rem; color: #D1D5DB; max-width: 44rem; margin: 0 auto; line-height: 1.65;">
-        Ein Einzelner, kein Dev-Team, kein Berufs-Programmierer — und trotzdem läuft
+        Ich bin Soloselbstständig, kein Dev-Team, kein Berufs-Programmierer — und trotzdem läuft
         mein komplettes Geschäft auf selbstgebauten KI-Werkzeugen. Jeden Schritt davon
         habe ich verstanden, jeden Schritt besitze ich. Das ist der Unterschied zwischen
         jemandem, der KI verkauft, und einem Operator, der sie täglich selbst betreibt.
-        Genau diese Werkzeuge baust du dir — von mir angeleitet — nicht neben dein Mandat,
-        sondern hinein, auf deiner Seite des Tisches. Was am Ende läuft, läuft bei dir. Nicht in meiner Black Box.
+        Genau diese Werkzeuge baust du dir — von mir angeleitet — nicht bei deinen Kunden,
+        sondern auf deiner Seite des Tisches. Was am Ende läuft, läuft bei dir. Nicht in meiner Black Box.
       </p>
     </div>
 
-    <!-- 6 fest sichtbare Kacheln -->
+    <!-- 6 Domänen-Kacheln (2×3), fest im statischen HTML -->
     <div class="kib-grid" style="margin-top: 2.5rem;">
       {
-        visible.map((t) => (
+        domains.map((d) => (
           <article class="kib-tile">
-            <h3 class="kib-tile-title">{t.title}</h3>
-            <p class="kib-tile-text">
-              {t.short}
-              {t.rest && <span class="kib-tile-rest"> {t.rest}</span>}
-            </p>
+            <p class="kib-tile-benefit">{d.benefit}</p>
+            <h3 class="kib-tile-title">{d.title}</h3>
+            <ul class="kib-tile-list">
+              {d.examples.map((e) => (
+                <li>{e}</li>
+              ))}
+            </ul>
           </article>
         ))
       }
@@ -80,7 +82,7 @@ const visible = [
 
     <!-- Teaser (ehrliche Bestandszahl, kein Performance-Wert) -->
     <p style="text-align: center; color: #9CA3AF; font-size: 0.9375rem; margin: 1.75rem auto 0;">
-      Sechs von über zwanzig KI-Werkzeugen, die mein Geschäft im Alltag tragen.
+      Über zwanzig KI-Werkzeuge in sechs Bereichen — die mein Geschäft im Alltag tragen.
     </p>
 
     <!-- WP-03 — Marcus-Stimme klar als EIGENBELEG, nicht als Fremd-/Kundenzitat -->
@@ -136,63 +138,35 @@ const visible = [
     background-color: rgba(245, 166, 35, 0.06);
     padding: 1.5rem;
   }
-  .kib-tile-title {
+
+  /* Vorteil-Zeile: Kundennutzen zuerst, orange hervorgehoben (Orange auf Navy ≈ 8:1 → WCAG AA) */
+  .kib-tile-benefit {
+    font-size: 0.9375rem;
     font-weight: 700;
+    color: #f5a623;
+    line-height: 1.5;
+    margin: 0 0 0.75rem;
+  }
+
+  .kib-tile-title {
+    font-weight: 800;
     color: #ffffff;
     margin: 0 0 0.5rem;
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
   }
-  .kib-tile-text {
-    font-size: 0.9375rem;
-    color: #d1d5db;
-    line-height: 1.6;
+
+  /* Beispiele: kompakt und dezenter als die Überschrift */
+  .kib-tile-list {
     margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.875rem;
+    color: #9ca3af;
+    line-height: 1.55;
   }
-
-  /* GEO: rest steckt fest im HTML, wird nur mobil per CSS ausgeblendet (kein JS) */
-  .kib-tile-rest { display: none; }
-  @media (min-width: 768px) {
-    .kib-tile-rest { display: inline; }
+  .kib-tile-list li {
+    margin: 0.2rem 0;
   }
-
-  /* Nativer Aufklapper — kein JS, Inhalt bleibt im DOM/HTML */
-  .kib-details {
-    margin-top: 2rem;
-    text-align: center;
+  .kib-tile-list li::marker {
+    color: rgba(245, 166, 35, 0.6);
   }
-  .kib-details > summary {
-    list-style: none;
-    cursor: pointer;
-    display: inline-block;
-  }
-  .kib-details > summary::-webkit-details-marker { display: none; }
-  .kib-details > summary::marker { content: ""; }
-
-  .kib-summary-btn {
-    display: inline-block;
-    border: 2px solid #F5A623;
-    color: #F5A623; /* Orange auf Navy ≈ 8:1 → WCAG AA erfüllt */
-    background: transparent;
-    padding: 0.75rem 1.75rem;
-    border-radius: 0.5rem;
-    font-weight: 700;
-    font-size: 0.9375rem;
-    transition: background-color 0.15s ease;
-  }
-  .kib-details > summary:hover .kib-summary-btn {
-    background-color: rgba(245, 166, 35, 0.14);
-  }
-  /* Sichtbarer Fokus-Ring (nicht wegstylen) */
-  .kib-details > summary:focus-visible {
-    outline: none;
-  }
-  .kib-details > summary:focus-visible .kib-summary-btn {
-    outline: 3px solid #FAC03A;
-    outline-offset: 3px;
-  }
-
-  /* Label-Wechsel auf/zu — beide Labels bleiben im statischen HTML */
-  .kib-label-open { display: none; }
-  .kib-details[open] > summary .kib-label-closed { display: none; }
-  .kib-details[open] > summary .kib-label-open { display: inline; }
 </style>
