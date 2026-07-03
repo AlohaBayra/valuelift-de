@@ -11,47 +11,59 @@ import Base from "../layouts/Base.astro";
   <!-- Hero mit echtem Foto -->
   <section style="background-color: #0B1528; color: #FFFFFF; padding: 4rem 1rem;">
     <div style="max-width: 56rem; margin: 0 auto;">
-      <div style="display: flex; flex-direction: column; gap: 2rem; align-items: flex-start;">
-
-        <!-- Foto + Name -->
-        <div style="display: flex; flex-direction: row; gap: 2rem; align-items: center; flex-wrap: wrap;">
-          <img
-            src="/marcus.jpg"
-            alt="Marcus Eichler — Gründer Value Lift AI"
-            width="140"
-            height="140"
-            style="border-radius: 9999px; width: 140px; height: 140px; object-fit: cover; border: 3px solid #F5A623; flex-shrink: 0;"
-          />
-          <div>
-            <h1 style="font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.25rem;">
-              Marcus Eichler
-            </h1>
-            <p style="font-size: 1.125rem; font-weight: 600; color: #F5A623; margin-bottom: 1rem;">
-              KI-Architekt &amp; Gründer · Value Lift AI
-            </p>
-            <!-- Credentials-Zeile -->
-            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-              <span style="background-color: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.4); color: #D1D5DB; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">29 Jahre Führungserfahrung</span>
-              <span style="background-color: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.4); color: #D1D5DB; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">CEO-Exit MyDisplays</span>
-              <span style="background-color: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.4); color: #D1D5DB; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">&gt;1 Mrd. Euro Impact · Telefónica</span>
-              <span style="background-color: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.4); color: #D1D5DB; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">Lean Six Sigma Master Black Belt</span>
-            </div>
+      <!-- Desktop: Bild links, Textblock rechts, vertikal zentriert; Mobil: gestapelt (Bild oben) -->
+      <div class="um-hero">
+        <img
+          src="/marcus.jpg"
+          alt="Marcus Eichler — Gründer Value Lift AI"
+          width="140"
+          height="140"
+          style="border-radius: 9999px; width: 140px; height: 140px; object-fit: cover; border: 3px solid #F5A623; flex-shrink: 0;"
+        />
+        <div>
+          <h1 style="font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.25rem;">
+            Marcus Eichler
+          </h1>
+          <p style="font-size: 1.125rem; font-weight: 600; color: #F5A623; margin-bottom: 1rem;">
+            KI-Architekt &amp; Gründer · Value Lift AI
+          </p>
+          <!-- Credentials-Zeile -->
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="background-color: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.4); color: #D1D5DB; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">29 Jahre Führungserfahrung</span>
+            <span style="background-color: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.4); color: #D1D5DB; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">CEO-Exit MyDisplays</span>
+            <span style="background-color: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.4); color: #D1D5DB; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">&gt;1 Mrd. Euro Impact · Telefónica</span>
+            <span style="background-color: rgba(245,166,35,0.12); border: 1px solid rgba(245,166,35,0.4); color: #D1D5DB; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8125rem;">Lean Six Sigma Master Black Belt</span>
           </div>
+          <!-- LinkedIn -->
+          <a
+            href="https://www.linkedin.com/in/marcuseichler"
+            target="_blank"
+            rel="noopener"
+            style="display: inline-flex; align-items: center; gap: 0.5rem; color: #F5A623; font-size: 0.9375rem; text-decoration: none; font-weight: 600; margin-top: 1.25rem;"
+          >
+            → Folge mir auf LinkedIn — dort teile ich wöchentlich, was wirklich mit KI funktioniert (und was nicht)
+          </a>
         </div>
-
-        <!-- LinkedIn -->
-        <a
-          href="https://www.linkedin.com/in/marcuseichler"
-          target="_blank"
-          rel="noopener"
-          style="display: inline-flex; align-items: center; gap: 0.5rem; color: #F5A623; font-size: 0.9375rem; text-decoration: none; font-weight: 600;"
-        >
-          → Folge mir auf LinkedIn — dort teile ich wöchentlich, was wirklich mit KI funktioniert (und was nicht)
-        </a>
-
       </div>
     </div>
   </section>
+
+  <style>
+    /* Hero-Layout: mobil gestapelt (Bild oben), ab md Bild links neben dem Text, vertikal zentriert */
+    .um-hero {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    @media (min-width: 768px) {
+      .um-hero {
+        flex-direction: row;
+        align-items: center;
+        gap: 2.5rem;
+      }
+    }
+  </style>
 
   <!-- Story: Wer ist Marcus -->
   <section style="background-color: #FFFFFF; padding: 4rem 1rem;">
