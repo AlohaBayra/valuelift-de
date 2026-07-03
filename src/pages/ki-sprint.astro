@@ -1,0 +1,186 @@
+---
+import Base from "../layouts/Base.astro";
+import { GARANTIE_KERN } from "../lib/garantie";
+
+// Detailseite „KI-Sprint" (früher /werkstatt, 301 in public/_redirects).
+// Aufbau bewusst schlank: Hero → Programminhalte (8 Wochen + Chips) → Garantie → CTA.
+// Leitplanken: KEIN Preis · EIN CTA = kostenloses Erstgespräch (/buchen) ·
+// Klartext ohne Insider-Begriffe · Umsetzungs-Garantie (🔴 Wortlaut zentral in lib/garantie).
+
+const wochen = [
+  {
+    nr: 1,
+    title: "Dein größter Hebel",
+    text: "Wir finden heraus, welche wiederkehrende Arbeit dich am meisten Zeit kostet, und du baust deinen ersten kleinen KI-Helfer dafür.",
+  },
+  {
+    nr: 2,
+    title: "Dein persönlicher Assistent, der dich kennt",
+    text: "Ein KI-Assistent, dem du nicht jedes Mal alles neu erklären musst. Er kennt deine Sprache, deine Kunden und dein Vorgehen.",
+  },
+  {
+    nr: 3,
+    title: "Berichte auf Knopfdruck",
+    text: "Ein Helfer, der aus deinen Notizen und Daten saubere Status- und Ergebnisberichte macht, in Minuten statt Stunden.",
+  },
+  {
+    nr: 4,
+    title: "Deine Erfolge sichtbar machen",
+    text: "Ein System, das festhält, was du bewirkt hast (vorher/nachher), damit du deinen Wert und deinen Preis belegen kannst.",
+  },
+  {
+    nr: 5,
+    title: "Sichtbar bleiben, ohne Zeit zu verlieren",
+    text: "Ein Helfer, der dir Beiträge und Inhalte vorbereitet, damit du regelmäßig präsent bist.",
+  },
+  {
+    nr: 6,
+    title: "Kontakte warmhalten, neue Aufträge anbahnen",
+    text: "Ein System, das den Kontakt zu möglichen Auftraggebern pflegt und dich rechtzeitig erinnert, bevor dein aktueller Auftrag endet.",
+  },
+  {
+    nr: 7,
+    title: "Alles spielt zusammen",
+    text: "Du verbindest deine Helfer zu einem System, das im Alltag ineinandergreift, und legst es so ab, dass du es immer wieder nutzt.",
+  },
+  {
+    nr: 8,
+    title: "Es läuft, und du führst es selbst",
+    text: "Feinschliff, offene Fragen, und du übernimmst das System vollständig.",
+  },
+];
+
+const chips = [
+  "8-Wochen-Programm",
+  "Ein Baustein pro Woche",
+  "Wöchentlicher Live-Call + Aufzeichnung",
+  "Pause jederzeit möglich",
+  "Du besitzt es danach",
+  "Umsetzungs-Garantie",
+];
+---
+
+<Base
+  title="KI-Sprint: In 8 Wochen zu deinem eigenen KI-System | Value Lift AI"
+  description="In 8 Wochen baust du dir dein eigenes KI-System, Baustein für Baustein: ein fertiger Baustein pro Woche, wöchentlicher Live-Call, Pause jederzeit möglich. Umsetzungs-Garantie, Preis auf Anfrage."
+  path="/ki-sprint"
+  hideNav={true}
+>
+  <!-- Mini-Logo-Header (da hideNav den globalen Header entfernt) -->
+  <header class="bg-brand-dark">
+    <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+      <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
+        <img src="/logo.svg" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
+      </a>
+    </div>
+  </header>
+
+  <!-- 1 · Hero (schlank) -->
+  <section class="bg-brand-dark text-brand-white">
+    <div class="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
+      <span
+        class="mb-6 inline-block rounded-full border border-brand-blue bg-brand-blue/10 px-4 py-1 text-sm font-semibold text-brand-blueLight"
+      >
+        KI-Sprint · 8-Wochen-Programm · auf Anfrage
+      </span>
+      <h1 class="text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
+        In 8 Wochen baust du dir dein eigenes KI-System.
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
+        Angeleitet, in deinem Tempo, ohne Programmier-Vorkenntnisse. Am Ende läuft
+        ein System, das dir gehört, dich täglich unterstützt und deine Pipeline warmhält.
+      </p>
+      <div class="mt-10">
+        <a
+          href="/buchen"
+          class="inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black shadow-lg hover:bg-brand-blueLight"
+        >
+          Kostenloses Erstgespräch buchen
+        </a>
+        <p class="mt-3 text-sm text-gray-400">
+          20 Minuten · kein Pitch · nur Klarheit, ob der KI-Sprint zu deiner Situation passt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Programminhalte: 8 Wochen, Baustein für Baustein -->
+  <section class="bg-brand-white py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-sm font-bold uppercase tracking-widest text-brand-blue">
+          Programminhalte KI-Sprint
+        </p>
+        <h2 class="mt-3 text-balance text-3xl font-extrabold text-brand-dark sm:text-4xl">
+          In 8 Wochen baust du dein eigenes KI-System, Baustein für Baustein.
+        </h2>
+        <p class="mt-4 text-lg text-brand-gray">
+          Kein Videokurs zum Wegklicken. Du baust jede Woche einen fertigen Baustein,
+          in deinem eigenen Tempo. Am Ende hast du ein System, das dir gehört und das
+          du selbst weiterführst.
+        </p>
+      </div>
+
+      <ol class="mt-12 space-y-4">
+        {
+          wochen.map((w) => (
+            <li class="flex flex-col gap-2 rounded-2xl border border-gray-200 bg-brand-white p-5 shadow-sm sm:flex-row sm:items-baseline sm:gap-5 sm:p-6">
+              <span class="flex-shrink-0 text-sm font-extrabold uppercase tracking-wide text-brand-blue sm:w-24">
+                Woche {w.nr}
+              </span>
+              <div>
+                <h3 class="text-lg font-bold text-brand-dark">{w.title}</h3>
+                <p class="mt-1 text-brand-gray">{w.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <!-- Chip-Leiste -->
+      <ul class="mt-10 flex flex-wrap justify-center gap-2.5" role="list">
+        {
+          chips.map((c) => (
+            <li class="rounded-full border border-brand-blue/40 bg-brand-blue/10 px-4 py-1.5 text-sm font-semibold text-brand-dark">
+              {c}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 · Umsetzungs-Garantie -->
+  <section class="bg-brand-lightBg py-16 sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold text-brand-dark">Die Umsetzungs-Garantie.</h2>
+      <p class="mt-6 text-lg text-brand-gray">{GARANTIE_KERN}</p>
+    </div>
+  </section>
+
+  <!-- 4 · Final-CTA -->
+  <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-3xl font-extrabold">
+        Lass uns kurz schauen, ob der KI-Sprint zu deiner Situation passt.
+      </h2>
+      <p class="mt-4 text-lg text-gray-300">
+        20 Minuten, kostenlos, kein Pitch. Wir klären, wo KI bei dir den größten
+        Hebel hat und ob der KI-Sprint der richtige Weg für dich ist.
+      </p>
+      <a
+        href="/buchen"
+        class="mt-8 inline-block rounded-lg bg-brand-blue px-8 py-4 font-bold text-brand-black hover:bg-brand-blueLight"
+      >
+        Kostenloses Erstgespräch buchen
+      </a>
+      <p class="mt-4 text-sm text-gray-400">
+        Du gehst keine Verpflichtung ein. Wenn der KI-Sprint nicht passt, sage ich
+        dir das ehrlich.
+      </p>
+      <p class="mt-6 text-sm text-gray-400">
+        <a href="/" class="underline hover:text-brand-blueLight">← Zurück zur Startseite</a>
+      </p>
+    </div>
+  </section>
+</Base>

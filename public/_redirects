@@ -4,3 +4,5 @@
 /bootcamp      /    301
 /workshop      /    301
 /system        /    301
+/werkstatt     /ki-sprint    301
+/werkstatt/*   /ki-sprint    301
