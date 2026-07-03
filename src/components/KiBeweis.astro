@@ -1,8 +1,8 @@
 ---
 // ST24 / WP-05 — KI-Mehrwert-Beweis-Raster: „Ein Einzelner führt mit KI eine ganze Firma."
 // GEO-PFLICHT: Alle 6 Kacheln rendern fest im statischen HTML (kein JS-Nachladen), damit
-// LLM-/Such-Crawler sie sehen. Struktur je Kachel: Vorteil (Kundennutzen, orange) →
-// Domänen-Überschrift → 2–3 konkrete Beispiele als kompakte Liste.
+// LLM-/Such-Crawler sie sehen. Struktur je Kachel: Domänen-Überschrift (weiß, prominent) →
+// Vorteil (Kundennutzen, orange) → „Dafür nutze ich:" → 2–3 Beispiele als Bullet-Liste.
 // Zahlenfrei (kein Preis/Prozent) — Entscheidung Marcus 2026-06-19.
 
 // 6 Domänen-Kacheln (2×3): benefit = Vorteil-Zeile, title = Kategorie, examples = Beispiele.
@@ -68,8 +68,9 @@ const domains = [
       {
         domains.map((d) => (
           <article class="kib-tile">
-            <p class="kib-tile-benefit">{d.benefit}</p>
             <h3 class="kib-tile-title">{d.title}</h3>
+            <p class="kib-tile-benefit">{d.benefit}</p>
+            <p class="kib-tile-lead">Dafür nutze ich:</p>
             <ul class="kib-tile-list">
               {d.examples.map((e) => (
                 <li>{e}</li>
@@ -139,7 +140,14 @@ const domains = [
     padding: 1.5rem;
   }
 
-  /* Vorteil-Zeile: Kundennutzen zuerst, orange hervorgehoben (Orange auf Navy ≈ 8:1 → WCAG AA) */
+  .kib-tile-title {
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    font-size: 1.125rem;
+  }
+
+  /* Vorteil-Zeile: orange hervorgehoben (Orange auf Navy ≈ 8:1 → WCAG AA) */
   .kib-tile-benefit {
     font-size: 0.9375rem;
     font-weight: 700;
@@ -148,15 +156,15 @@ const domains = [
     margin: 0 0 0.75rem;
   }
 
-  .kib-tile-title {
-    font-weight: 800;
-    color: #ffffff;
-    margin: 0 0 0.5rem;
-    font-size: 1.125rem;
+  /* Einleitung + Beispiele: kompakt und dezenter als die Überschrift */
+  .kib-tile-lead {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    line-height: 1.55;
+    margin: 0 0 0.25rem;
   }
-
-  /* Beispiele: kompakt und dezenter als die Überschrift */
   .kib-tile-list {
+    list-style: disc;
     margin: 0;
     padding-left: 1.1rem;
     font-size: 0.875rem;
@@ -165,6 +173,8 @@ const domains = [
   }
   .kib-tile-list li {
     margin: 0.2rem 0;
+    /* Beispiele mit Umbruch hängen sauber hinter dem Marker (Mobil) */
+    padding-left: 0.15rem;
   }
   .kib-tile-list li::marker {
     color: rgba(245, 166, 35, 0.6);
