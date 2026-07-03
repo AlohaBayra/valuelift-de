@@ -4,7 +4,7 @@ import { GARANTIE_KERN } from "../lib/garantie";
 
 // MW-05 — Landingpage „Werkstatt: Interims-Magnet"
 // Layout: Base.astro + hideNav (self-hosted Fonts + Consent/GTM intakt), eigener Mini-Header.
-// Leitplanken: KEIN Preis · EIN CTA = kostenloses Erstgespräch (/buchen) · Lauf-Garantie (Prozess, nie Mandat).
+// Leitplanken: KEIN Preis · EIN CTA = kostenloses Erstgespräch (/buchen) · Umsetzungs-Garantie (Prozess, nie Mandat).
 
 // Mandatsstatus-Routing (Segmentierung statt Preis)
 const routing = [
@@ -103,7 +103,7 @@ const faqs = [
   {
     question: "Wie viel Zeit muss ich pro Woche einplanen?",
     answer:
-      "Du arbeitest im eigenen Takt. Die Werkstatt ist auf 8 Wochen ausgelegt, aber du bestimmst das Tempo — und pausierst, wenn ein Mandat dazwischenkommt.",
+      "Rechne mit rund 3–4 Stunden pro Woche in deinem eigenen Takt, plus einem monatlichen Gruppen-Call. Die Werkstatt ist auf 8 Wochen ausgelegt, aber du bestimmst das Tempo — und pausierst, wenn ein Mandat dazwischenkommt.",
   },
   {
     question: "Was genau ist am Ende „fertig“?",
@@ -125,7 +125,7 @@ const faqSchema = {
 
 <Base
   title="Werkstatt: Interims-Magnet — KI-Akquise-System für Interim Manager | Value Lift AI"
-  description="In 8 Wochen baust du dir async dein eigenes Akquise-System: Wirkungs-Maschine + Pipeline-Wärmer mit Mandatsend-Trigger. Für solo Interim Manager zwischen Mandaten. Lauf-Garantie, Preis auf Anfrage."
+  description="In 8 Wochen baust du dir async dein eigenes Akquise-System: Wirkungs-Maschine + Pipeline-Wärmer mit Mandatsend-Trigger. Für solo Interim Manager zwischen Mandaten. Umsetzungs-Garantie, Preis auf Anfrage."
   path="/werkstatt"
   hideNav={true}
 >
@@ -133,7 +133,7 @@ const faqSchema = {
   <header class="bg-brand-dark">
     <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
       <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
-        <img src="/logo.png" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
+        <img src="/logo.svg" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
       </a>
     </div>
   </header>
@@ -164,6 +164,27 @@ const faqSchema = {
         <p class="mt-3 text-sm text-gray-400">
           20 Minuten · kein Pitch · nur Klarheit, ob die Werkstatt zu deiner Lage passt.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1b · Auf einen Blick — Zeitaufwand + Wert-Anker (WP-07)
+       [ENTSCHEIDUNG MARCUS]: Zeitaufwand-Zahlen (ca. 3–4 h/Woche) bitte bestätigen. Preis bleibt bewusst weg. -->
+  <section class="bg-brand-lightBg py-10">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="rounded-xl border border-gray-200 bg-brand-white p-5 text-center">
+          <p class="text-2xl font-extrabold text-brand-dark">8 Wochen</p>
+          <p class="mt-1 text-sm text-brand-gray">async, im eigenen Takt · Mandats-Pause jederzeit</p>
+        </div>
+        <div class="rounded-xl border border-gray-200 bg-brand-white p-5 text-center">
+          <p class="text-2xl font-extrabold text-brand-dark">ca. 3–4 h<span class="text-base font-bold">/Woche</span></p>
+          <p class="mt-1 text-sm text-brand-gray">plus ein monatlicher Gruppen-Call</p>
+        </div>
+        <div class="rounded-xl border border-gray-200 bg-brand-white p-5 text-center">
+          <p class="text-2xl font-extrabold text-brand-dark">28.000–56.000 €</p>
+          <p class="mt-1 text-sm text-brand-gray">entgangenes Honorar bei 1–2 Monaten ohne Anschlussmandat</p>
+        </div>
       </div>
     </div>
   </section>
@@ -321,7 +342,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 6 · Lauf-Garantie -->
+  <!-- 6 · Umsetzungs-Garantie -->
   <section class="bg-brand-white py-16 sm:py-20">
     <div class="mx-auto max-w-2xl px-4 sm:px-6">
       <h2 class="text-center text-3xl font-extrabold">Die Umsetzungs-Garantie.</h2>

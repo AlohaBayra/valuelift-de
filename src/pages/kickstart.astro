@@ -5,7 +5,7 @@ import { GARANTIE_KERN } from "../lib/garantie";
 // UM-01 — Landingpage „Mandats-Kickstart" (IM-Pivot, Modell B)
 // Layout: Base.astro + hideNav (self-hosted Fonts + Consent/GTM intakt), eigener Mini-Header.
 // Leitplanken: KEIN Preis · EIN Versprechen · EIN CTA = kostenloses Erstgespräch (/buchen)
-//   · genau 1 Cross-Link → /werkstatt · Lauf-Garantie (Prozess/Lieferung, nie Mandat/Erfolg).
+//   · genau 1 Cross-Link → /werkstatt · Umsetzungs-Garantie (Prozess/Lieferung, nie Mandat/Erfolg).
 // Garantie-/DSGVO-Wortlaut = FREIGEGEBEN (UM-10, Anhang E, Marcus 2026-06-22).
 
 // Anhang C — „Was du sofort erhältst" (Outcome-formuliert)
@@ -28,6 +28,40 @@ const phasen = [
   { phase: "3 · Laufendes Mandat", wo: "mitten in der Steuerung", wert: "Laufende Reports + Prozess-Automatisierung → Entlastung." },
   { phase: "4 · Mandatsende / Übergabe", wo: "Abschluss & Übergabe", wert: "Wirkungs-Doku + Abschlussbericht → Tagessatz-Beleg fürs nächste Mandat." },
 ];
+
+// WP-09 — FAQPage (GEO/SEO). Sichtbare Q&A + JSON-LD müssen übereinstimmen (Google-Vorgabe).
+const faqs = [
+  {
+    question: "Wie lange dauert der Mandats-Kickstart?",
+    answer:
+      "In Tagen statt Monaten. Der Mandats-Kickstart hat einen festen Lieferrahmen und setzt KI dort an, wo sie in deinem Mandat heute am meisten trägt.",
+  },
+  {
+    question: "Wie viel Zeit muss ich selbst investieren?",
+    answer:
+      "Dein Zeiteinsatz bleibt schlank: rechne mit rund 2–3 Stunden Mitwirkung, über die Liefertage verteilt.",
+  },
+  {
+    question: "Bleiben meine vertraulichen Mandatsdaten sicher?",
+    answer:
+      "Die Werkzeuge werden auf deiner eigenen Infrastruktur aufgebaut, ohne Zugriff auf die Systeme deines Auftraggebers. Nichts Sensibles verlässt dein Mandat.",
+  },
+  {
+    question: "Was, wenn die Werkzeuge nicht laufen?",
+    answer:
+      "Es gilt die Umsetzungs-Garantie: Wir arbeiten so lange mit dir weiter, bis dein erster KI-Prozess läuft. Bedingung ist deine Mitarbeit an den vereinbarten Schritten. Keine Zusage auf ein bestimmtes Mandat, einen Umsatz oder ein Ergebnis.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
 ---
 
 <Base
@@ -40,7 +74,7 @@ const phasen = [
   <header class="bg-brand-dark">
     <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
       <a href="/" class="inline-flex items-center" aria-label="Zur Startseite">
-        <img src="/logo.png" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
+        <img src="/logo.svg" alt="Value Lift AI" width="44" height="44" class="h-11 w-11" />
       </a>
     </div>
   </header>
@@ -57,8 +91,9 @@ const phasen = [
         KI, die deinen Tagessatz in diesem Mandat sichtbar trägt.
       </h1>
       <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
-        Fester Rahmen, in Tagen statt Monaten. Auf meiner Seite gebaut, nie in
-        deinem Kundensystem. Du lieferst — sichtbar.
+        Fester Rahmen, in Tagen statt Monaten. Angeleitet auf deiner eigenen Seite gebaut,
+        nie in deinem Kundensystem. Du lieferst — sichtbar. Dein Zeiteinsatz bleibt schlank:
+        rechne mit rund 2–3 Stunden Mitwirkung, über die Liefertage verteilt.
       </p>
       <div class="mt-10">
         <a
@@ -159,7 +194,7 @@ const phasen = [
     </div>
   </section>
 
-  <!-- 7 · Lauf-Garantie (Anhang E final, UM-10 freigegeben) -->
+  <!-- 7 · Umsetzungs-Garantie (Anhang E final, UM-10 freigegeben) -->
   <section class="bg-brand-lightBg py-16 sm:py-20">
     <div class="mx-auto max-w-2xl px-4 sm:px-6">
       <h2 class="text-center text-3xl font-extrabold">Die Umsetzungs-Garantie.</h2>
@@ -194,6 +229,23 @@ const phasen = [
     </div>
   </section>
 
+  <!-- 8b · FAQ (WP-09) — sichtbare Q&A passend zum FAQPage-JSON-LD -->
+  <section class="bg-brand-lightBg py-16 sm:py-20" id="faq">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <h2 class="text-center text-3xl font-extrabold">Häufige Fragen</h2>
+      <div class="mt-10 space-y-4">
+        {
+          faqs.map((faq) => (
+            <details class="rounded-xl border border-gray-200 bg-brand-white p-5 [&_summary]:list-none">
+              <summary class="cursor-pointer font-bold text-brand-dark">{faq.question}</summary>
+              <p class="mt-3 text-brand-gray">{faq.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- 9 · Final-CTA (genau 1 CTA → /buchen) -->
   <section class="bg-brand-dark py-16 text-center text-brand-white sm:py-20">
     <div class="mx-auto max-w-2xl px-4 sm:px-6">
@@ -215,4 +267,7 @@ const phasen = [
       </p>
     </div>
   </section>
+
+  <!-- FAQPage JSON-LD (nur Kickstart-Fragen, kein Preis) -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </Base>

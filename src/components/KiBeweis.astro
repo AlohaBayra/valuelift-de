@@ -1,8 +1,8 @@
 ---
-// ST24 — KI-Mehrwert-Beweis-Raster: „Ein Einzelner führt mit KI eine ganze Firma."
-// GEO-PFLICHT: Alle 16 Kacheln rendern fest im statischen HTML. Die 10 Zusatz-Kacheln
-// werden ausschließlich per nativem <details> / CSS ein-/ausgeblendet — NIE per JS injiziert/
-// nachgefetcht. „Nachladen" = einblenden, nicht laden. Sonst für LLM-/Such-Crawler unsichtbar.
+// ST24 / WP-05 — KI-Mehrwert-Beweis-Raster: „Ein Einzelner führt mit KI eine ganze Firma."
+// GEO-PFLICHT: Alle 6 Kacheln rendern fest im statischen HTML (kein JS-Nachladen), damit
+// LLM-/Such-Crawler sie sehen. Auf die 6 stärksten Belege gekürzt (WP-05 Entschlacken);
+// die weiteren Werkzeuge werden nur angeteasert, nicht mehr einzeln gelistet.
 // Zahlenfrei (kein Preis/Prozent) — Entscheidung Marcus 2026-06-19.
 
 // 6 fest sichtbare Kacheln (2×3). `short` = bis md: sichtbar, `rest` = ab md: zusätzlich.
@@ -39,63 +39,6 @@ const visible = [
   },
 ];
 
-// Stufe 1 — die 5 greifbarsten Zusatzfälle
-const stage1 = [
-  {
-    title: "Video, das sich schreibt",
-    short: "Reel- und Shorts-Skripte mit Hook, Teleprompter-Text und passender Caption entstehen in Minuten statt Stunden.",
-    rest: "",
-  },
-  {
-    title: "Angebote, die sitzen",
-    short: "KI zerlegt meine Angebote nach bewährten Mustern und schärft sie, bis das Versprechen klar und der Preis nachvollziehbar ist.",
-    rest: "",
-  },
-  {
-    title: "Werkzeuge statt Abos",
-    short: "Interaktive Rechner und Selbst-Checks samt Bewertungslogik habe ich selbst gebaut — maßgeschneidert, statt ein fertiges Tool zu mieten.",
-    rest: "",
-  },
-  {
-    title: "Programme aus dem Stand",
-    short: "Kurse, Curricula und Tagespakete entstehen mit KI didaktisch durchdacht — Inhalt, Pacing und Übungen aus einem Guss.",
-    rest: "",
-  },
-  {
-    title: "Klare Position",
-    short: "KI hilft mir, meine Positionierung und Zielgruppe scharf zu fassen, statt im Allgemeinen zu bleiben.",
-    rest: "",
-  },
-];
-
-// Stufe 2 — die 5 Tiefenbelege
-const stage2 = [
-  {
-    title: "Verkauf auf dem Prüfstand",
-    short: "Ein KI-Agent prüft meine Verkaufstexte, Funnel und Mails verkaufspsychologisch, bevor sie rausgehen.",
-    rest: "",
-  },
-  {
-    title: "Website auf dem Prüfstand",
-    short: "Ein zweiter Agent prüft meine Seite auf Verständlichkeit, Auffindbarkeit und Barrierefreiheit — auf Code-Ebene.",
-    rest: "",
-  },
-  {
-    title: "App auf dem Prüfstand",
-    short: "Ein dritter prüft meine App aus der Sicht des zeitarmen Nutzers, damit nichts hakt.",
-    rest: "",
-  },
-  {
-    title: "Sauber von Anfang an",
-    short: "Compliance- und Datenschutz-Entwürfe bereitet KI vor, damit das Rechtliche von Beginn an mitläuft.",
-    rest: "",
-  },
-  {
-    title: "Den Markt im Blick",
-    short: "Ein Recherche-Agent liefert mir Wettbewerb, Trends und O-Töne der Zielgruppe als entscheidungsreifes Briefing.",
-    rest: "",
-  },
-];
 ---
 
 <section class="kib" style="background-color: #0B1528; padding: 4rem 1rem;">
@@ -140,56 +83,11 @@ const stage2 = [
       Sechs von über zwanzig KI-Werkzeugen, die mein Geschäft im Alltag tragen.
     </p>
 
-    <!-- Stufe 1: +5 (nativer Aufklapper, Inhalt fest im HTML) -->
-    <details class="kib-details">
-      <summary>
-        <span class="kib-summary-btn">
-          <span class="kib-label-closed">5 weitere anzeigen</span>
-          <span class="kib-label-open">Weniger anzeigen</span>
-        </span>
-      </summary>
-
-      <div class="kib-grid" style="margin-top: 2rem;">
-        {
-          stage1.map((t) => (
-            <article class="kib-tile">
-              <h3 class="kib-tile-title">{t.title}</h3>
-              <p class="kib-tile-text">
-                {t.short}
-                {t.rest && <span class="kib-tile-rest"> {t.rest}</span>}
-              </p>
-            </article>
-          ))
-        }
-      </div>
-
-      <!-- Stufe 2: +5 (verschachtelt, erst nach Stufe 1 sichtbar) -->
-      <details class="kib-details">
-        <summary>
-          <span class="kib-summary-btn">
-            <span class="kib-label-closed">Noch 5 weitere anzeigen</span>
-            <span class="kib-label-open">Weniger anzeigen</span>
-          </span>
-        </summary>
-
-        <div class="kib-grid" style="margin-top: 2rem;">
-          {
-            stage2.map((t) => (
-              <article class="kib-tile">
-                <h3 class="kib-tile-title">{t.title}</h3>
-                <p class="kib-tile-text">
-                  {t.short}
-                  {t.rest && <span class="kib-tile-rest"> {t.rest}</span>}
-                </p>
-              </article>
-            ))
-          }
-        </div>
-      </details>
-    </details>
-
-    <!-- ST05 — zahlenfreie Marcus-Stimme (ersetzt das alte Zahlen-Zitat, keine Statistik-Badges) -->
+    <!-- WP-03 — Marcus-Stimme klar als EIGENBELEG, nicht als Fremd-/Kundenzitat -->
     <figure style="margin: 2.75rem auto 0; max-width: 44rem; border-radius: 1rem; border: 1px solid rgba(245,166,35,0.4); background-color: rgba(245,166,35,0.07); padding: 2rem; text-align: left;">
+      <p style="margin: 0 0 1rem; font-size: 0.8125rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em;">
+        Warum ich weiß, dass es trägt: ich lebe es
+      </p>
       <blockquote style="margin: 0; font-size: 1.0625rem; color: #D1D5DB; line-height: 1.7; font-style: italic;">
         „Früher hat mich mein Content einen halben Arbeitstag pro Woche gekostet. Heute
         lese ich morgens den Vorschlag meines Systems, schärfe ein paar Sätze und gebe
@@ -197,13 +95,22 @@ const stage2 = [
         ich schneller tippe, sondern weil ich eine Maschine gebaut habe, die mitdenkt."
       </blockquote>
       <figcaption style="display: flex; align-items: center; gap: 1rem; margin-top: 1.25rem;">
-        <img src="/marcus.jpg" alt="Marcus Eichler" width="48" height="48" style="width: 48px; height: 48px; border-radius: 9999px; object-fit: cover; border: 2px solid #F5A623; flex-shrink: 0;" />
+        <img src="/marcus.jpg" alt="" width="48" height="48" style="width: 48px; height: 48px; border-radius: 9999px; object-fit: cover; border: 2px solid #F5A623; flex-shrink: 0;" />
         <span>
           <span style="display: block; font-weight: 700; color: #FFFFFF;">Marcus Eichler</span>
-          <span style="display: block; font-size: 0.875rem; color: #9CA3AF;">Value Lift AI · KI-Architekt</span>
+          <span style="display: block; font-size: 0.875rem; color: #9CA3AF;">Value Lift AI · KI-Architekt — mein eigener Alltag, kein Kundenzitat</span>
         </span>
       </figcaption>
     </figure>
+
+    <!-- WP-03 — First-Mover offensiv rahmen + Slot für echte (auch anonymisierte) IM-Kundenstimmen.
+         [ENTSCHEIDUNG MARCUS]: echte Referenz ist ein Geschäfts-To-do — NICHT erfinden.
+         Sobald 1–2 echte IM-Stimmen vorliegen, hier als <figure> einsetzen (Format wie oben,
+         aber mit echtem Namen/Kürzel + Kennzeichnung „anonymisiert" falls gewünscht). -->
+    <p style="text-align: center; color: #D1D5DB; font-size: 1rem; line-height: 1.6; margin: 2rem auto 0; max-width: 40rem;">
+      Noch kein Kundenlogo — weil du zu den <span style="color: #F5A623; font-weight: 700;">Ersten</span> gehörst.
+      Ich zeige dir lieber ehrlich mein eigenes laufendes System als ausgedachte Testimonials.
+    </p>
 
   </div>
 </section>
