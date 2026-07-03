@@ -55,7 +55,6 @@ const offers = [
     // Karte 3 zeigt einen Fließtext statt Bullet-Liste
     description:
       "Du brauchst etwas, das es nicht von der Stange gibt? Wir starten mit dem, was Standard ist — und wenn du an einen Punkt kommst, an dem du etwas ganz anderes willst, besprechen wir genau das. Kein fertiges Paket, sondern dein Fall: Buch einen Termin, dann klären wir, was du brauchst und wie wir es bauen.",
-    guarantee: "Umfang und Garantie klären wir im Erstgespräch.",
     ctaLabel: "Termin buchen",
     ctaHref: "/buchen",
     style: "outline",
@@ -113,9 +112,11 @@ const offers = [
               <p class="mt-6 flex-1 text-base text-brand-gray">{offer.description}</p>
             )}
 
-            <p class="mt-6 rounded-lg bg-brand-lightBg p-3 text-sm font-semibold text-brand-dark">
-              <span aria-hidden="true">🛡️</span> {offer.guarantee}
-            </p>
+            {offer.guarantee && (
+              <p class="mt-6 rounded-lg bg-brand-lightBg p-3 text-sm font-semibold text-brand-dark">
+                <span aria-hidden="true">🛡️</span> {offer.guarantee}
+              </p>
+            )}
 
             <a
               href={offer.ctaHref}
