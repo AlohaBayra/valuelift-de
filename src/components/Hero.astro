@@ -5,13 +5,15 @@
 // orangen Slot. Reduced Motion → JS bricht ab, der volle Satz bleibt stehen.
 // Slot-Höhe per CSS-Grid-Stapel (alle Items übereinander, unsichtbar) → kein CLS.
 
+// Sichtbare Rotator-Items enden mit "?" — der crawlbare H1-Volltext (vollerSatz)
+// bleibt bewusst EIN Aussagesatz ohne Fragezeichen.
 const taetigkeiten = [
-  "schreibt deine Statusberichte",
-  "findet die Engpässe in deinen Prozessen",
-  "mappt deine Stakeholder, bevor du sie brauchst",
-  "gewinnt neue Auftraggeber",
-  "hält den Kontakt zu deinen Bestandskunden",
-  "erledigt deine Korrespondenz und Social-Media-Beiträge",
+  "schreibt deine Statusberichte?",
+  "findet die Engpässe in deinen Prozessen?",
+  "mappt deine Stakeholder, bevor du sie brauchst?",
+  "gewinnt neue Auftraggeber?",
+  "hält den Kontakt zu deinen Bestandskunden?",
+  "erledigt deine Korrespondenz und Social-Media-Beiträge?",
 ];
 
 const vollerSatz =
@@ -53,32 +55,22 @@ const vollerSatz =
         </span>
       </h1>
 
-      <!-- Brücke -->
-      <p style="font-size: 1.375rem; font-weight: 700; color: #FFFFFF; margin: 0 0 1.5rem;">
-        Deins noch nicht?
-      </p>
-
-      <!-- Primär-CTA → /buchen -->
-      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; margin-bottom: 1.75rem;">
+      <!-- Brücke + Primär-CTA → /buchen: auf Desktop nebeneinander (Button rechts,
+           vertikal zentriert), auf Mobil stapelnd via flex-wrap -->
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-bottom: 1.75rem;">
+        <p style="font-size: 1.375rem; font-weight: 700; color: #FFFFFF; margin: 0;">
+          Deins noch nicht?
+        </p>
         <a
           href="/buchen"
           style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; font-size: 1.0625rem; padding: 0.95rem 2.1rem; border-radius: 0.5rem; text-decoration: none;"
         >
           Dann lass uns sprechen.
         </a>
-        <p style="font-size: 0.8125rem; color: #9CA3AF; margin: 0;">
-          20 Minuten, kostenlos. Wir schauen drauf, du entscheidest danach.
-        </p>
-
-        <!-- Sekundär → /kickstart (dezent untergeordnet) -->
-        <p style="font-size: 0.875rem; color: #9CA3AF; margin: 0.25rem 0 0;">
-          Lieber sofort selbst starten?
-          <a href="/kickstart" style="color: #F5A623; font-weight: 600; text-decoration: underline; text-underline-offset: 3px;">KI-Kickstart, 2h live für 97 €, mit Geld-zurück-Garantie.</a>
-        </p>
       </div>
 
-      <!-- Beleg: Credibility-Zeile + kurze Subzeile -->
-      <div style="display: flex; flex-wrap: wrap; gap: 0.35rem 0.6rem; margin-bottom: 0.75rem;">
+      <!-- Beleg: Credibility-Zeile (Trust-Element) -->
+      <div style="display: flex; flex-wrap: wrap; gap: 0.35rem 0.6rem;">
         <span style="font-size: 0.8125rem; font-weight: 600; color: #F5A623;">Marcus Eichler</span>
         <span style="color: #4B5563; font-size: 0.8125rem;">·</span>
         <span style="font-size: 0.8125rem; color: #9CA3AF;">Dipl.-Wirtschaftsingenieur</span>
@@ -91,9 +83,6 @@ const vollerSatz =
         <span style="color: #4B5563; font-size: 0.8125rem;">·</span>
         <span style="font-size: 0.8125rem; color: #9CA3AF;">KI seit 2004</span>
       </div>
-      <p style="font-size: 0.875rem; color: #9CA3AF; margin: 0;">
-        Lerne aus über 20 Jahren Operational Excellence und der Power von KI.
-      </p>
 
     </div>
   </div>
