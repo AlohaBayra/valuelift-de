@@ -330,9 +330,11 @@ const faqSchema = {
   <!-- 7. Lebender Beweis (UM-06 Rahmung in KiBeweis.astro) -->
   <KiBeweis />
 
-  <!-- 8. Garantie — IM-Umsetzungs-Garantie (UM-06; 🔴 Wortlaut UM-10) -->
-  <section style="background: #FFFFFF; overflow: hidden;">
-    <div style="max-width: 56rem; margin: 0 auto; display: flex; flex-wrap: wrap; min-height: 220px;">
+  <!-- 8. Garantie — IM-Umsetzungs-Garantie (UM-06; 🔴 Wortlaut UM-10)
+       Als freistehende Karte: Abstand zur Navy-Sektion darüber (KiBeweis), damit
+       sich die zwei Navy-Flächen nicht berühren; Radius + Schatten + Orange-Oberkante. -->
+  <section style="background: #FFFFFF; padding: 4rem 1rem;">
+    <div style="max-width: 56rem; margin: 0 auto; display: flex; flex-wrap: wrap; min-height: 220px; border-radius: 1rem; overflow: hidden; border: 1px solid #E5E7EB; border-top: 4px solid #F5A623; box-shadow: 0 12px 32px rgba(11, 21, 40, 0.12);">
 
       <div style="background: #0B1528; flex: 1; min-width: 220px; padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center;">
         <div style="font-size: 2.5rem; margin-bottom: 1rem;" aria-hidden="true">🛡️</div>
@@ -345,7 +347,7 @@ const faqSchema = {
         </p>
       </div>
 
-      <div style="flex: 1.4; min-width: 260px; padding: 2.5rem 2rem; background: #FFFFFF; border: 1px solid #E5E7EB; border-left: none;">
+      <div style="flex: 1.4; min-width: 260px; padding: 2.5rem 2rem; background: #FFFFFF;">
         <p style="font-size: 0.9375rem; color: #374151; line-height: 1.7; margin: 0;">
           {GARANTIE_KERN}
         </p>
