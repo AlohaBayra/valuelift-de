@@ -35,16 +35,16 @@ const offers = [
     featured: false,
   },
   {
-    name: "Done-for-you (Erfolgshonorar)",
-    fuer: "Stabiles Mandat, denkst ans nächste",
-    format: "Ich baue · zahlbar bei Anschlussmandat",
+    name: "Interims-Magnet App (zum Kurs)",
+    fuer: "Für Kickstart- & Werkstatt-Teilnehmer",
+    format: "Zugabe zum Kurs · 6 Monate inklusive, danach monatlich",
     contents: [
-      "Ich baue dein KI-System done-for-you auf deiner Seite",
-      "Kein Einstiegspreis — zahlbar erst beim Anschlussmandat",
-      "Begleitete Nutzung — Trainer, nicht Fitnessstudio",
-      "Im Erstgespräch klären wir Umfang und Passung",
+      "Deine Sichtbarkeits- & Pipeline-Maschine läuft weiter — die App unterstützt dich beim Betrieb deines selbst gebauten Systems.",
+      "Erste 6 Monate zum Kurs inklusive, danach monatliches Abo.",
+      "Kein Standalone-Done-for-you — ein Add-on, das deinen laufenden Betrieb trägt.",
     ],
-    guarantee: "Fertig wie besprochen — sonst keine Zahlung.",
+    guarantee: "Lauf-Garantie: läuft es nicht wie aufgebaut, arbeite ich kostenlos nach.",
+    note: "Keine Zeit? Auf Anfrage baue ich es dir als Premium.",
     ctaLabel: "Erstgespräch buchen",
     ctaHref: "/buchen",
     style: "outline",
@@ -109,6 +109,10 @@ const offers = [
             >
               {offer.ctaLabel}
             </a>
+
+            {offer.note && (
+              <p class="mt-3 text-center text-xs italic text-brand-gray">{offer.note}</p>
+            )}
           </article>
         ))
       }

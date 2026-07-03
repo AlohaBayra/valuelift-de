@@ -22,9 +22,9 @@ const routing = [
   {
     status: "Mitten im laufenden Mandat",
     sub: "Du hast Honorar, aber keine Hand frei zum Selbstbauen.",
-    text: "Hier ist die Werkstatt nicht dein Format. Du brauchst keine Bauanleitung für irgendwann, sondern eine KI-Antwort in dieses Mandat — die deinen Tagessatz sichtbar trägt. Dafür gibt es den Mandats-Kickstart: ein fester Lieferrahmen, auf meiner Seite gebaut, nie in deinem Kundensystem. Wenn dein Mandat dagegen stabil läuft und du an das nächste denkst, ist das begleitete Erfolgsmodell der ruhigere Weg.",
+    text: "Hier ist die Werkstatt nicht dein Format. Du brauchst keine Bauanleitung für irgendwann, sondern eine KI-Antwort in dieses Mandat — die deinen Tagessatz sichtbar trägt. Dafür gibt es den Mandats-Kickstart: ein fester Lieferrahmen, begleitet auf deiner eigenen Seite gebaut, nie in deinem Kundensystem. Wenn es schnell gehen muss und du keine Hand frei hast, baue ich es dir auf Anfrage als Premium.",
     primary: { label: "Mandats-Kickstart ansehen →", href: "/kickstart" },
-    secondary: { label: "Mandat läuft stabil? Erfolgsmodell kennenlernen", href: "/buchen" },
+    secondary: { label: "Keine Zeit zum Selbstbauen? Premium-Option (auf Anfrage)", href: "/buchen" },
   },
 ];
 
@@ -80,14 +80,14 @@ const faqs = [
       "Weil der richtige Weg für dich von deiner Lage abhängt, nicht von einer Zahl auf einer Seite. Im kostenlosen Erstgespräch klären wir zuerst, ob die Werkstatt überhaupt zu deinem Mandatsstatus passt — und dann, was sie für dich kostet. Kein Pitch, keine Verpflichtung.",
   },
   {
-    question: "Das Erfolgsmodell startet bei 0 Euro — warum dann die Werkstatt?",
+    question: "Selbst bauen oder bauen lassen — was ist der Unterschied?",
     answer:
-      "Weil beide für verschiedene Lebenslagen gemacht sind. Das 0-Euro-Erfolgsmodell setzt ein laufendes Mandat voraus: Du hast Honorar, aber keine Zeit, und ich baue für dich. Zwischen Mandaten ist es umgekehrt — du hast Zeit, aber kein laufendes Honorar. Dann kann ich dir kein mandatsgebundenes Erfolgshonorar abnehmen, das es gerade nicht gibt. Die Werkstatt ist nicht die teurere Variante, sondern die, die in deiner Lage überhaupt liefert. Und du besitzt das System danach zu 100 %.",
+      "Die Werkstatt ist ein begleiteter Kurs: Du baust dir dein Akquise-System selbst, verstehst jeden Schritt und bist danach unabhängig. Wenn du dagegen mitten im Mandat steckst und keine Hand frei hast, baue ich es dir auf Anfrage als Premium — die schnelle, done-for-you-Variante. Beide führen zum selben System; der Unterschied ist nur, wie viel du selbst in die Hand nimmst. Und in beiden Fällen besitzt du das System danach zu 100 %.",
   },
   {
     question: "Ich habe gerade ein Mandat — kann ich trotzdem mitmachen?",
     answer:
-      "Kannst du, aber sei ehrlich zu dir: Im laufenden Mandat unterschätzt fast jeder die Bau-Zeit. Wenn du selbst Hand anlegen und verstehen willst, ist die Mandats-Pause dein Sicherheitsnetz. Wenn es einfach laufen soll, während du im Mandat bleibst, ist eher das Erfolgsmodell richtig. Was zu dir passt, finden wir im Gespräch heraus.",
+      "Kannst du, aber sei ehrlich zu dir: Im laufenden Mandat unterschätzt fast jeder die Bau-Zeit. Wenn du selbst Hand anlegen und verstehen willst, ist die Mandats-Pause dein Sicherheitsnetz. Wenn es einfach laufen soll, während du im Mandat bleibst, ist eher die Premium-Option (auf Anfrage) richtig. Was zu dir passt, finden wir im Gespräch heraus.",
   },
   {
     question: "Was, wenn ich mitten in der Werkstatt ein Mandat bekomme?",
@@ -240,12 +240,11 @@ const faqSchema = {
       <blockquote
         class="mx-auto mt-10 max-w-3xl rounded-r-lg border-l-4 border-brand-blue bg-brand-white p-6 text-lg italic text-brand-dark"
       >
-        Das 0-Euro-Erfolgsmodell setzt ein laufendes Mandat voraus — denn dann hast
-        du Honorar, aber keine Zeit, und ich baue für dich. Zwischen Mandaten ist es
-        genau umgekehrt: Du hast die Zeit, aber das Honorar fließt nicht. Genau dann
-        ist die Werkstatt dein Weg — du nutzt die Leerlaufzeit, baust dir das System
-        selbst, und gehst ins nächste Mandat mit einem laufenden Magneten statt mit
-        einem leeren Kalender.
+        Steckst du mitten im Mandat und hast keine Hand frei, baue ich dir das System
+        auf Anfrage als Premium — done-for-you. Zwischen Mandaten ist es genau umgekehrt:
+        Du hast die Zeit, aber das Honorar fließt nicht. Genau dann ist die Werkstatt dein
+        Weg — du nutzt die Leerlaufzeit, baust dir das System selbst, und gehst ins nächste
+        Mandat mit einem laufenden Magneten statt mit einem leeren Kalender.
       </blockquote>
     </div>
   </section>
