@@ -9,14 +9,6 @@ import { GARANTIE_KERN } from "../lib/garantie";
 // Leitplanken: kein oeffentlicher Preis, kein Stripe, kein Coaching-Jargon; ein Hero-Versprechen; alle CTAs → /buchen.
 // Segmentierung nach Mandatsphase, nie nach Preis. Garantie = Umsetzungs-Garantie (🔴 Wortlaut UM-10).
 
-// WP-04 — Kompakter Mandatsphasen-Anker-Router (ersetzt die frühere doppelte Sektion).
-// Zwei Haupt-Wege (Werkstatt/Kickstart) + Premium-auf-Anfrage als Ausnahme.
-const weiche = [
-  { status: "Zwischen Mandaten", cta: "Zur Werkstatt →", href: "/werkstatt" },
-  { status: "Im oder vor dem Mandat", cta: "Zum Mandats-Kickstart →", href: "/kickstart" },
-  { status: "Stabil, aber keine Hand frei", cta: "Premium auf Anfrage →", href: "/buchen" },
-];
-
 // WP-09 — FAQPage (GEO/SEO). Sichtbare Q&A + JSON-LD müssen übereinstimmen (Google-Vorgabe).
 const faqs = [
   {
@@ -202,27 +194,8 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 4b. Kompakter Anker-Router (WP-04: ersetzt die frühere doppelte Mandatsphasen-Sektion) -->
-  <section style="background-color: #FFFFFF; padding: 3.5rem 1rem 0;">
-    <div style="max-width: 56rem; margin: 0 auto; text-align: center;">
-      <p style="font-size: 0.8125rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.9rem;">
-        Wo stehst du gerade? Der Weg hängt von deiner Mandatsphase ab — nie vom Budget.
-      </p>
-      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.5rem;">
-        {
-          weiche.map((w) => (
-            <a href={w.href} style="font-size: 1rem; text-decoration: none;">
-              <strong style="color: #0B1528;">{w.status}</strong>
-              <span style="color: #9CA3AF;"> → </span>
-              <span style="color: #F5A623; font-weight: 700;">{w.cta}</span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Value-Ladder (UM-04) — zwei Wege (Kickstart vs. Werkstatt); App = Add-on (5b) -->
+  <!-- 5. Angebots-Struktur (AN-01/02) — drei Karten; „Wo stehst du?" ist in die
+       Sektions-Intro von OfferCards integriert (frühere separate Router-Sektion entfällt). -->
   <OfferCards />
 
   <!-- 5b. App als Zugabe zum Kurs (MP-05) — kein Preis-Tier, Add-on, CTA = Erstgespräch -->
@@ -231,21 +204,21 @@ const faqSchema = {
       <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center;">
         <div style="flex: 1; min-width: 260px;">
           <p style="font-size: 0.8125rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.5rem;">
-            Zugabe zum Kurs
+            Zugabe zum KI-Sprint
           </p>
           <h2 style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: #0B1528; line-height: 1.2; margin: 0 0 1rem;">
             Die Interims-Magnet App hält dein System am Laufen.
           </h2>
           <p style="font-size: 1rem; color: #374151; line-height: 1.7; margin: 0 0 1rem;">
-            Kein Standalone-Produkt, kein Done-for-you: Die App ist eine Zugabe zu deinem
-            Kurs. Sie unterstützt dich beim Betrieb des Systems, das du dir selbst gebaut
+            Kein Standalone-Produkt, kein Done-for-you: Die App ist im KI-Sprint als Zugabe
+            enthalten. Sie unterstützt dich beim Betrieb des Systems, das du dir selbst gebaut
             hast — deine Sichtbarkeits- und Pipeline-Maschine läuft weiter, auch wenn das
             nächste Mandat dich schon einspannt.
           </p>
           <p style="font-size: 0.9375rem; color: #6B7280; line-height: 1.6; margin: 0 0 1rem;">
-            Die ersten <strong style="color: #0B1528;">6 Monate sind zum Kurs inklusive</strong>,
+            Die ersten <strong style="color: #0B1528;">6 Monate sind im KI-Sprint inklusive</strong>,
             danach läuft nur die App als monatliches, jederzeit kündbares Abo weiter. Dein
-            Kickstart- bzw. Werkstatt-Ergebnis <strong style="color: #0B1528;">gehört dir ohne Abo</strong> —
+            selbst gebautes KI-Sprint-Ergebnis <strong style="color: #0B1528;">gehört dir ohne Abo</strong> —
             die App hält es nur bequem am Laufen.
           </p>
           <p style="font-size: 0.875rem; color: #6B7280; line-height: 1.6; margin: 0 0 1.5rem; font-style: italic;">

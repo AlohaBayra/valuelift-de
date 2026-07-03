@@ -1,39 +1,63 @@
 ---
-// UM-04 / WP-06 — IM-Value-Ladder (Modell B). Segmentierung nach Mandatsphase, KEIN öffentlicher
-// Preis, kein Stripe, kein Euro-Betrag im DOM (QA-Grep). Zwei Wege → /kickstart · /werkstatt.
-// Die App ist KEIN dritter Weg, sondern ein Ergebnis-Add-on (eigener Abschnitt auf der Startseite).
-// Garantie in der Karte nur als kurzes Label; Detail-Wortlaut steht in der Garantie-Sektion.
+// AN-01 — Angebots-Struktur der Interim-Hauptmarke (3 Karten, Optik wie /ki-coaching).
+// Karte 1 (KI-Kickstart): Festpreis 97 € + „Beliebt" + Stripe-Direktkauf + Geld-zurück.
+// Karte 2 (KI-Sprint): „Auf Anfrage", Umsetzungs-Garantie, App als Zugabe → /werkstatt.
+// Karte 3 (KI-Individuell): „Auf Anfrage", Termin → /buchen (keine eigene Detailseite).
+// [ENTWURF]-markierte Copy bitte von Marcus final schärfen.
 import { GARANTIE_NAME } from "../lib/garantie";
+
+const stripeUrl = "https://buy.stripe.com/00wfZggVEcLs3DVfhi8bS05";
+
 const offers = [
   {
-    name: "Mandats-Kickstart",
-    fuer: "Im oder vor dem laufenden Mandat",
-    format: "Fester Lieferrahmen · in Tagen",
+    name: "KI-Kickstart",
+    detailHref: "/kickstart",
+    price: "97 €",
+    priceNote: "Festpreis",
+    format: "2h · Live · Gruppe (max. 15)", // [ENTWURF]
     contents: [
-      "KI-Werkzeuge auf deiner eigenen Seite — im Mandat sofort einsatzbereit",
-      "Reporting-Automation, Analyse-Vorlagen, Stakeholder-Map, Wirkungs-Doku",
-      "Gebaut auf meiner Seite, nie in deinem Kundensystem",
-      "Du besitzt es danach — kein Abo, kein Vendor-Lock-in",
+      // [ENTWURF] — Einstieg, sofort nutzbar
+      "Dein erster KI-Prozess läuft — in nur 2 Stunden",
+      "Live in der Gruppe, direkt zum Mitmachen",
+      "Fertige Vorlagen & Prompt-Baukasten zum Sofort-Einsatz",
+      "Aufzeichnung inklusive — jederzeit nachholbar",
     ],
-    guarantee: GARANTIE_NAME,
-    ctaLabel: "Mandats-Kickstart ansehen",
-    ctaHref: "/kickstart",
+    guarantee: "Geld-zurück-Garantie, wenn kein KI-Prozess läuft.",
+    ctaLabel: "Jetzt buchen — 97 €",
+    ctaHref: stripeUrl,
     style: "solid",
     featured: true,
   },
   {
-    name: "Werkstatt: Interim-Magnet",
-    fuer: "Zwischen Mandaten / Mandat läuft aus",
-    format: "8 Wochen · async · begleitet",
+    name: "KI-Sprint",
+    detailHref: "/werkstatt",
+    price: "Auf Anfrage",
+    priceNote: "8-Wochen-Kurs",
+    format: "8 Wochen · begleitet · async", // [ENTWURF]
     contents: [
-      "Du baust dir deinen Akquise-Magneten selbst — begleitet",
-      "Wirkungs-Maschine + Pipeline-Wärmer mit Mandatsend-Trigger",
+      "Du baust dir dein KI-System selbst — begleitet über 8 Wochen (schulen statt bauen)",
+      "Wirkungs-Maschine + Pipeline-Wärmer, die du danach verstehst und besitzt",
+      "Interims-Magnet-App als Zugabe: 6 Monate inklusive, danach kündbares Abo",
       "Im eigenen Takt, Mandats-Pause jederzeit möglich",
-      "Damit das nächste Mandat anläuft, bevor das aktuelle endet",
     ],
     guarantee: GARANTIE_NAME,
-    ctaLabel: "Zur Werkstatt",
-    ctaHref: "/werkstatt",
+    ctaLabel: "Erstgespräch buchen",
+    ctaHref: "/buchen",
+    style: "outline",
+    featured: false,
+  },
+  {
+    name: "KI-Individuell",
+    detailHref: null,
+    price: "Auf Anfrage",
+    priceNote: "individuell",
+    format: "Individueller Zuschnitt",
+    // [ENTWURF] — Karte 3 zeigt einen Fließtext statt Bullet-Liste
+    description:
+      "Du willst etwas, das es nicht von der Stange gibt? Wir starten mit dem, was Standard ist — und wenn du etwas ganz anderes brauchst, besprechen wir das direkt. Buch einen Termin, dann klären wir deinen Fall.",
+    guarantee: "Umfang und Garantie klären wir im Erstgespräch.",
+    ctaLabel: "Termin buchen",
+    ctaHref: "/buchen",
     style: "outline",
     featured: false,
   },
@@ -44,16 +68,16 @@ const offers = [
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
-        Zwei Wege — je nach Mandatsphase
+        Drei Wege — vom Schnellstart bis individuell
       </h2>
       <p class="mt-4 text-lg text-brand-gray">
-        Es gibt genau zwei Entscheidungen: im Mandat schnell liefern oder zwischen
-        Mandaten selbst bauen. Welcher Weg zu dir passt, hängt davon ab, wo du gerade
-        im Mandatszyklus stehst — nie vom Budget. Den Rahmen klären wir im Erstgespräch.
+        Wo stehst du gerade? Steig mit dem 2-Stunden-KI-Kickstart ein, bau dir im
+        8-Wochen-Sprint dein eigenes System — oder lass uns deinen individuellen Fall
+        besprechen. Du wählst die Tiefe, die zu dir passt.
       </p>
     </div>
 
-    <div class="mt-12 grid gap-8 md:grid-cols-2 md:max-w-3xl md:mx-auto">
+    <div class="mt-12 grid gap-8 md:grid-cols-3">
       {
         offers.map((offer) => (
           <article
@@ -64,30 +88,39 @@ const offers = [
           >
             {offer.featured && (
               <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-blue px-3 py-1 text-xs font-bold text-brand-black">
-                Im Mandat
+                Beliebt
               </span>
             )}
 
             <h3 class="text-2xl font-bold">{offer.name}</h3>
 
-            <p class="mt-3 text-sm font-semibold text-brand-blue">{offer.fuer}</p>
+            <div class="mt-3">
+              <span class="text-3xl font-extrabold text-brand-blue">{offer.price}</span>
+              <span class="ml-1 text-sm text-brand-gray">{offer.priceNote}</span>
+            </div>
             <p class="mt-1 text-sm font-semibold text-brand-gray">{offer.format}</p>
 
-            <ul class="mt-6 flex-1 space-y-3 text-base">
-              {offer.contents.map((item) => (
-                <li class="flex items-start gap-2">
-                  <span class="mt-0.5 font-bold text-brand-blue" aria-hidden="true">✓</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+            {offer.contents ? (
+              <ul class="mt-6 flex-1 space-y-3 text-base">
+                {offer.contents.map((item) => (
+                  <li class="flex items-start gap-2">
+                    <span class="mt-0.5 font-bold text-brand-blue" aria-hidden="true">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="mt-6 flex-1 text-base text-brand-gray">{offer.description}</p>
+            )}
 
-            <p class="mt-6 inline-flex items-center gap-1.5 self-start rounded-full bg-brand-lightBg px-3 py-1 text-xs font-bold text-brand-dark">
+            <p class="mt-6 rounded-lg bg-brand-lightBg p-3 text-sm font-semibold text-brand-dark">
               <span aria-hidden="true">🛡️</span> {offer.guarantee}
             </p>
 
             <a
               href={offer.ctaHref}
+              target={offer.style === "solid" ? "_blank" : undefined}
+              rel={offer.style === "solid" ? "noopener" : undefined}
               class:list={[
                 "mt-6 block rounded-lg px-4 py-3 text-center text-base font-bold transition-colors",
                 offer.style === "solid"
@@ -97,6 +130,15 @@ const offers = [
             >
               {offer.ctaLabel}
             </a>
+
+            {offer.detailHref && (
+              <a
+                href={offer.detailHref}
+                class="mt-3 block text-center text-sm font-semibold text-brand-gray underline underline-offset-2 hover:text-brand-dark"
+              >
+                Alle Details ansehen →
+              </a>
+            )}
           </article>
         ))
       }
