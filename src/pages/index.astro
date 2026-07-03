@@ -9,39 +9,7 @@ import { GARANTIE_KERN } from "../lib/garantie";
 // Leitplanken: kein oeffentlicher Preis, kein Stripe, kein Coaching-Jargon; ein Hero-Versprechen; alle CTAs → /buchen.
 // Segmentierung nach Mandatsphase, nie nach Preis. Garantie = Umsetzungs-Garantie (🔴 Wortlaut UM-10).
 
-// WP-09 — FAQPage (GEO/SEO). Sichtbare Q&A + JSON-LD müssen übereinstimmen (Google-Vorgabe).
-const faqs = [
-  {
-    question: "Für wen ist Value Lift AI?",
-    answer:
-      "Für solo Interim-Manager im Operations-/COO-Umfeld im DACH-Raum, die KI im Mandat sichtbar nutzen und ihre Pipeline warmhalten wollen — ohne dafür Programmierer zu werden.",
-  },
-  {
-    question: "Baust du das System für mich oder baue ich es selbst?",
-    answer:
-      "Du baust es selbst — von mir angeleitet. So verstehst du jeden Schritt und bist danach unabhängig. Nur in Ausnahmen baue ich es dir auf Anfrage als Premium; die Unabhängigkeit aus dem Selberbauen ist der eigentliche Wert.",
-  },
-  {
-    question: "Was kostet das?",
-    answer:
-      "Es gibt bewusst keinen öffentlichen Preis. Der richtige Weg hängt von deiner Mandatsphase ab, nicht vom Budget — den Rahmen klären wir im kostenlosen Erstgespräch.",
-  },
-  {
-    question: "Welche Garantie gibt es?",
-    answer:
-      "Eine Umsetzungs-Garantie: Wir arbeiten so lange mit dir weiter, bis dein erster KI-Prozess läuft. Bedingung ist deine Mitarbeit an den vereinbarten Schritten. Keine Zusage auf ein bestimmtes Mandat, einen Umsatz oder ein Ergebnis.",
-  },
-];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: { "@type": "Answer", text: faq.answer },
-  })),
-};
+// FAQ lebt vollständig auf /faq (inkl. FAQPage-JSON-LD) — keine Startseiten-FAQ mehr.
 ---
 
 <Base
@@ -361,29 +329,6 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 8b. FAQ (WP-09) — sichtbare Q&A passend zum FAQPage-JSON-LD -->
-  <section style="background-color: #F9F7F7; padding: 4rem 1rem;" id="faq">
-    <div style="max-width: 42rem; margin: 0 auto;">
-      <h2 style="font-size: 1.875rem; font-weight: 800; color: #0B1528; text-align: center; margin: 0 0 2rem;">
-        Häufige Fragen
-      </h2>
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
-        {
-          faqs.map((faq) => (
-            <details style="border-radius: 0.75rem; border: 1px solid #E5E7EB; background: #FFFFFF; padding: 1.25rem;">
-              <summary style="cursor: pointer; font-weight: 700; color: #0B1528; list-style: none;">
-                {faq.question}
-              </summary>
-              <p style="margin: 0.75rem 0 0; color: #374151; line-height: 1.7; font-size: 0.9375rem;">
-                {faq.answer}
-              </p>
-            </details>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
   <!-- 9. Final-CTA (Erstgespräch, kein Preis/Stripe) -->
   <section style="background-color: #0B1528; padding: 4rem 1rem; text-align: center;">
     <div style="max-width: 42rem; margin: 0 auto;">
@@ -404,8 +349,5 @@ const faqSchema = {
       </p>
     </div>
   </section>
-
-  <!-- FAQPage JSON-LD (nur Startseiten-Fragen, kein Preis) -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 </Base>
