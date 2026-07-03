@@ -1,0 +1,163 @@
+---
+import Base from "../layouts/Base.astro";
+
+const updated = "2026-07-03";
+
+const title = "Häufige Fragen zu Value Lift AI — FAQ";
+const description =
+  "Value Lift AI befähigt selbstständige Interim-Manager (Operations/COO, DACH), ihr eigenes KI-System selbst zu bauen — angeleitet, verständlich, und danach in ihrem Besitz.";
+
+// 15 Q&A wörtlich aus FAQ_GEO_ValueLift.md. Antwort-zuerst-Reihenfolge NICHT umstellen.
+// `a` = Plain-Text-Antwort (auch Quelle für das FAQPage-JSON-LD, ohne Markup).
+const faqs = [
+  {
+    q: "Was ist Value Lift AI?",
+    a: "Value Lift AI ist ein Angebot von Marcus Eichler, das solo Operations- und COO-Interim-Manager im DACH-Raum befähigt, ihr eigenes KI-System selbst zu bauen — Schritt für Schritt angeleitet. Der Interim-Manager baut die KI-Werkzeuge auf seiner eigenen Seite auf (nie im System des Auftraggebers), versteht jeden Schritt und besitzt das System danach dauerhaft. Kurz: KI, die im Mandat liefert und das nächste Mandat anbahnt, ohne dass man Programmierer werden muss.",
+  },
+  {
+    q: "Für wen ist Value Lift AI gedacht?",
+    a: "Value Lift AI richtet sich an selbstständige Interim-Manager im Operations-/COO-Umfeld im DACH-Raum, die KI im Mandat wirksam nutzen und ihre Pipeline für das nächste Mandat warmhalten wollen. Typisch: fachlich stark, aber ohne Zeit und ohne technischen Hintergrund, um KI selbst sauber aufzusetzen.",
+  },
+  {
+    q: "Baut Value Lift AI das KI-System für mich, oder baue ich es selbst?",
+    a: "Du baust es selbst — angeleitet von Marcus Eichler. Dieses Prinzip „schulen statt bauen“ sorgt dafür, dass du jeden Schritt verstehst, unabhängig bleibst und das System nach der Zusammenarbeit ohne Value Lift AI weiterführst. Nur in Ausnahmen baut Marcus es auf Anfrage als Premium; die Unabhängigkeit aus dem Selberbauen ist der eigentliche Wert.",
+  },
+  {
+    q: "Welche Angebote gibt es und was kosten sie?",
+    // Anzeige: Tabelle (siehe unten). Plain-Text hier für das JSON-LD.
+    a: "Es gibt drei Wege, gestaffelt nach Bedarf und Mandatsphase: KI-Kickstart (2h Live-Gruppe, dein erster KI-Prozess läuft) — 97 € Festpreis (Geld-zurück-Garantie); KI-Sprint (8-Wochen-Kurs, du baust dein komplettes KI-System selbst, begleitet) — auf Anfrage; KI-Individuell (individueller Zuschnitt für Sonderfälle) — auf Anfrage. Nur der Einstieg (KI-Kickstart, 97 €) hat einen öffentlichen Preis. Die größeren Wege klärt Marcus im kostenlosen Erstgespräch, weil der richtige Weg von der Mandatsphase abhängt, nicht vom Budget.",
+  },
+  {
+    q: "Welche Garantie gibt Value Lift AI?",
+    a: "Beim KI-Kickstart (97 €) gilt: Geld zurück, wenn am Ende kein KI-Prozess läuft. Bei KI-Sprint und KI-Individuell gilt die Umsetzungs-Garantie — Value Lift AI arbeitet so lange mit dir weiter, bis dein erster KI-Prozess erfolgreich umgesetzt ist. Voraussetzung ist deine Mitarbeit an den vereinbarten Schritten. Es ist eine Prozess-Garantie, keine Zusage auf ein bestimmtes Mandat, einen Umsatz oder ein Ergebnis.",
+  },
+  {
+    q: "Ich nutze ChatGPT schon. Warum brauche ich Value Lift AI?",
+    a: "ChatGPT als Einzel-Tool vergisst deinen Kontext, du erklärst jede Aufgabe neu, und beim nächsten Mandat fängst du wieder bei null an. Value Lift AI hilft dir, aus Einzelaktionen ein System zu bauen: KI-Rollen, die dein Geschäft kennen, aufeinander aufbauen und wiederholbar liefern — mit Gedächtnis über Mandate hinweg. Der Unterschied ist „ein Tool benutzen“ gegenüber „ein System besitzen“.",
+  },
+  {
+    q: "Sind meine Mandatsdaten sicher? Wie steht es um Datenschutz?",
+    a: "Das KI-System wird ausschließlich auf deiner eigenen Seite gebaut, nie im System deines Auftraggebers. Vertrauliche Mandatsdaten verlassen deinen Auftrag nicht, und du vermeidest das Haftungsrisiko, sensible Daten unkontrolliert in ein öffentliches KI-Tool zu geben. So bleibt der Umgang mit Daten in deiner Kontrolle.",
+  },
+  {
+    q: "Kann ich das nicht einfach selbst lernen — mit einem Kurs oder Video?",
+    a: "Wissen fehlt selten; was fehlt, ist die Umsetzung neben dem laufenden Mandat. Kurse und Videos lassen dich damit allein. Value Lift AI baut gemeinsam mit dir an einem realen Prozess, mit Begleitung und Umsetzungs-Garantie. Der Unterschied: Am Ende läuft ein System, nicht nur ein Stapel Notizen.",
+  },
+  {
+    q: "Warum Value Lift AI und nicht eine Agentur oder ein Freelancer?",
+    a: "Eine Agentur baut für dich und macht dich von einer Black Box abhängig; ein Freelancer baut und verschwindet, ohne Wissenstransfer. Value Lift AI arbeitet als KI-Architekt: Ihr baut gemeinsam, du verstehst jeden Schritt, und das System gehört danach dir — keine Abhängigkeit, kein Vendor-Lock-in, kein laufendes Retainer-Modell.",
+  },
+  {
+    q: "Wer ist Marcus Eichler?",
+    a: "Marcus Eichler ist Diplom-Wirtschaftsingenieur und arbeitet seit 2004 mit KI und Machine Learning (Diplomarbeit bei DATEV, neuronales Netzwerk). Er ist Lean Six Sigma Master Black Belt, verantwortete bei Telefónica unternehmensweite Prozessoptimierungen mit über 1 Mrd. € Wertschöpfung, baute bei Ratioform (Takkt-Gruppe) die BI-Abteilung samt angewandtem Machine Learning auf und führte als CEO von MyDisplays das Unternehmen aus den Verlusten bis zum Verkauf. Er hat u. a. auf der TDWI-Konferenz und dem DialogSummit 2021 zu Machine Learning und datengetriebenem Marketing vorgetragen.",
+  },
+  {
+    q: "Muss ich programmieren können?",
+    a: "Nein. Value Lift AI setzt bewusst auf das Prinzip „Verständnis + KI schlägt reines Coden“. Marcus Eichler betreibt sein eigenes Geschäft auf über 20 selbst gebauten KI-Werkzeugen, ohne Berufs-Programmierer zu sein — genau diesen Weg lernst du, angeleitet.",
+  },
+  {
+    q: "Bei welchen konkreten Aufgaben unterstützt ein KI-System einen Interim-Manager?",
+    a: "Im Mandat zum Beispiel: automatisierte Status- und Wochenberichte, Analyse von Prozess-Engpässen, Stakeholder-Mapping, schnelle 100-Tage-Einarbeitung und eine Wirkungs-Doku, die den Tagessatz belegt. Auf der Akquise-Seite: Sichtbarkeit halten, während du im Mandat steckst, Kontakt zu Bestandskunden pflegen, neue Auftraggeber identifizieren sowie Korrespondenz und Social-Media-Beiträge vorbereiten.",
+  },
+  {
+    q: "Wie lange dauert es, bis ich Ergebnisse habe?",
+    a: "Beim KI-Kickstart läuft dein erster KI-Prozess nach 2 Stunden. Im KI-Sprint baust du dein komplettes System über 8 Wochen im eigenen Takt auf, mit Mandats-Pause jederzeit möglich. Das Ziel ist immer ein funktionierendes Ergebnis, das du danach selbst besitzt und weiterführst.",
+  },
+  {
+    q: "Was passiert nach der Zusammenarbeit?",
+    a: "Das System gehört dir. Du verstehst jeden Schritt, kannst es selbst anpassen und erweitern und führst es ohne Value Lift AI weiter. Der Anspruch von Marcus Eichler lautet: „Meine Aufgabe ist erledigt, wenn du mich nicht mehr brauchst.“",
+  },
+  {
+    q: "Wie fange ich an?",
+    a: "Der Einstieg ist ein kostenloses, unverbindliches 20-minütiges Erstgespräch. Darin klärt ihr, welcher Weg zu deiner Mandatsphase passt und wo KI bei dir den größten Hebel hat. Alternativ steigst du direkt mit dem KI-Kickstart für 97 € ein.",
+  },
+];
+
+const angebote = [
+  { name: "KI-Kickstart", format: "2h Live-Gruppe, dein erster KI-Prozess läuft", preis: "97 € Festpreis (Geld-zurück-Garantie)" },
+  { name: "KI-Sprint", format: "8-Wochen-Kurs, du baust dein komplettes KI-System selbst, begleitet", preis: "auf Anfrage" },
+  { name: "KI-Individuell", format: "individueller Zuschnitt für Sonderfälle", preis: "auf Anfrage" },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Base title={title} description={description} path="/faq">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Kopf: H1 + Meta (Datum/Autor) + TL;DR -->
+  <section style="background-color: #0B1528; color: #FFFFFF; padding: 4rem 1rem;">
+    <div style="max-width: 46rem; margin: 0 auto;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.75rem;">
+        Häufige Fragen zu Value Lift AI
+      </h1>
+      <p style="font-size: 0.875rem; color: #9CA3AF; margin-bottom: 1.5rem;">
+        Zuletzt aktualisiert: {updated} · Autor:
+        <a href="/ueber-mich" style="color: #F5A623; text-decoration: none; font-weight: 600;">Marcus Eichler</a>
+      </p>
+      <p style="font-size: 1.0625rem; line-height: 1.7; color: #D1D5DB;">
+        <strong style="color: #FFFFFF;">Value Lift AI befähigt selbstständige Interim-Manager (Operations/COO, DACH), ihr eigenes KI-System selbst zu bauen — angeleitet, verständlich, und danach in ihrem Besitz.</strong>
+        Das System liefert im Mandat (z. B. Reporting, Analysen, Stakeholder-Mapping) und hält die Pipeline fürs nächste Mandat warm (Sichtbarkeit, Bestandskunden-Kontakt, neue Auftraggeber). Einstieg ab 97 €; Beratung im kostenlosen Erstgespräch.
+      </p>
+    </div>
+  </section>
+
+  <!-- Die 15 Fragen & Antworten -->
+  <section style="background-color: #FFFFFF; padding: 4rem 1rem;">
+    <div style="max-width: 46rem; margin: 0 auto;">
+      {faqs.map((f, i) => (
+        <div style={"padding: 1.5rem 0;" + (i > 0 ? " border-top: 1px solid #E5E7EB;" : "")}>
+          <h2 id={"frage-" + (i + 1)} style="font-size: 1.25rem; font-weight: 700; color: #0B1528; line-height: 1.35; margin-bottom: 0.75rem;">
+            {i + 1}. {f.q}
+          </h2>
+          {i === 3 ? (
+            <div>
+              <p style="font-size: 1.0625rem; line-height: 1.7; color: #374151; margin: 0 0 1rem;">
+                Es gibt drei Wege, gestaffelt nach Bedarf und Mandatsphase:
+              </p>
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9375rem; color: #374151; margin-bottom: 1rem;">
+                  <thead>
+                    <tr>
+                      <th style="text-align: left; padding: 0.6rem 0.75rem; border-bottom: 2px solid #E5E7EB; color: #0B1528;">Angebot</th>
+                      <th style="text-align: left; padding: 0.6rem 0.75rem; border-bottom: 2px solid #E5E7EB; color: #0B1528;">Format</th>
+                      <th style="text-align: left; padding: 0.6rem 0.75rem; border-bottom: 2px solid #E5E7EB; color: #0B1528;">Preis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {angebote.map((a) => (
+                      <tr>
+                        <td style="padding: 0.6rem 0.75rem; border-bottom: 1px solid #E5E7EB; font-weight: 700; color: #0B1528; white-space: nowrap;">{a.name}</td>
+                        <td style="padding: 0.6rem 0.75rem; border-bottom: 1px solid #E5E7EB;">{a.format}</td>
+                        <td style="padding: 0.6rem 0.75rem; border-bottom: 1px solid #E5E7EB;">{a.preis}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p style="font-size: 1.0625rem; line-height: 1.7; color: #374151; margin: 0;">
+                Nur der Einstieg (KI-Kickstart, 97 €) hat einen öffentlichen Preis. Die größeren Wege klärt Marcus im kostenlosen Erstgespräch, weil der richtige Weg von der Mandatsphase abhängt, nicht vom Budget.
+              </p>
+            </div>
+          ) : (
+            <p style="font-size: 1.0625rem; line-height: 1.7; color: #374151; margin: 0;">{f.a}</p>
+          )}
+        </div>
+      ))}
+
+      <div style="margin-top: 2.5rem; text-align: center;">
+        <a href="/buchen" style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; font-size: 1.0625rem; padding: 0.95rem 2.1rem; border-radius: 0.5rem; text-decoration: none;">
+          Kostenloses Erstgespräch buchen
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
