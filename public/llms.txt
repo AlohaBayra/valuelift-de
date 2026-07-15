@@ -1,34 +1,40 @@
 # Value Lift AI
-> KI-Beratung und KI-Automatisierung für selbstständige Coaches, Berater und Dienstleister im DACH-Raum.
+> KI-Schulung für selbstständige Interim Manager (Operations/COO) im DACH-Raum: Du baust dein eigenes KI-System, Schritt für Schritt begleitet — schulen statt bauen.
 
-Gründer: Marcus Eichler — 29 Jahre Führungserfahrung, ehemaliger CEO (Unternehmensverkauf), >1 Mrd. € Impact bei Telefónica.
+Gründer: Marcus Eichler — Diplom-Wirtschaftsingenieur, KI/ML seit 2004, Lean Six Sigma Master Black Belt, 29 Jahre Führungserfahrung, ehemaliger CEO (Turnaround + Unternehmensverkauf), über 1 Mrd. € Impact bei Telefónica.
 
 ## Angebote
 
-- [KI-Kickstart Bootcamp](https://valuelift.de/bootcamp): 97€, 2 Stunden, Live-Online, max. 15 Teilnehmer. Liefert einen fertig laufenden KI-Prozess. Geld-zurück-Garantie.
-- [KI-Sprint Workshop-Tag](https://valuelift.de/workshop): 1:1 mit Marcus, ein vollständiger KI-Workflow gemeinsam gebaut. Preis auf Anfrage.
-- [KI-Komplettsystem](https://valuelift.de/system): Done-for-you, 3 selbst gewählte Prozesse, ~3 Wochen, Übergabe mit Schulung und Support. Preis auf Anfrage.
+- [KI-Kickstart](https://valuelift.de/kickstart/): 97 € Festpreis, 2 Stunden live in kleiner Gruppe. Du baust deinen ersten wiederverwendbaren KI-Prozess an einem echten Engpass aus deinem Alltag. Geld-zurück-Garantie, wenn am Ende kein KI-Prozess läuft.
+- [KI-Sprint](https://valuelift.de/ki-sprint/): 8-Wochen-Programm, ein fertiger Baustein pro Woche, wöchentlicher Live-Call. Du baust dir dein eigenes KI-System, Pause jederzeit möglich. Umsetzungs-Garantie, Preis auf Anfrage.
+- KI-Individuell: individueller Zuschnitt, Umfang und Garantie werden im [kostenlosen Erstgespräch](https://valuelift.de/buchen/) besprochen.
 
 ## Kostenloses Tool
 
-- [KI-Zeitspar-Check](https://valuelift.de/check): Interaktiver Self-Check (2 Min, 6 Fragen). Zeigt, wie viele Stunden und Euro pro Jahr eine wiederkehrende Aufgabe kostet, plus ersten Bauplan. Kein Login, kein Preis. Mac-Nutzer erhalten als Geschenk AngelWrite Free (Diktat-App).
+- [Interim-Akquise-Check](https://valuelift.de/check/): interaktiver Self-Check (2 Minuten, 6 Fragen). Zeigt, was das Akquise-Paradox zwischen zwei Einsätzen kostet, plus ersten Schritt. Kein Login, kein Pitch.
+
+## Weitere Seiten
+
+- [Häufige Fragen (FAQ)](https://valuelift.de/faq/)
+- [Über Marcus Eichler](https://valuelift.de/ueber-mich/)
+- [Kostenloses Erstgespräch buchen](https://valuelift.de/buchen/) (20 Minuten, Video-Call)
 
 ## Zielgruppe
 
-Selbstständige Coaches, Berater und Dienstleister im DACH-Raum ohne technisches Vorwissen, die KI-Prozesse in ihrem Business einsetzen wollen.
+Selbstständige (solo) Interim Manager mit Schwerpunkt Operations/COO im DACH-Raum, die neben dem laufenden Einsatz sichtbar bleiben und ihre Pipeline warmhalten wollen — ohne selbst Programmierer zu sein.
 
 ## Kernaussage
 
-"Ich baue dein KI-System — und du weißt danach genau, wie es funktioniert."
-
-## Buchung & Kontakt
-
-- Erstgespräch (kostenlos): https://tidycal.com/marcuseichler/kennenlerngesprach-mit-marcus-eichler-1wr7yd6
-- Website: https://valuelift.de
-- LinkedIn: https://www.linkedin.com/in/marcuseichler
+Die meisten scheitern nicht am KI-Wissen, sondern daran, dass sie alleine starten. Value Lift AI begleitet den Aufbau des eigenen KI-Systems, bis es läuft.
 
 ## Garantien
 
-- Bootcamp: Kein laufender KI-Prozess nach 2 Stunden → 97€ vollständig zurück.
-- Workshop-Tag: Workflow läuft nach dem Tag → sonst kostenlose Nacharbeit.
-- Komplettsystem: Fertig wie vereinbart → sonst keine Zahlung.
+- KI-Kickstart: Kein laufender KI-Prozess am Ende → 97 € vollständig zurück.
+- KI-Sprint: Umsetzungs-Garantie mit Mitwirkungspflicht — es geht weiter, bis der erste KI-Prozess erfolgreich umgesetzt ist.
+
+## Kontakt
+
+- E-Mail: marcus.eichler@valuelift.de
+- Website: https://valuelift.de/
+- LinkedIn: https://www.linkedin.com/in/marcuseichler
+- Impressum: https://valuelift.de/impressum/

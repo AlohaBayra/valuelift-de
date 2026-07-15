@@ -77,8 +77,8 @@ const PLAN = {
 ---
 
 <Base
-  title="Interim-Akquise-Check — was kostet dich die Lücke zwischen den Mandaten? | Value Lift AI"
-  description="In 2 Minuten: Wie viel dich das Akquise-Paradox kostet — Sichtbarkeit, die im Mandat fehlt, und der Leerlauf danach. Plus dein erster Schritt. Kein Login, kein Pitch."
+  title="Interim-Akquise-Check: Was kostet die Lücke? | Value Lift AI"
+  description="In 2 Minuten: wie viel dich das Akquise-Paradox zwischen zwei Einsätzen kostet und was dein erster Schritt ist. Kein Login, kein Pitch."
   path="/check"
   hideNav={true}
 >
@@ -245,7 +245,7 @@ const PLAN = {
 
       if (s.type === "num") {
         card.innerHTML = progress() + '<div class="vlc-eyebrow">Frage ' + idx + ' von 6</div><div class="vlc-q">' + s.q + "</div>" +
-          '<div class="vlc-field"><input id="vlc-num" type="number" inputmode="numeric" placeholder="' + s.ph + '" value="' + (state[s.key] != null ? state[s.key] : "") + '"><span class="vlc-unit">' + s.unit + "</span></div>" +
+          '<div class="vlc-field"><input id="vlc-num" type="number" inputmode="numeric" aria-label="' + s.ph + '" placeholder="' + s.ph + '" value="' + (state[s.key] != null ? state[s.key] : "") + '"><span class="vlc-unit">' + s.unit + "</span></div>" +
           (s.hint ? '<p class="vlc-hint">' + s.hint + "</p>" : '<div style="height:14px"></div>') +
           '<button class="vlc-btn" id="vlc-next">Weiter →</button>' +
           '<button class="vlc-skip" id="vlc-skip">Weiß ich nicht — mit Schätzwert ' + s.ph + ' weiter</button>' +
@@ -265,10 +265,10 @@ const PLAN = {
           '<div class="vlc-eyebrow">Fast geschafft</div>' +
           '<div class="vlc-q">Deine Auswertung ist fertig.</div>' +
           '<p class="vlc-sub" style="margin-bottom:18px">Wohin soll deine Auswertung gehen? Dann siehst du sie sofort.</p>' +
-          '<input class="vlc-in" id="g-vor" placeholder="Vorname" autocomplete="given-name">' +
-          '<input class="vlc-in" id="g-mail" type="email" placeholder="E-Mail" autocomplete="email">' +
-          '<input class="vlc-in" id="g-tel" placeholder="Telefon (optional)" autocomplete="tel">' +
-          '<label class="vlc-check"><input type="checkbox" id="g-ok"><span>Ich möchte meine Auswertung per E-Mail erhalten und bin einverstanden, gelegentlich hilfreiche Impulse zu bekommen (jederzeit abbestellbar). Es gilt die <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span></label>' +
+          '<input class="vlc-in" id="g-vor" placeholder="Vorname" aria-label="Vorname" autocomplete="given-name">' +
+          '<input class="vlc-in" id="g-mail" type="email" placeholder="E-Mail" aria-label="E-Mail" autocomplete="email">' +
+          '<input class="vlc-in" id="g-tel" placeholder="Telefon (optional)" aria-label="Telefon (optional)" autocomplete="tel">' +
+          '<label class="vlc-check"><input type="checkbox" id="g-ok"><span>Ich möchte meine Auswertung per E-Mail erhalten und bin einverstanden, gelegentlich hilfreiche Impulse zu bekommen (jederzeit abbestellbar). Es gilt die <a href="/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span></label>' +
           '<p class="vlc-err" id="g-err" style="display:none"></p>' +
           '<button class="vlc-btn" id="g-go">Ergebnis ansehen →</button>' +
           '<button class="vlc-back">← zurück</button>';
@@ -351,7 +351,7 @@ const PLAN = {
           '<p class="vlc-tiny">Ich habe dir gerade eine Bestätigungsmail geschickt. Bestätige sie kurz — dann bekommst du die Auswertung per Mail' + (IS_MAC ? ' und schaltest dein AngelWrite-Geschenk frei' : '') + '.</p>' +
           '<div class="vlc-rolle">' +
           '<label class="vlc-rolle-lbl" for="r-rolle">Optional: Was machst du beruflich? Hilft mir, dein Erstgespräch vorzubereiten.</label>' +
-          '<div class="vlc-rolle-row"><input class="vlc-in" id="r-rolle" placeholder="z. B. Interim COO, Operations-Manager, Head of Operations"><button class="vlc-rolle-save" id="r-save">Senden</button></div>' +
+          '<div class="vlc-rolle-row"><input class="vlc-in" id="r-rolle" aria-label="Deine Rolle" placeholder="z. B. Interim COO, Operations-Manager, Head of Operations"><button class="vlc-rolle-save" id="r-save">Senden</button></div>' +
           '<p class="vlc-hint" id="r-thanks" style="display:none;margin:8px 0 0">Danke — notiert. ✓</p>' +
           "</div>";
 

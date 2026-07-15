@@ -10,17 +10,24 @@ export interface Props {
   hideNav?: boolean;
   /** Pfad relativ zur Domain, z.B. "/kickstart" — für Canonical & OG-URL. */
   path?: string;
+  /** Wenn true, wird die Seite nicht indexiert (Funnel-/Bestätigungsseiten). */
+  noindex?: boolean;
 }
 
 const {
-  title = "Value Lift AI — KI-Prozesse für Berater & Coaches",
-  description = "KI-Schulungen und KI-Entwicklung für Coaches, Berater und Dienstleister im DACH-Raum. Dein erster KI-Prozess läuft — in 2 Stunden. Garantiert.",
+  title = "Value Lift AI — KI-Systeme für Interim Manager",
+  description = "KI-Schulung für selbstständige Interim Manager im DACH-Raum: Du baust dein eigenes KI-System, Schritt für Schritt begleitet von Marcus Eichler.",
   hideNav = false,
   path = "",
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = "https://valuelift.de";
-const canonical = siteUrl + path;
+// Canonical immer mit Trailing Slash (Cloudflare Pages liefert /pfad/ aus;
+// ohne Slash entsteht ein 308-Redirect auf dem Canonical).
+const normPath =
+  path === "" || path === "/" ? "/" : path.endsWith("/") ? path : path + "/";
+const canonical = siteUrl + normPath;
 const ogImage = siteUrl + "/og-image.jpg";
 
 const organizationSchema = {
@@ -28,6 +35,8 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Value Lift AI",
   url: "https://valuelift.de",
+  logo: "https://valuelift.de/logo.png",
+  sameAs: ["https://www.linkedin.com/in/marcuseichler"],
 };
 
 const personSchema = {
@@ -35,7 +44,31 @@ const personSchema = {
   "@type": "Person",
   name: "Marcus Eichler",
   jobTitle: "KI-Berater",
+  worksFor: { "@type": "Organization", name: "Value Lift AI" },
+  sameAs: ["https://www.linkedin.com/in/marcuseichler"],
 };
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Value Lift AI",
+  url: "https://valuelift.de",
+  inLanguage: "de",
+};
+
+// Einfache 2-Ebenen-Breadcrumb (Start > Seite) für alle Unterseiten.
+const pageName = title.split(/ [—|] /)[0].split(": ")[0];
+const breadcrumbSchema =
+  normPath === "/"
+    ? null
+    : {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Start", item: siteUrl + "/" },
+          { "@type": "ListItem", position: 2, name: pageName, item: canonical },
+        ],
+      };
 ---
 
 <!doctype html>
@@ -113,6 +146,7 @@ const personSchema = {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -122,6 +156,9 @@ const personSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Value Lift AI — KI-Systeme für Interim Manager" />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:site_name" content="Value Lift AI" />
 
@@ -142,10 +179,29 @@ const personSchema = {
       type="application/ld+json"
       set:html={JSON.stringify(personSchema)}
     />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(websiteSchema)}
+    />
+    {breadcrumbSchema && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(breadcrumbSchema)}
+      />
+    )}
 
     <!-- Tracking: wird nur nach Cookie-Einwilligung geladen (siehe Script unten) -->
   </head>
   <body class="bg-brand-white font-sans text-brand-dark antialiased">
+
+    <!-- Skip-Link für Tastatur-Nutzer: erst bei Fokus sichtbar -->
+    <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+    <style>
+      .skip-link { position:absolute; left:-9999px; top:0; z-index:10000;
+        background:#F5A623; color:#0B1528; font-weight:700; padding:.6rem 1rem;
+        border-radius:0 0 .5rem 0; text-decoration:none; }
+      .skip-link:focus { left:0; }
+    </style>
 
     <!-- Cookie-Consent: Datenschutzeinstellungen (3 Kategorien) -->
     <div id="cookie-scrim"></div>
@@ -158,19 +214,19 @@ const personSchema = {
           Wir verwenden Cookies und Technologien auf unserer Website. Einige sind
           essenziell, andere helfen uns, die Seite und deine Erfahrung zu verbessern.
           Bitte triff eine Auswahl, um fortzufahren. Mehr dazu in unserer
-          <a href="/datenschutz">Datenschutzerklärung</a>.
+          <a href="/datenschutz/">Datenschutzerklärung</a>.
         </p>
         <div class="cookie-cats">
           <label class="cookie-cat">
-            <input type="checkbox" checked disabled />
+            <input type="checkbox" checked disabled aria-label="Essenziell (immer aktiv)" />
             <span><strong>Essenziell</strong><small>Für den Betrieb der Website notwendig. Immer aktiv.</small></span>
           </label>
           <label class="cookie-cat">
-            <input type="checkbox" id="cc-statistik" />
+            <input type="checkbox" id="cc-statistik" aria-label="Statistik" />
             <span><strong>Statistik</strong><small>Anonyme Reichweitenmessung mit Google Analytics.</small></span>
           </label>
           <label class="cookie-cat">
-            <input type="checkbox" id="cc-medien" />
+            <input type="checkbox" id="cc-medien" aria-label="Externe Medien" />
             <span><strong>Externe Medien</strong><small>Lädt den TidyCal-Buchungskalender.</small></span>
           </label>
         </div>
@@ -180,7 +236,7 @@ const personSchema = {
           <button id="cookie-reject" type="button">Ablehnen</button>
         </div>
         <p class="cookie-links">
-          <a href="/datenschutz">Datenschutzerklärung</a> · <a href="/impressum">Impressum</a>
+          <a href="/datenschutz/">Datenschutzerklärung</a> · <a href="/impressum/">Impressum</a>
         </p>
       </div>
     </div>
@@ -296,7 +352,7 @@ const personSchema = {
 
     {!hideNav && <Header />}
 
-    <main>
+    <main id="main-content">
       <slot />
     </main>
 
