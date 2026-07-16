@@ -6,6 +6,7 @@ import Base from "../layouts/Base.astro";
   title="Danke für deine Buchung — Value Lift AI"
   description="Dein KI-Kickstart-Platz ist gesichert. Hier erfährst du, wie es weitergeht."
   path="/danke"
+  noindex={true}
 >
 
   <!-- Hero: Bestätigung -->
@@ -128,6 +129,7 @@ import Base from "../layouts/Base.astro";
               id="reg-vorname"
               type="text"
               placeholder="Vorname"
+              aria-label="Vorname"
               autocomplete="given-name"
               style="flex: 1; min-width: 140px; padding: 0.75rem 1rem; border: 1px solid #D1D5DB; border-radius: 0.5rem; font-size: 0.9375rem; outline: none;"
             />
@@ -135,6 +137,7 @@ import Base from "../layouts/Base.astro";
               id="reg-email"
               type="email"
               placeholder="E-Mail-Adresse"
+              aria-label="E-Mail-Adresse"
               autocomplete="email"
               required
               style="flex: 2; min-width: 200px; padding: 0.75rem 1rem; border: 1px solid #D1D5DB; border-radius: 0.5rem; font-size: 0.9375rem; outline: none;"
@@ -153,7 +156,7 @@ import Base from "../layouts/Base.astro";
         </form>
 
         <p style="font-size: 0.75rem; color: #9CA3AF; margin-top: 0.75rem;">
-          Mit dem Eintragen stimmst du zu, dass wir dir gelegentlich E-Mails schicken dürfen. Du kannst dich jederzeit abmelden. Datenschutz: <a href="/datenschutz" style="color: #6B7280;">valuelift.de/datenschutz</a>
+          Mit dem Eintragen stimmst du zu, dass wir dir gelegentlich E-Mails schicken dürfen. Du kannst dich jederzeit abmelden. Datenschutz: <a href="/datenschutz/" style="color: #6B7280;">valuelift.de/datenschutz</a>
         </p>
       </div>
     </div>
@@ -240,7 +243,7 @@ import Base from "../layouts/Base.astro";
 
         <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;">
           <a
-            href="/buchen"
+            href="/buchen/"
             style="
               background-color: #F5A623;
               color: #000000;
@@ -254,7 +257,7 @@ import Base from "../layouts/Base.astro";
             KI-Sprint anfragen
           </a>
           <a
-            href="/buchen"
+            href="/buchen/"
             style="
               background-color: transparent;
               color: #F5A623;

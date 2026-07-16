@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+// Sobald dist/404.html existiert, deaktiviert Cloudflare Pages den SPA-Fallback
+// und liefert für unbekannte URLs echte 404-Antworten (behebt Soft-404).
+---
+
+<Base
+  title="Seite nicht gefunden — Value Lift AI"
+  description="Diese Seite gibt es nicht oder nicht mehr. Hier findest du den Weg zurück."
+  path="/404"
+  noindex={true}
+>
+  <section style="background-color: #0B1528; color: #FFFFFF; padding: 6rem 1rem; text-align: center; min-height: 60vh; display: flex; align-items: center;">
+    <div style="max-width: 36rem; margin: 0 auto;">
+      <p style="font-size: 0.875rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">
+        Fehler 404
+      </p>
+      <h1 style="font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem;">
+        Diese Seite gibt es nicht oder nicht mehr.
+      </h1>
+      <p style="font-size: 1.0625rem; color: #D1D5DB; line-height: 1.7; margin-bottom: 2rem;">
+        Kein Problem. Hier kommst du direkt dahin, wo es weitergeht:
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;">
+        <a href="/" style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; padding: 0.85rem 1.9rem; border-radius: 0.5rem; text-decoration: none;">
+          Zur Startseite
+        </a>
+        <a href="/faq/" style="display: inline-block; border: 1px solid rgba(255,255,255,0.35); color: #FFFFFF; font-weight: 600; padding: 0.85rem 1.9rem; border-radius: 0.5rem; text-decoration: none;">
+          Häufige Fragen
+        </a>
+        <a href="/buchen/" style="display: inline-block; border: 1px solid rgba(255,255,255,0.35); color: #FFFFFF; font-weight: 600; padding: 0.85rem 1.9rem; border-radius: 0.5rem; text-decoration: none;">
+          Erstgespräch buchen
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
