@@ -150,7 +150,7 @@ const EINWAENDE = [
 <Base
   title="Sichtbarkeits-Check für Interim Manager — wirst du von Providern & KI gefunden? | Value Lift AI"
   description="Findet ein Auftraggeber oder Provider dich über Google und KI — und versteht er sofort, wofür du stehst? Dein Sichtbarkeits-Score plus erster Schritt, kostenlos. Selbst-Check deines öffentlichen Profils, kein Login."
-  path="/mandats-check"
+  path="/sichtbarkeits-check"
   hideNav={true}
 >
   <section class="vlc-wrap">
@@ -403,7 +403,7 @@ const EINWAENDE = [
     function render() {
       // ─── SC-01: Intro + URL-Input (above-the-fold) ─────────────────────────
       if (idx === 0) {
-        // SC-08-Rücksprung aus der DOI-Mail (/mandats-check?doi=ok&name=…):
+        // SC-08-Rücksprung aus der DOI-Mail (/sichtbarkeits-check?doi=ok&name=…):
         // kurz bestätigen, statt kommentarlos wieder bei Schritt 1 zu starten.
         var doiOk = new URLSearchParams(location.search).get("doi") === "ok";
         card.innerHTML =
@@ -524,7 +524,7 @@ const EINWAENDE = [
           };
           // Demo-Weiche: ohne Scan-Backend KEIN echter Versand/Brevo-Lead — nur loggen, dann Voll-Befund.
           if (DEMO) {
-            console.log("[mandats-check DEMO] kein Versand — payload:", payload);
+            console.log("[sichtbarkeits-check DEMO] kein Versand — payload:", payload);
             setTimeout(function () { go(4); }, 300);
             return;
           }
