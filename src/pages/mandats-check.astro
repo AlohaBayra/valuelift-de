@@ -403,7 +403,11 @@ const EINWAENDE = [
     function render() {
       // ─── SC-01: Intro + URL-Input (above-the-fold) ─────────────────────────
       if (idx === 0) {
+        // SC-08-Rücksprung aus der DOI-Mail (/mandats-check?doi=ok&name=…):
+        // kurz bestätigen, statt kommentarlos wieder bei Schritt 1 zu starten.
+        var doiOk = new URLSearchParams(location.search).get("doi") === "ok";
         card.innerHTML =
+          (doiOk ? '<p style="background:#ECFDF5;color:#15803D;font-weight:600;border-radius:8px;padding:10px 14px;margin:0 0 14px">Bestätigt. Dein vollständiger Befund ist unterwegs in dein Postfach.</p>' : '') +
           '<h1 class="vlc-h">' + esc(COPY.h1a) + ' ' + esc(COPY.h1b) + '</h1>' +
           '<p class="vlc-sub">' + esc(COPY.sub) + '</p>' +
           '<p class="vlc-abridge">' + esc(COPY.aboveFoldBridge) + '</p>' +
