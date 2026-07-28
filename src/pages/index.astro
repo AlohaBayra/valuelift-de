@@ -232,134 +232,40 @@ import { GARANTIE_KERN } from "../lib/garantie";
     </div>
   </section>
 
-  <!-- 5b. App-Warteliste (derzeit in Entwicklung) — Inline-DOI-Signup analog /check,
-       leadmagnet:'app-warteliste' → angelwrite-server /leadmagnet/signup -->
-  <section id="app-warteliste" style="background-color: #F9F7F7; padding: 4rem 1rem;">
+  <!-- 5b. Sichtbarkeits-Check — Teaser auf /sichtbarkeits-check (kein E-Mail-Signup hier) -->
+  <section id="sichtbarkeits-check" style="background-color: #F9F7F7; padding: 4rem 1rem;">
     <div style="max-width: 56rem; margin: 0 auto;">
       <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center;">
         <div style="flex: 1; min-width: 260px;">
           <p style="font-size: 0.8125rem; font-weight: 700; color: #F5A623; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.5rem;">
-            Derzeit in Entwicklung
+            Kostenloser Sichtbarkeits-Check
           </p>
           <h2 style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: #0B1528; line-height: 1.2; margin: 0 0 1rem;">
-            Aus 20+ selbstgebauten Werkzeugen wird ein Gesamtangebot. Die ersten Tester wählen wir gerade aus.
+            Findet man dich, wenn der nächste Auftrag vergeben wird?
           </h2>
           <p style="font-size: 1rem; color: #374151; line-height: 1.7; margin: 0 0 1rem;">
-            Über die Jahre sind mehr als 20 eigene KI-Werkzeuge entstanden, mit denen ich mein
-            eigenes Geschäft betreibe. Nicht als Demo, sondern im täglichen Einsatz. Gerade
-            stelle ich die wirksamsten dieser Helferlein zu einem zusammenhängenden Angebot
-            zusammen, das deine Sichtbarkeits- und Pipeline-Maschine dauerhaft am Laufen hält.
-          </p>
-          <p style="font-size: 1rem; color: #374151; line-height: 1.7; margin: 0 0 1rem;">
-            Bevor das offen verfügbar ist, öffne ich es für einen kleinen Kreis früher Tester.
-            Wer hier dabei ist, arbeitet mit den fertigen Bausteinen als Erster, bekommt
-            kürzere Wege zu mir und beeinflusst mit, welche Werkzeuge zuerst ausgebaut werden.
+            Bevor jemand dich anfragt, wird gesucht: bei Google, auf LinkedIn, zunehmend
+            in KI-Assistenten. Der Sichtbarkeits-Check prüft in wenigen Minuten, wie gut
+            du dabei auffindbar bist, und zeigt dir, wo deine größten Lücken liegen.
           </p>
           <p style="font-size: 1rem; color: #374151; line-height: 1.7; margin: 0 0 1.5rem;">
-            Auf der Warteliste stehen heißt nur eins: Du bist informiert, sobald die erste
-            Testrunde startet, und rückst in der Reihenfolge nach vorne. Keine Verpflichtung,
-            keine automatische Buchung.
+            Du bekommst einen konkreten Befund statt eines Bauchgefühls: einen Score,
+            deine drei wichtigsten Baustellen und den ersten Hebel, den du sofort
+            angehen kannst.
           </p>
-
-          <form id="wl-form" style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0 0 0.75rem;" novalidate>
-            <label for="wl-email" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">E-Mail-Adresse</label>
-            <input
-              type="email"
-              id="wl-email"
-              name="email"
-              required
-              autocomplete="email"
-              placeholder="deine@email.de"
-              style="flex: 1; min-width: 220px; padding: 0.85rem 1rem; font-size: 1rem; color: #0B1528; background: #FFFFFF; border: 1px solid #D1D5DB; border-radius: 0.5rem;"
-            />
-            <button
-              type="submit"
-              id="wl-btn"
-              style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; font-size: 1rem; padding: 0.85rem 1.9rem; border-radius: 0.5rem; border: none; cursor: pointer;"
-            >
-              Auf die Warteliste
-            </button>
-          </form>
-          <p id="wl-success" hidden style="font-size: 1rem; font-weight: 600; color: #15803D; margin: 0 0 0.75rem;"></p>
-          <p id="wl-error" hidden style="font-size: 0.9375rem; color: #B91C1C; margin: 0 0 0.75rem;"></p>
-
-          <p style="font-size: 0.875rem; color: #6B7280; line-height: 1.6; margin: 0;">
-            Unverbindlich. Du hörst von uns, sobald die erste Testrunde öffnet, nicht früher
-            und nicht mit Werbung dazwischen.
+          <a
+            href="/sichtbarkeits-check/"
+            style="display: inline-block; background: #F5A623; color: #0B1528; font-weight: 700; font-size: 1rem; padding: 0.85rem 1.9rem; border-radius: 0.5rem; text-decoration: none;"
+          >
+            Sichtbarkeit prüfen
+          </a>
+          <p style="font-size: 0.875rem; color: #6B7280; line-height: 1.6; margin: 1rem 0 0;">
+            Kostenlos, kein Login. Deinen ersten Befund siehst du direkt im Browser.
           </p>
         </div>
       </div>
     </div>
   </section>
-
-  <script is:inline>
-    (function () {
-      var SIGNUP_URL = "https://angelwrite-server-production.up.railway.app/leadmagnet/signup";
-      var form = document.getElementById("wl-form");
-      var input = document.getElementById("wl-email");
-      var btn = document.getElementById("wl-btn");
-      var ok = document.getElementById("wl-success");
-      var err = document.getElementById("wl-error");
-      if (!form) return;
-
-      function showSuccess(msg) {
-        form.hidden = true;
-        err.hidden = true;
-        ok.textContent = msg;
-        ok.hidden = false;
-      }
-      function showError(msg) {
-        err.textContent = msg;
-        err.hidden = false;
-      }
-
-      // Rückkehr aus der DOI-Mail: /?warteliste=ok#app-warteliste
-      if (new URLSearchParams(location.search).get("warteliste") === "ok") {
-        showSuccess("Bestätigt. Du stehst auf der Liste und hörst von uns, sobald die erste Testrunde startet.");
-      }
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        err.hidden = true;
-        var email = (input.value || "").trim();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          showError("Bitte gib eine gültige E-Mail-Adresse ein.");
-          return;
-        }
-        btn.disabled = true;
-        var label = btn.textContent;
-        btn.textContent = "Wird gesendet …";
-        fetch(SIGNUP_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: email, leadmagnet: "app-warteliste" }),
-        })
-          .then(function (r) {
-            return r.json().catch(function () { return {}; }).then(function (d) {
-              return { ok: r.ok && d.ok, d: d };
-            });
-          })
-          .then(function (res) {
-            if (res.ok) {
-              if (res.d && res.d.status === "already_confirmed") {
-                showSuccess("Du stehst auf der Liste und hörst von uns, sobald die erste Testrunde startet.");
-              } else {
-                showSuccess("Fast geschafft. Bestätige kurz deine E-Mail, dann bist du auf der Liste.");
-              }
-            } else {
-              showError((res.d && res.d.error) || "Konnte gerade nicht senden. Bitte versuche es erneut.");
-              btn.disabled = false;
-              btn.textContent = label;
-            }
-          })
-          .catch(function () {
-            showError("Verbindung fehlgeschlagen. Bitte versuche es erneut.");
-            btn.disabled = false;
-            btn.textContent = label;
-          });
-      });
-    })();
-  </script>
 
   <!-- 7. Lebender Beweis (UM-06 Rahmung in KiBeweis.astro) -->
   <KiBeweis />
