@@ -8,11 +8,10 @@ const TIDYCAL =
 // SC-08: DOI-Capture über bestehende Leadmagnet-Route (Brevo „Warme Leads", Liste 3).
 const SIGNUP_URL =
   "https://angelwrite-server-production.up.railway.app/leadmagnet/signup";
-// SC-01/02: Sichtbarkeits-Engine (im-sichtbarkeit-Sidecar, POST /api/check).
-// Kommt aus dem Build-Env: PUBLIC_VISIBILITY_URL in Cloudflare Pages setzen,
-// sobald der Scanner-Service deployt ist. LEER = Demo-Modus (kein Backend-Call).
-// 🔴 Erst nach SC-09-Freigabe durch Marcus befüllen.
-const VISIBILITY_URL = import.meta.env.PUBLIC_VISIBILITY_URL || "";
+// SC-01/02: Sichtbarkeits-Engine (Repo AlohaBayra/sichtbarkeit, POST /api/check).
+// Fest verdrahtet auf den Railway-Service (Go-Live 2026-07-28, SC-09 freigegeben);
+// PUBLIC_VISIBILITY_URL im Build-Env übersteuert. Leerer Wert = Demo-Modus.
+const VISIBILITY_URL = import.meta.env.PUBLIC_VISIBILITY_URL || "https://sichtbarkeit-production.up.railway.app";
 const STEP_TOTAL = 4; // ehrlicher Schrittzähler (F-1): URL · Prüfen · Erster Befund · Freischalten
 
 // SC-06: vier Achsen — Free zeigt Namen + grobe Ampel (F-4), Einzel-Scores gegated.
